@@ -33,7 +33,7 @@ export default defineFlatConfig([
       ...pluginReact.configs.recommended.rules,
       'prettier/prettier': ['warn', { endOfLine: 'lf' }],
       'react/react-in-jsx-scope': 'off',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_+$', varsIgnorePattern: '^_+$' }],
 
       'import/order': [
         'warn',

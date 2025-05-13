@@ -1,3 +1,3 @@
-import { buttonIcons } from '@/components/ui'
+import { icons } from '@/components/ui'
 
-export type IconType = keyof typeof buttonIcons
+export type IconType = keyof typeof icons
