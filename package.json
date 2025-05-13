@@ -28,15 +28,19 @@
     "expo-symbols": "~0.4.4",
     "expo-system-ui": "~5.0.7",
     "expo-web-browser": "~14.1.6",
+    "i18next": "^25.1.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-i18next": "^15.5.1",
     "react-native": "0.79.2",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-mmkv": "^3.2.0",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
     "react-native-web": "~0.20.0",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.13.5",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -46,6 +50,7 @@
     "eslint-config-expo": "~9.2.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-define-config": "^2.1.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.1.0",
