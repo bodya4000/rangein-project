@@ -1,8 +1,8 @@
-import ButtonPng from '@assets/images/buttons/primary.png'
 import React from 'react'
-import { Pressable, View, ViewStyle, StyleSheet, Image } from 'react-native'
+import { Pressable, View, ViewStyle, StyleSheet, ImageBackground } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
+import { icons } from '@/components/ui'
 import { IconType } from '@/types'
 
 interface Props {
@@ -11,20 +11,13 @@ interface Props {
   svgProps?: SvgProps
 }
 
-export function GameButton({}: Props) {
+export function PrimaryButton({}: Props) {
   return (
     <Pressable>
-      <View
-        style={[
-          styles.container,
-          {
-            width: 210,
-            height: 210,
-          },
-        ]}
-      >
-        <Image source={ButtonPng} style={styles.image} />
-        <View style={styles.overlay}></View>
+      <View style={[styles.container]}>
+        <ImageBackground style={styles.button} resizeMode='stretch' source={icons.primary_button}>
+          {/* <Text style={[styles.title, textStyle]}>{title}</Text> */}
+        </ImageBackground>
       </View>
     </Pressable>
   )
@@ -34,6 +27,8 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 210,
+    height: 210,
   },
   overlay: {
     position: 'absolute',
@@ -44,7 +39,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: {
+  button: {
     width: '100%',
     height: '100%',
   },

@@ -6,7 +6,7 @@ import { View, Text, Image } from 'react-native'
 import { Star } from '@/components/ui'
 
 import { styles } from './game-modal.style'
-import { AppButton } from '../../buttons/app-button/app-button'
+import { SecondaryButton } from '../../buttons/secondary-button/secondary-button'
 
 const BLUR_INTENSITY = 50
 const BLUR_TINT = 'dark'
@@ -32,7 +32,7 @@ export default function GameModal() {
           </View>
 
           <View style={styles.footer}>
-            <AppButton title='Continue' />
+            <SecondaryButton title='Continue' />
           </View>
         </View>
       </View>

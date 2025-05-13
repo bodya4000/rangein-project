@@ -1,4 +1,3 @@
-import { useFonts } from 'expo-font'
 import React from 'react'
 import {
   Pressable,
@@ -12,7 +11,7 @@ import {
 
 import { icons } from '@/components/ui'
 
-import { styles } from './app-button.style'
+import { styles } from './secondary-button.style'
 
 interface Props {
   title?: string
@@ -24,7 +23,7 @@ interface Props {
   textStyle?: TextStyle
 }
 
-export function AppButton({
+export function SecondaryButton({
   title,
   onPress,
   width = 210,

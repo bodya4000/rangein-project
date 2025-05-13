@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
 
-import { GameButton } from '@/components/common/buttons/game-button/game-button'
+import { PrimaryButton } from '@/components/common/buttons'
 import { GameModal } from '@/components/common/modals'
 
 export default function Index() {
@@ -14,8 +14,8 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
-      <GameButton />
-      <GameModal />
+      <PrimaryButton />
+      {/* <GameModal /> */}
     </View>
   )
 }
