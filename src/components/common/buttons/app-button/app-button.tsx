@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font'
 import React from 'react'
 import {
   Pressable,

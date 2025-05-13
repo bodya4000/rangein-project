@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 24,
+    fontFamily: 'Quintessential-Regular',
   },
 })

@@ -18,7 +18,7 @@ export default function GameModal() {
         <Image source={ModalPng} style={styles.background} resizeMode='stretch' />
 
         <View style={styles.view}>
-          <Text style={styles.title}>Hello</Text>
+          <Text style={styles.title}>Loser</Text>
 
           <Text style={styles.text}>
             Terrible result, you are such a bad detective. I think you need one more game to improve

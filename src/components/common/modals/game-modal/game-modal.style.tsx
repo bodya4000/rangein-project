@@ -22,10 +22,10 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: 48,
     color: '#fff',
     fontWeight: 700,
-    marginBottom: 24,
+    fontFamily: 'Quintessential-Regular',
   },
 
   text: {
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 300,
-    marginBottom: 5,
+    marginBottom: 15,
   },
 
   starsContainer: {

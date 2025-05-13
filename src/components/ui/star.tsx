@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image, ImageProps, View } from 'react-native'
-import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils'
+import { Image, ImageProps } from 'react-native'
 
 import { icons } from './icons'
 
