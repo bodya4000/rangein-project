@@ -1,5 +1,7 @@
 import { Text, View } from 'react-native'
 
+import { GameButton } from '@/components/common/buttons/game-button/game-button'
+
 export default function Index() {
   return (
     <View
@@ -10,6 +12,7 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
+      <GameButton />
     </View>
   )
 }
