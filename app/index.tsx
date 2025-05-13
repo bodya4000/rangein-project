@@ -14,7 +14,7 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
-      <PrimaryButton />
+      <PrimaryButton icon='play' />
       {/* <GameModal /> */}
     </View>
   )
