@@ -13,6 +13,7 @@ import SilverFilled from '@assets/images/icons/stars/silver_filled.png'
 // buttons
 import PrimaryButton from '@assets/images/buttons/primary.png'
 import SecondaryButton from '@assets/images/buttons/secondary.png'
+import BackButton from '@assets/images/buttons/back.png'
 
 // icons
 import Play from '@assets/images/icons/play.png'
@@ -28,6 +29,7 @@ export const icons = {
 
   primary_button: PrimaryButton,
   secondary_button: SecondaryButton,
+  back_button: BackButton,
 
   play: Play,
   continue: Continue,

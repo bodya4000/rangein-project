@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
-import { ButtonProps, GestureResponderEvent, Pressable } from 'react-native'
+import { GestureResponderEvent, Pressable, PressableProps } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
-interface Props extends Partial<ButtonProps> {
+interface Props extends Partial<PressableProps> {
   children: ReactNode
   onPress?: (e: GestureResponderEvent) => void
 }
