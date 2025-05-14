@@ -1,5 +1,6 @@
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
+import { SafeAreaView, StatusBar, View } from 'react-native'
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -7,5 +8,12 @@ export default function RootLayout() {
   })
 
   if (!fontsLoaded) return null
-  return <Stack />
+  return (
+    <>
+      <StatusBar barStyle={'light-content'} />
+      <Stack>
+        <Stack.Screen options={{ headerShown: false }} name='index' />
+      </Stack>
+    </>
+  )
 }

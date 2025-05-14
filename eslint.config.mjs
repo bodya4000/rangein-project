@@ -51,6 +51,11 @@ export default defineFlatConfig([
               pattern: '@/**',
               group: 'internal',
             },
+            {
+              pattern: '@assets/**',
+              group: 'internal',
+              position: 'after',
+            },
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
           'newlines-between': 'always',

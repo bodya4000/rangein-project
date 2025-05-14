@@ -22,10 +22,15 @@ export const colors = {
     '#AA5946', // 95%
   ],
 
-  gradientMetalDark: [
+  gradientMetal1: [
     '#505256', // 27%
     '#94999F', // 58%
     '#5D6064', // 88%
     '#9599A0', // 100%
+  ],
+
+  gradientMetal2: [
+    '#A7A7A7', // 0%
+    '#FFFFFF', // 100%
   ],
 }

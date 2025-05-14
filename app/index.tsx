@@ -1,21 +1,13 @@
 import { Text, View } from 'react-native'
 
 import { PrimaryButton } from '@/components/common/buttons'
-import { GameModal } from '@/components/common/modals'
+import ScreenContainer from '@/components/common/containers/screen-container/screen-container'
+import HomeScreen from '@/screens/home-screen/home-screen'
 
-export default function Index() {
+export default function Home() {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#000',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <PrimaryButton icon='play' />
-      {/* <GameModal /> */}
-    </View>
+    <ScreenContainer>
+      <HomeScreen />
+    </ScreenContainer>
   )
 }
