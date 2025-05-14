@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
-import { GestureResponderEvent, Pressable } from 'react-native'
+import { ButtonProps, GestureResponderEvent, Pressable } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
-interface Props {
+interface Props extends Partial<ButtonProps> {
   children: ReactNode
   onPress?: (e: GestureResponderEvent) => void
 }
 
-const Touchable = ({ children, onPress }: Props) => {
+const Touchable = ({ children, onPress, ...props }: Props) => {
   const scale = useSharedValue(1)
   const rotate = useSharedValue(0)
 
@@ -28,7 +28,7 @@ const Touchable = ({ children, onPress }: Props) => {
   }
 
   return (
-    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
+    <Pressable {...props} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
       <Animated.View style={animatedStyles}>{children}</Animated.View>
     </Pressable>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, View, ViewStyle, Image, ImageBackground } from 'react-native'
+import { Pressable, View, ViewStyle, Image, ImageBackground, ButtonProps } from 'react-native'
 
 import { icons } from '@/components/ui'
 
@@ -13,13 +13,13 @@ const SIZE_MAP = {
   default: 100,
 } as const
 
-interface Props {
+interface Props extends Partial<ButtonProps> {
   icon?: 'play' | 'continue' | 'profile'
   style?: ViewStyle
   sizeType?: ButtonSizeType
 }
 
-export function PrimaryButton({ icon, style, sizeType = 'default' }: Props) {
+export function PrimaryButton({ icon, style, sizeType = 'default', ...props }: Props) {
   const buttonSize = SIZE_MAP[sizeType]
   const iconSize = buttonSize / 2
 
@@ -32,7 +32,7 @@ export function PrimaryButton({ icon, style, sizeType = 'default' }: Props) {
   const iconSource = icon ? iconMap[icon] : undefined
 
   return (
-    <Touchable>
+    <Touchable {...props}>
       <View style={[styles.container, style, { width: buttonSize, height: buttonSize }]}>
         <ImageBackground
           source={icons.primary_button}
