@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 import { GameModal } from '@/components/common/modals'
 import { GradientTitle } from '@/components/common/text/gradient-title'
@@ -17,6 +17,7 @@ const HomeScreen = () => {
         <PrimaryButton icon='play' style={styles.button_top} sizeType='big' />
         <PrimaryButton icon='continue' />
       </View>
+      <GameModal />
     </ScreenContainer>
   )
 }

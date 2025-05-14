@@ -12,6 +12,7 @@ import {
 import { icons } from '@/components/ui'
 
 import { styles } from './secondary-button.style'
+import Touchable from '../touchable/touchabe'
 
 interface Props {
   title?: string
@@ -33,12 +34,12 @@ export function SecondaryButton({
   textStyle,
 }: Props) {
   return (
-    <Pressable onPress={onPress}>
+    <Touchable onPress={onPress}>
       <View style={[styles.container, { width, height }, containerStyle]}>
         <ImageBackground resizeMode='stretch' source={icons[background]} style={styles.button}>
           <Text style={[styles.title, textStyle]}>{title}</Text>
         </ImageBackground>
       </View>
-    </Pressable>
+    </Touchable>
   )
 }
