@@ -19,6 +19,7 @@ import BackButton from '@assets/images/buttons/back.png'
 import Play from '@assets/images/icons/play.png'
 import Continue from '@assets/images/icons/continue.png'
 import Profile from '@assets/images/icons/profile.png'
+import Edit from '@assets/images/icons/edit.png'
 
 export const icons = {
   bronze: Bronze,
@@ -34,4 +35,5 @@ export const icons = {
   play: Play,
   continue: Continue,
   profile: Profile,
+  edit: Edit,
 }

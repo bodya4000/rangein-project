@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // або 'flex-start'
+    justifyContent: 'center',
     position: 'relative',
   },
   back: {
@@ -17,5 +17,6 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: font.size['5xl'],
     fontFamily: font.family.quintessential_regular,
+    textAlign: 'center',
   },
 })

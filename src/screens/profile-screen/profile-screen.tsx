@@ -1,8 +1,13 @@
-import { useRouter } from 'expo-router'
+import ProfileLogo from '@/components/profile/profile-logo/profile-logo'
+import ProfileUsername from '@/components/profile/profile-username/profile-username'
 
 const ProfileScreen = () => {
-  const router = useRouter()
-  return <></>
+  return (
+    <>
+      <ProfileLogo />
+      <ProfileUsername />
+    </>
+  )
 }
 
 export default ProfileScreen
