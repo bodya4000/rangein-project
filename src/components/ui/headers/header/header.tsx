@@ -2,14 +2,14 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { styles } from './header.style'
-import { BackButton } from '../ui/buttons/back-button/back-button'
-import { GradientTitle } from '../ui/text/gradient-title'
+import { BackButton } from '../../buttons/back-button/back-button'
+import { GradientText } from '../../text/gradient-text'
 
 export default function Header() {
   return (
     <View style={styles.container}>
       <BackButton containerStyle={styles.back} />
-      <GradientTitle style={styles.title}>Profile</GradientTitle>
+      <GradientText textStyle='IR16' text={'Profile'} style={styles.title} />
     </View>
   )
 }

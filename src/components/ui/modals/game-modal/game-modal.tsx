@@ -1,9 +1,8 @@
-import ModalPng from '@assets/images/modals/loser.png'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import { View, Text, Image } from 'react-native'
 
-import { Star } from '@/components/ui'
+import ModalPng from '@assets/images/modals/loser.png'
 
 import { styles } from './game-modal.style'
 import { SecondaryButton } from '../../buttons/secondary-button/secondary-button'

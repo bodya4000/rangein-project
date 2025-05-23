@@ -10,8 +10,5 @@ export const styles = StyleSheet.create({
     gap: spacing.md,
     marginTop: spacing['2xl'],
   },
-  input: {
-    fontSize: font.size['3xl'],
-    fontFamily: font.family.quintessential_regular,
-  },
+  input: {},
 })

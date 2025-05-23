@@ -4,7 +4,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-na
 
 interface Props extends Partial<PressableProps> {
   children: ReactNode
-  onPress?: (e: GestureResponderEvent) => void
+  onPress?: (_: GestureResponderEvent) => void
 }
 
 const Touchable = ({ children, onPress, ...props }: Props) => {

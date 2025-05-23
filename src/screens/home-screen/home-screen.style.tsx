@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native'
 
-import { font } from '@/constants/fonts'
 import { spacing } from '@/constants/spacing'
+import { scaleFont } from '@/utils'
 
 export const styles = StyleSheet.create({
   title: {
-    color: '#fff',
-    fontSize: font.size['10xl'],
-    fontFamily: font.family.quintessential_regular,
     textAlign: 'center',
+    lineHeight: scaleFont(70),
+    paddingTop: 50,
   },
 
   spacer: {

@@ -15,8 +15,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   title: {
-    fontSize: font.size['5xl'],
-    fontFamily: font.family.quintessential_regular,
     textAlign: 'center',
   },
 })

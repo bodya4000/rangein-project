@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
 import { Continue, Play, Profile } from '@/components/icons'
-import { GradientTitle } from '@/components/ui/text/gradient-title'
+import { GradientText } from '@/components/ui/text/gradient-text'
 
 import { styles } from './home-screen.style'
 import { PrimaryButton } from '../../components/ui/buttons'
@@ -11,7 +11,7 @@ const HomeScreen = () => {
   const router = useRouter()
   return (
     <>
-      <GradientTitle style={styles.title}>Big Logo Beautiful</GradientTitle>
+      <GradientText textStyle='IR40' text='Big Logo Beautiful' style={styles.title} />
       <View style={styles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>
