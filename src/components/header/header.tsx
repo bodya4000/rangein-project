@@ -2,8 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { styles } from './header.style'
-import { BackButton } from '../common/buttons/back-button/back-button'
-import { GradientTitle } from '../common/text/gradient-title'
+import { BackButton } from '../ui/buttons/back-button/back-button'
+import { GradientTitle } from '../ui/text/gradient-title'
 
 export default function Header() {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 
-import { GradientTitle } from '@/components/common/text/gradient-title'
 import { Edit } from '@/components/icons'
+import { GradientTitle } from '@/components/ui/text/gradient-title'
 
 import { styles } from './profile-username.style'
 
