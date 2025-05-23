@@ -1,17 +1,8 @@
 import { useRouter } from 'expo-router'
 import React from 'react'
-import {
-  Pressable,
-  View,
-  Text,
-  ImageBackground,
-  ViewStyle,
-  TextStyle,
-  GestureResponderEvent,
-  Image,
-} from 'react-native'
+import { View, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native'
 
-import { icons } from '@/components/ui'
+import { ArrowLeft } from '@/components/icons'
 
 import { styles } from './back-button.style'
 import Touchable from '../touchable/touchabe'
@@ -21,7 +12,6 @@ interface Props {
   onPress?: (_: GestureResponderEvent) => void
   width?: number
   height?: number
-  background?: keyof typeof icons
   containerStyle?: ViewStyle
   textStyle?: TextStyle
 }
@@ -41,7 +31,7 @@ export function BackButton({ onPress, containerStyle }: Props) {
   return (
     <Touchable style={containerStyle} onPress={onButtonPress}>
       <View style={[styles.container, { width, height }]}>
-        <Image resizeMode='cover' source={icons['back_button']} style={styles.button} />
+        <ArrowLeft />
       </View>
     </Touchable>
   )

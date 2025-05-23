@@ -1,7 +1,5 @@
-import React from 'react'
-import { Pressable, View, ViewStyle, Image, ImageBackground, ButtonProps } from 'react-native'
-
-import { icons } from '@/components/ui'
+import React, { ReactNode } from 'react'
+import { View, ViewStyle, ImageBackground, ButtonProps } from 'react-native'
 
 import { styles } from './primary-button.style'
 import Touchable from '../touchable/touchabe'
@@ -14,41 +12,23 @@ const SIZE_MAP = {
 } as const
 
 interface Props extends Partial<ButtonProps> {
-  icon?: 'play' | 'continue' | 'profile'
+  children?: ReactNode
   style?: ViewStyle
   sizeType?: ButtonSizeType
 }
 
-export function PrimaryButton({ icon, style, sizeType = 'default', ...props }: Props) {
+export function PrimaryButton({ children, style, sizeType = 'default', ...props }: Props) {
   const buttonSize = SIZE_MAP[sizeType]
-  const iconSize = buttonSize / 2
-
-  const iconMap = {
-    play: icons.play,
-    continue: icons.continue,
-    profile: icons.profile,
-  } as const
-
-  const iconSource = icon ? iconMap[icon] : undefined
 
   return (
     <Touchable {...props}>
       <View style={[styles.container, style, { width: buttonSize, height: buttonSize }]}>
         <ImageBackground
-          source={icons.primary_button}
+          source={require('@assets/images/buttons/primary.png')}
           resizeMode='cover'
           style={[styles.button, { width: buttonSize, height: buttonSize }]}
         >
-          {iconSource && (
-            <Image
-              source={iconSource}
-              style={[
-                icon === 'play' ? styles.icon_left : null,
-                { width: iconSize, height: iconSize },
-              ]}
-              resizeMode='contain'
-            />
-          )}
+          {children}
         </ImageBackground>
       </View>
     </Touchable>
