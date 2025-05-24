@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { ArrowRight, Minus, Plus } from '@/components/icons'
@@ -10,6 +11,7 @@ import { colors } from '@/constants/colors'
 import { styles } from './profile-screen.style'
 
 const ProfileScreen = () => {
+  const { t } = useTranslation()
   const [age, setAge] = useState(20)
   const increaseAge = () => {
     setAge(age + 1)
@@ -31,7 +33,9 @@ const ProfileScreen = () => {
             <Minus />
           </View>
         </Touchable>
-        <GradientText color={colors.gradientMetal2}>{age} years</GradientText>
+        <GradientText color={colors.gradientMetal2}>
+          {age} {t('profile.years')}
+        </GradientText>
         <Touchable onPress={increaseAge}>
           <View style={styles.touchable_icon}>
             <Plus />
@@ -40,7 +44,7 @@ const ProfileScreen = () => {
       </TouchableBlock>
 
       <TouchableBlock style={styles.profileBlock}>
-        <GradientText>Change Language</GradientText>
+        <GradientText tx='profile.changeLanguage' />
         <ArrowRight />
       </TouchableBlock>
     </View>

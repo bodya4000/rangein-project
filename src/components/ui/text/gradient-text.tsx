@@ -57,7 +57,7 @@ export function GradientText({
   if (!ready) {
     return (
       <Text onLayout={handleLayout} style={[baseStyle, style]}>
-        {content}
+        {content} {children}
       </Text>
     )
   }
@@ -79,7 +79,7 @@ export function GradientText({
             }}
           >
             <Text onLayout={handleLayout} style={[baseStyle, style]}>
-              {content}
+              {content} {children}
             </Text>
           </View>
         }

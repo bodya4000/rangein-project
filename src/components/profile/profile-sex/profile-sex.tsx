@@ -4,6 +4,7 @@ import { LayoutChangeEvent, View } from 'react-native'
 
 import { GradientText, TouchableBlock } from '@/components/ui'
 import { colors } from '@/constants/colors'
+import { TxKeyPath } from '@/i18n/react-i18next'
 
 import { styles } from './profile-sex.style'
 
@@ -30,25 +31,21 @@ export const ProfileSex = () => {
   const computedButtonStyle =
     typeof dimensions.width === 'number' ? { width: dimensions.width / 1.6 } : {}
 
-  const renderGradientButton = (text: string) => (
+  const renderGradientButton = (text: TxKeyPath) => (
     <LinearGradient
       colors={colors.light_dark as [string, string, ...string[]]}
       start={{ x: 1, y: 1 }}
       end={{ x: 0, y: 0 }}
       style={[styles.sexButton, computedButtonStyle]}
     >
-      <GradientText txStyle='IR16' color={colors.gradientMetal2}>
-        {text}
-      </GradientText>
+      <GradientText tx={text} txStyle='IR16' color={colors.gradientMetal2}></GradientText>
     </LinearGradient>
   )
 
-  const renderTouchableButton = (text: string, styleOverrides: object) => (
+  const renderTouchableButton = (text: TxKeyPath, styleOverrides: object) => (
     <View style={styleOverrides}>
       <TouchableBlock onPress={toggleSex} style={[styles.sexButton, computedButtonStyle]}>
-        <GradientText txStyle='IR16' color={colors.gradientMetal2}>
-          {text}
-        </GradientText>
+        <GradientText tx={text} txStyle='IR16' color={colors.gradientMetal2}></GradientText>
       </TouchableBlock>
     </View>
   )
@@ -56,11 +53,11 @@ export const ProfileSex = () => {
   return (
     <View style={styles.sexContainer} onLayout={handleLayout}>
       {isMale
-        ? renderGradientButton('Male')
-        : renderTouchableButton('Male', { left: 50, zIndex: 1000 })}
+        ? renderGradientButton('profile.male')
+        : renderTouchableButton('profile.male', { left: 50, zIndex: 1000 })}
       {!isMale
-        ? renderGradientButton('Female')
-        : renderTouchableButton('Female', { right: 50, zIndex: 1000 })}
+        ? renderGradientButton('profile.female')
+        : renderTouchableButton('profile.female', { right: 50, zIndex: 1000 })}
     </View>
   )
 }

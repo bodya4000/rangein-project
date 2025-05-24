@@ -1,6 +1,14 @@
 {
   "nothing": "",
   "home": {
-    "title": "Лого"
+    "title": "Большой красивый логотип"
+  },
+  "profile": {
+    "header": "Профиль",
+    "writeName": "Введите имя",
+    "male": "Мужской",
+    "female": "Женский",
+    "years": "лет",
+    "changeLanguage": "Изменить язык"
   }
 }

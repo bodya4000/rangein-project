@@ -16,9 +16,16 @@ interface Props extends TextInputProps {
   setValue: (_: string) => void
   placeholder?: string
   txStyle?: GradientFontStyle
+  typeable?: boolean
 }
 
-export const GradientInput = ({ value, setValue, txStyle = 'IR10', placeholder }: Props) => {
+export const GradientInput = ({
+  value,
+  setValue,
+  txStyle = 'IR10',
+  placeholder,
+  typeable = true,
+}: Props) => {
   const [textWidth, setTextWidth] = useState(0)
   const inputRef = useRef<TextInput>(null)
   const measureRef = useRef<RnText>(null)
@@ -44,7 +51,7 @@ export const GradientInput = ({ value, setValue, txStyle = 'IR10', placeholder }
         <GradientText
           width={textWidth}
           txStyle={txStyle}
-          text={value}
+          tx={value}
           containerStyle={{ width: textWidth }}
         />
       )}
@@ -62,7 +69,7 @@ export const GradientInput = ({ value, setValue, txStyle = 'IR10', placeholder }
       {/* Non-visible input */}
       <TextInput
         ref={inputRef}
-        style={[styles.input, baseStyle]}
+        style={[styles.input, baseStyle, { display: typeable ? 'flex' : 'none' }]}
         value={value}
         onChangeText={setValue}
         cursorColor={colors.white}
