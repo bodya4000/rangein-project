@@ -61,36 +61,38 @@ export function GradientText({
   }
 
   return (
-    <MaskedView
-      style={[
-        { height: dimensions.height, width: width ?? dimensions.width },
-        styles.container,
-        containerStyle,
-      ]}
-      maskElement={
-        <View
-          onLayout={handleLayout}
+    <View>
+      <MaskedView
+        style={[
+          { height: dimensions.height, width: width ?? dimensions.width },
+          styles.container,
+          containerStyle,
+        ]}
+        maskElement={
+          <View
+            onLayout={handleLayout}
+            style={{
+              height: dimensions.height,
+              width: width ?? dimensions.width,
+            }}
+          >
+            <Text onLayout={handleLayout} style={[baseStyle, style]}>
+              {content}
+            </Text>
+          </View>
+        }
+      >
+        <LinearGradient
+          colors={color as [string, string, ...string[]]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           style={{
             height: dimensions.height,
             width: width ?? dimensions.width,
           }}
-        >
-          <Text onLayout={handleLayout} style={[baseStyle, style]}>
-            {content}
-          </Text>
-        </View>
-      }
-    >
-      <LinearGradient
-        colors={color as [string, string, ...string[]]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={{
-          height: dimensions.height,
-          width: width ?? dimensions.width,
-        }}
-      />
-    </MaskedView>
+        />
+      </MaskedView>
+    </View>
   )
 }
 

@@ -23,7 +23,6 @@ export function BackButton({ onPress, containerStyle }: Props) {
   const router = useRouter()
 
   const onButtonPress = (e: GestureResponderEvent) => {
-    console.log('press')
     if (!onPress) router.canGoBack() ? router.back() : router.replace('/')
     else onPress(e)
   }

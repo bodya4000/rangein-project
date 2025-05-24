@@ -35,4 +35,6 @@ export const colors = {
     '#A7A7A7', // 0%
     '#FFFFFF', // 100%
   ],
+
+  light_dark: ['#2B2B2B', '#1D1D1D'],
 }
