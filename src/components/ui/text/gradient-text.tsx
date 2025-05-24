@@ -1,10 +1,11 @@
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 
 import { colors } from '@/constants/colors'
+import i18n from '@/i18n'
 import { TxKeyPath } from '@/i18n/react-i18next'
 import { scaleFont } from '@/utils'
 
@@ -38,7 +39,7 @@ export function GradientText({
   containerStyle,
   width,
 }: Props) {
-  const { t } = useTranslation() // for future
+  const { t, i18n } = useTranslation() // for future
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
   const [ready, setReady] = useState(false)
 
@@ -53,6 +54,10 @@ export function GradientText({
   }
 
   const baseStyle = createGradienttxStyle(txStyle)
+
+  useEffect(() => {
+    setReady(false) // to rerender on lang change
+  }, [i18n.language, tx, children])
 
   if (!ready) {
     return (
