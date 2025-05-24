@@ -9,16 +9,16 @@ import {
 
 import { colors } from '@/constants/colors'
 
-import { createGradientTextStyle, GradientFontStyle, GradientText, Text } from '../text'
+import { createGradienttxStyle, GradientFontStyle, GradientText, Text } from '../text'
 
 interface Props extends TextInputProps {
   value: string
   setValue: (_: string) => void
   placeholder?: string
-  textStyle?: GradientFontStyle
+  txStyle?: GradientFontStyle
 }
 
-export const GradientInput = ({ value, setValue, textStyle = 'IR10', placeholder }: Props) => {
+export const GradientInput = ({ value, setValue, txStyle = 'IR10', placeholder }: Props) => {
   const [textWidth, setTextWidth] = useState(0)
   const inputRef = useRef<TextInput>(null)
   const measureRef = useRef<RnText>(null)
@@ -27,7 +27,7 @@ export const GradientInput = ({ value, setValue, textStyle = 'IR10', placeholder
     inputRef.current?.focus()
   }
 
-  const baseStyle = createGradientTextStyle(textStyle)
+  const baseStyle = createGradienttxStyle(txStyle)
 
   // update input width
   useEffect(() => {
@@ -43,13 +43,13 @@ export const GradientInput = ({ value, setValue, textStyle = 'IR10', placeholder
       {value && (
         <GradientText
           width={textWidth}
-          textStyle={textStyle}
+          txStyle={txStyle}
           text={value}
           containerStyle={{ width: textWidth }}
         />
       )}
       {placeholder && !value && (
-        <Text textStyle={textStyle} style={[baseStyle, styles.placeholder]}>
+        <Text txStyle={txStyle} style={[baseStyle, styles.placeholder]}>
           {placeholder}
         </Text>
       )}

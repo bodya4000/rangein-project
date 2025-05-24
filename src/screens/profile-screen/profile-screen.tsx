@@ -1,6 +1,5 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
-import { LayoutChangeEvent, View } from 'react-native'
+import { View } from 'react-native'
 
 import { ArrowRight, Minus, Plus } from '@/components/icons'
 import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile'
@@ -32,9 +31,7 @@ const ProfileScreen = () => {
             <Minus />
           </View>
         </Touchable>
-        <GradientText color={colors.gradientMetal2} style={{ alignItems: 'center' }}>
-          {age} years
-        </GradientText>
+        <GradientText color={colors.gradientMetal2}>{age} years</GradientText>
         <Touchable onPress={increaseAge}>
           <View style={styles.touchable_icon}>
             <Plus />

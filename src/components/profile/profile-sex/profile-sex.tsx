@@ -37,7 +37,7 @@ export const ProfileSex = () => {
       end={{ x: 0, y: 0 }}
       style={[styles.sexButton, computedButtonStyle]}
     >
-      <GradientText textStyle='IR16' color={colors.gradientMetal2}>
+      <GradientText txStyle='IR16' color={colors.gradientMetal2}>
         {text}
       </GradientText>
     </LinearGradient>
@@ -46,7 +46,7 @@ export const ProfileSex = () => {
   const renderTouchableButton = (text: string, styleOverrides: object) => (
     <View style={styleOverrides}>
       <TouchableBlock onPress={toggleSex} style={[styles.sexButton, computedButtonStyle]}>
-        <GradientText textStyle='IR16' color={colors.gradientMetal2}>
+        <GradientText txStyle='IR16' color={colors.gradientMetal2}>
           {text}
         </GradientText>
       </TouchableBlock>

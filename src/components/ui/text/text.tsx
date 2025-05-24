@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text as NNText } from 'react-native'
 
 import { colors } from '@/constants/colors'
+import { TxKeyPath } from '@/i18n'
 import { scaleFont } from '@/utils'
 
 import type { TextProps } from 'react-native'
 
 interface Props extends TextProps {
-  text?: string // by now
-  textStyle?:
+  tx?: TxKeyPath // by now
+  txStyle?:
     | 'IR10'
     | 'IR12'
     | 'IR14'
@@ -40,17 +41,17 @@ interface Props extends TextProps {
 
 export const Text = ({
   style,
-  text,
+  tx,
   children,
-  textStyle = 'IM14',
+  txStyle = 'IM14',
   color = colors.white,
   ...props
 }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <NNText style={[styles[textStyle], { color: color }, style]} {...props}>
-      {text ? t(text) : children}
+    <NNText style={[styles[txStyle], { color: color }, style]} {...props}>
+      {tx ? t(tx) : children}
     </NNText>
   )
 }

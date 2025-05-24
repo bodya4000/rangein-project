@@ -1,9 +1,11 @@
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { ReactNode, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 
 import { colors } from '@/constants/colors'
+import { TxKeyPath } from '@/i18n/react-i18next'
 import { scaleFont } from '@/utils'
 
 export type GradientFontStyle =
@@ -18,8 +20,8 @@ export type GradientFontStyle =
 
 interface Props {
   children?: ReactNode
-  text?: string
-  textStyle?: GradientFontStyle
+  tx?: TxKeyPath // by now
+  txStyle?: GradientFontStyle
   color?: string[]
   style?: TextStyle
   containerStyle?: ViewStyle
@@ -29,18 +31,18 @@ interface Props {
 
 export function GradientText({
   children,
-  text,
-  textStyle = 'IR10',
+  tx = 'nothing',
+  txStyle = 'IR10',
   color = colors.gradientMetal2,
   style,
   containerStyle,
   width,
 }: Props) {
-  // const { t } = useTranslation() // for future
+  const { t } = useTranslation() // for future
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
   const [ready, setReady] = useState(false)
 
-  const content = text ?? children
+  const content = tx ? t(tx) : children
 
   const handleLayout = (e: LayoutChangeEvent) => {
     const { height, width } = e.nativeEvent.layout
@@ -50,7 +52,7 @@ export function GradientText({
     }
   }
 
-  const baseStyle = createGradientTextStyle(textStyle)
+  const baseStyle = createGradienttxStyle(txStyle)
 
   if (!ready) {
     return (
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export function createGradientTextStyle(font: GradientFontStyle): TextStyle {
+export function createGradienttxStyle(font: GradientFontStyle): TextStyle {
   const size = Number(font.replace('IR', ''))
   return {
     fontFamily: 'Quintessential-Regular',

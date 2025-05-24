@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <View style={styles.container}>
       <BackButton containerStyle={styles.back} />
-      <GradientText textStyle='IR16' text={'Profile'} style={styles.title} />
+      <GradientText txStyle='IR16' text={'Profile'} style={styles.title} />
     </View>
   )
 }

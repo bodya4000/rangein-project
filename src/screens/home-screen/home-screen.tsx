@@ -11,7 +11,7 @@ const HomeScreen = () => {
   const router = useRouter()
   return (
     <>
-      <GradientText textStyle='IR40' text='Big Logo Beautiful' style={styles.title} />
+      <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />
       <View style={styles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>

@@ -4,7 +4,7 @@ import {
   Text,
   ImageBackground,
   ViewStyle,
-  TextStyle,
+  txStyle,
   GestureResponderEvent,
 } from 'react-native'
 
@@ -17,7 +17,7 @@ interface Props {
   width?: number
   height?: number
   containerStyle?: ViewStyle
-  textStyle?: TextStyle
+  txStyle?: txStyle
 }
 
 export function SecondaryButton({
@@ -26,7 +26,7 @@ export function SecondaryButton({
   width = 210,
   height = 80,
   containerStyle,
-  textStyle,
+  txStyle,
 }: Props) {
   return (
     <Touchable onPress={onPress}>
@@ -36,7 +36,7 @@ export function SecondaryButton({
           source={require('@assets/images/buttons/secondary.png')}
           style={styles.button}
         >
-          <Text style={[styles.title, textStyle]}>{title}</Text>
+          <Text style={[styles.title, txStyle]}>{title}</Text>
         </ImageBackground>
       </View>
     </Touchable>

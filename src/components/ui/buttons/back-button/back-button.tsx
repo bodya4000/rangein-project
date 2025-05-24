@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { View, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native'
+import { View, ViewStyle, txStyle, GestureResponderEvent } from 'react-native'
 
 import { ArrowLeft } from '@/components/icons'
 
@@ -13,7 +13,7 @@ interface Props {
   width?: number
   height?: number
   containerStyle?: ViewStyle
-  textStyle?: TextStyle
+  txStyle?: txStyle
 }
 
 const width = 30
