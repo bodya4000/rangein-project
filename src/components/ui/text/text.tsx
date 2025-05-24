@@ -2,19 +2,22 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text as NNText } from 'react-native'
 
+import { colors } from '@/constants/colors'
 import { scaleFont } from '@/utils'
 
 import type { TextProps } from 'react-native'
 
 interface Props extends TextProps {
   text?: string // by now
-  txStyle?:
+  textStyle?:
     | 'IR10'
     | 'IR12'
     | 'IR14'
     | 'IR16'
     | 'IR20'
     | 'IR24'
+    | 'IR40'
+    | 'IR80'
     | 'ISB20'
     | 'ISB14'
     | 'ISB12'
@@ -39,14 +42,14 @@ export const Text = ({
   style,
   text,
   children,
-  txStyle = 'IM14',
-  color = '#000',
+  textStyle = 'IM14',
+  color = colors.white,
   ...props
 }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <NNText style={[styles[txStyle], { color: color }, style]} {...props}>
+    <NNText style={[styles[textStyle], { color: color }, style]} {...props}>
       {text ? t(text) : children}
     </NNText>
   )
@@ -82,6 +85,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontWeight: 400,
     fontSize: scaleFont(24),
+  },
+  IR40: {
+    fontFamily: 'Inter-Regular',
+    fontWeight: 400,
+    fontSize: scaleFont(80),
+  },
+  IR80: {
+    fontFamily: 'Inter-Regular',
+    fontWeight: 400,
+    fontSize: scaleFont(80),
   },
   ISB12: {
     fontFamily: 'Inter-SemiBold',

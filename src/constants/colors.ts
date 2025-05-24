@@ -1,4 +1,6 @@
 export const colors = {
+  white: '#fff',
+  black: '#000',
   gradientGold: [
     '#C49337', // 0%
     '#EDCD78', // 50%

@@ -6,15 +6,25 @@ import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 
 import { colors } from '@/constants/colors'
 import { scaleFont } from '@/utils'
 
-type FontStyle = 'IR10' | 'IR12' | 'IR14' | 'IR16' | 'IR20' | 'IR24' | 'IR40' | 'IR80'
+export type GradientFontStyle =
+  | 'IR10'
+  | 'IR12'
+  | 'IR14'
+  | 'IR16'
+  | 'IR20'
+  | 'IR24'
+  | 'IR40'
+  | 'IR80'
 
 interface Props {
   children?: ReactNode
   text?: string
-  textStyle?: FontStyle
+  textStyle?: GradientFontStyle
   color?: string[]
   style?: TextStyle
   containerStyle?: ViewStyle
+
+  width?: number
 }
 
 export function GradientText({
@@ -24,6 +34,7 @@ export function GradientText({
   color = colors.gradientMetal2,
   style,
   containerStyle,
+  width,
 }: Props) {
   // const { t } = useTranslation() // for future
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
@@ -39,7 +50,7 @@ export function GradientText({
     }
   }
 
-  const baseStyle = createTextStyle(textStyle)
+  const baseStyle = createGradientTextStyle(textStyle)
 
   if (!ready) {
     return (
@@ -52,20 +63,21 @@ export function GradientText({
   return (
     <MaskedView
       style={[
-        { height: dimensions.height, width: dimensions.width },
+        { height: dimensions.height, width: width ?? dimensions.width },
         styles.container,
         containerStyle,
       ]}
       maskElement={
         <View
+          onLayout={handleLayout}
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
             height: dimensions.height,
-            width: dimensions.width,
+            width: width ?? dimensions.width,
           }}
         >
-          <Text style={[baseStyle, style]}>{content}</Text>
+          <Text onLayout={handleLayout} style={[baseStyle, style]}>
+            {content}
+          </Text>
         </View>
       }
     >
@@ -75,7 +87,7 @@ export function GradientText({
         end={{ x: 1, y: 0 }}
         style={{
           height: dimensions.height,
-          width: dimensions.width,
+          width: width ?? dimensions.width,
         }}
       />
     </MaskedView>
@@ -89,7 +101,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function createTextStyle(font: FontStyle): TextStyle {
+export function createGradientTextStyle(font: GradientFontStyle): TextStyle {
   const size = Number(font.replace('IR', ''))
   return {
     fontFamily: 'Quintessential-Regular',
