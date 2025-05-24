@@ -5,9 +5,10 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-na
 interface Props extends Partial<PressableProps> {
   children: ReactNode
   onPress?: (_: GestureResponderEvent) => void
+  touchable?: boolean
 }
 
-const Touchable = ({ children, onPress, ...props }: Props) => {
+const Touchable = ({ children, onPress, touchable = true, ...props }: Props) => {
   const scale = useSharedValue(1)
   const rotate = useSharedValue(0)
 
@@ -27,11 +28,14 @@ const Touchable = ({ children, onPress, ...props }: Props) => {
     rotate.value = withTiming(0, { duration: 100 })
   }
 
-  return (
-    <Pressable {...props} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
-      <Animated.View style={animatedStyles}>{children}</Animated.View>
-    </Pressable>
-  )
+  if (touchable)
+    return (
+      <Pressable {...props} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
+        <Animated.View style={animatedStyles}>{children}</Animated.View>
+      </Pressable>
+    )
+
+  return <>{children}</>
 }
 
 export default Touchable

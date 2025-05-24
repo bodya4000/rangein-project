@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { View, ImageBackground, ViewStyle, GestureResponderEvent, Image } from 'react-native'
+import { View, ViewStyle, GestureResponderEvent, Image } from 'react-native'
 
 import { styles } from './touchable-block.style'
 import Touchable from '../touchable/touchabe'
@@ -9,11 +9,18 @@ interface Props {
   onPress?: (_: GestureResponderEvent) => void
   containerStyle?: ViewStyle
   style?: ViewStyle | ViewStyle[]
+  touchable?: boolean
 }
 
-export function TouchableBlock({ children, onPress, containerStyle, style }: Props) {
+export function TouchableBlock({
+  children,
+  onPress,
+  touchable = true,
+  containerStyle,
+  style,
+}: Props) {
   return (
-    <Touchable style={[styles.container, containerStyle]} onPress={onPress}>
+    <Touchable touchable={touchable} style={[styles.container, containerStyle]} onPress={onPress}>
       <View style={[styles.container, containerStyle]}>
         <Image
           resizeMode='stretch'
