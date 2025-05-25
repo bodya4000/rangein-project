@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { ArrowRight, Minus, Plus } from '@/components/icons'
 import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile'
-import { GradientText, TouchableBlock } from '@/components/ui'
+import { GameModal, GradientText, TouchableBlock } from '@/components/ui'
 import Touchable from '@/components/ui/buttons/touchable/touchabe'
+import ResultModal from '@/components/ui/modals/result-modal/result-modal'
 import { STORAGE_KEYS } from '@/constants'
 import { colors } from '@/constants/colors'
 import i18n, { useSelectedLanguage } from '@/i18n'
@@ -17,6 +18,7 @@ const ProfileScreen = () => {
   const { t } = useTranslation()
   const { language, setLanguage } = useSelectedLanguage()
   const [age, setAge] = useState(20)
+  const [modal, setModal] = useState(false)
   const increaseAge = () => {
     setAge(age + 1)
   }
@@ -33,7 +35,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      <ProfileUsername />
+      {/* <ProfileUsername /> */}
       <ProfileSex />
 
       <TouchableBlock touchable={false} style={styles.profileBlock}>
@@ -56,6 +58,13 @@ const ProfileScreen = () => {
         <GradientText tx='profile.changeLanguage' />
         <ArrowRight />
       </TouchableBlock>
+
+      <TouchableBlock style={styles.profileBlock} onPress={() => setModal(!modal)}>
+        <Text style={{ color: '#fff' }}>Modal</Text>
+        <ArrowRight />
+      </TouchableBlock>
+
+      {modal && <ResultModal type='bronze' onClose={() => setModal(false)} />}
     </View>
   )
 }

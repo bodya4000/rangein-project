@@ -35,12 +35,14 @@ export const GradientInput = ({
   }
 
   const baseStyle = createGradienttxStyle(txStyle)
+  const textWidthRef = useRef(0)
 
   // update input width
   useEffect(() => {
     if (measureRef.current) {
       measureRef.current.measure((_, __, width, ___) => {
-        setTextWidth(width)
+        // setTextWidth(width)
+        textWidthRef.current = width
       })
     }
   }, [value])
@@ -49,10 +51,10 @@ export const GradientInput = ({
     <TouchableOpacity onPress={handlePress} activeOpacity={1} style={styles.container}>
       {value && (
         <GradientText
-          width={textWidth}
+          width={textWidthRef.current}
           txStyle={txStyle}
           tx={value}
-          containerStyle={{ width: textWidth }}
+          containerStyle={{ width: textWidthRef.current }}
         />
       )}
       {placeholder && !value && (

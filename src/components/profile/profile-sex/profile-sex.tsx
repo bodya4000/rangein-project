@@ -29,8 +29,8 @@ export const ProfileSex = () => {
   }
 
   const computedButtonStyle =
-    typeof dimensions.width === 'number' ? { width: dimensions.width / 1.6 } : {}
-  const sideGap = typeof dimensions.width === 'number' ? dimensions.width / 1.6 / 4 : 50
+    typeof dimensions.width === 'number' ? { width: dimensions.width / 1.7 } : {}
+  const sideGap = typeof dimensions.width === 'number' ? dimensions.width / 1.7 / 6 : 50
 
   const renderGradientButton = (text: TxKeyPath) => (
     <LinearGradient

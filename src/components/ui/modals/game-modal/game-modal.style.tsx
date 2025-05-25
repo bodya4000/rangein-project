@@ -1,19 +1,28 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
+
+const MODAL_WIDTH = Dimensions.get('screen').width * 1
+const MIN_MODAL_HEIGHT = Dimensions.get('screen').width * 0.3
 
 export const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
+    // position: 'fixed',
+    // width: '100%',
+    // height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     paddingRight: 16,
+    backgroundColor: 'rgba(0,0,0,0)',
+    // zIndex: 10000000,'
   },
   container: {
-    width: '100%',
-    maxWidth: 400,
+    maxWidth: MODAL_WIDTH,
+    minHeight: MIN_MODAL_HEIGHT,
   },
   background: {
     ...StyleSheet.absoluteFillObject,
     height: '100%',
+    width: MODAL_WIDTH,
     borderRadius: 20,
   },
   view: {
