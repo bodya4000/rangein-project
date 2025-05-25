@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 
 import { colors } from '@/constants/colors'
-import i18n from '@/i18n'
 import { TxKeyPath } from '@/i18n/react-i18next'
 import { scaleFont } from '@/utils'
 
