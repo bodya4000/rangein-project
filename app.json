@@ -43,7 +43,8 @@
             "./assets/fonts/Quintessential-Regular.ttf"
           ]
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true
