@@ -3,14 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
 
 import { ArrowRight, Minus, Plus } from '@/components/icons'
-import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile'
-import { GameModal, GradientText, TouchableBlock } from '@/components/ui'
+import { ProfileLogo, ProfileSex } from '@/components/profile'
+import { GradientText, TouchableBlock } from '@/components/ui'
 import Touchable from '@/components/ui/buttons/touchable/touchabe'
 import ResultModal from '@/components/ui/modals/result-modal/result-modal'
-import { STORAGE_KEYS } from '@/constants'
 import { colors } from '@/constants/colors'
-import i18n, { useSelectedLanguage } from '@/i18n'
-import { storage } from '@/store'
+import { useSelectedLanguage } from '@/i18n'
 
 import { styles } from './profile-screen.style'
 
@@ -64,7 +62,7 @@ const ProfileScreen = () => {
         <ArrowRight />
       </TouchableBlock>
 
-      {modal && <ResultModal type='bronze' onClose={() => setModal(false)} />}
+      {modal && <ResultModal stars={3} onClose={() => setModal(false)} />}
     </View>
   )
 }

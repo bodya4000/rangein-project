@@ -2,14 +2,27 @@ import { BlurView } from 'expo-blur'
 import React, { JSX } from 'react'
 import { View, Modal, ModalProps, Image } from 'react-native'
 
-import SilverModalPng from '@assets/images/modals/loser-2.png'
+import BronzeModalPng from '@assets/images/modals/bronze.png'
+import GoldModalPng from '@assets/images/modals/gold.png'
+import MetalModalPng from '@assets/images/modals/metal.png'
+import SilverModalPng from '@assets/images/modals/silver.png'
 
 import { styles } from './game-modal.style'
 
 const BLUR_INTENSITY = 50
 const BLUR_TINT = 'dark'
 
+const MODAL_IMAGES = {
+  gold: GoldModalPng,
+  silver: SilverModalPng,
+  bronze: BronzeModalPng,
+  metal: MetalModalPng,
+}
+
+export type ModalType = keyof typeof MODAL_IMAGES
+
 interface Props extends Partial<ModalProps> {
+  type?: ModalType
   onClose: () => void
   visible?: boolean
   renderHeader?: () => JSX.Element
@@ -18,6 +31,7 @@ interface Props extends Partial<ModalProps> {
 }
 
 export default function GameModal({
+  type = 'metal',
   onClose,
   visible = true,
   renderHeader,
@@ -25,6 +39,8 @@ export default function GameModal({
   renderFooter,
   ...modalProps
 }: Props) {
+  console.log(type)
+
   return (
     <Modal
       transparent
@@ -35,7 +51,7 @@ export default function GameModal({
     >
       <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
         <View style={styles.container}>
-          <Image source={SilverModalPng} style={styles.background} resizeMode='stretch' />
+          <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
           <View style={styles.view}>
             {renderHeader?.()}
             {renderBody?.()}
@@ -46,35 +62,3 @@ export default function GameModal({
     </Modal>
   )
 }
-
-
-// export default function GameModal({ onClose, type = 'silver' }: Props) {
-//   return (
-//     <Modal transparent={true}>
-//       <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
-//         <View style={styles.container}>
-//           <Image source={modalPngMap[type]} style={styles.background} resizeMode='stretch' />
-
-//           <View style={styles.view}>
-//             <Text style={styles.title}>Loser</Text>
-
-//             <Text style={styles.text}>
-//               Terrible result, you are such a bad detective. I think you need one more game to
-//               improve it
-//             </Text>
-
-//             <View style={styles.starsContainer}>
-//               <GoldStar style={[styles.star, styles.star_bottom]} />
-//               <GoldStar style={[styles.star]} />
-//               <GoldStar style={[styles.star, styles.star_bottom]} />
-//             </View>
-
-//             <View style={styles.footer}>
-//               <SecondaryButton title='Continue' onPress={onClose} />
-//             </View>
-//           </View>
-//         </View>
-//       </BlurView>
-//     </Modal>
-//   )
-// }
