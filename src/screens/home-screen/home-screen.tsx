@@ -20,9 +20,9 @@ const HomeScreen = () => {
     const playMysteryMusic = async () => {
       const { sound: loadedSound } = await Audio.Sound.createAsync(audioSource)
       sound = loadedSound
-      await sound.setIsLoopingAsync(true)
-      await sound.setVolumeAsync(0.2)
-      await sound.playAsync()
+      // await sound.setIsLoopingAsync(true)
+      // await sound.setVolumeAsync(0.2)
+      // await sound.playAsync()
     }
     playMysteryMusic()
 
@@ -48,7 +48,7 @@ const HomeScreen = () => {
         >
           <Play />
         </PrimaryButton>
-        <PrimaryButton>
+        <PrimaryButton onPress={() => router.push('/chat')}>
           <Continue />
         </PrimaryButton>
       </View>

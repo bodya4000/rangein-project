@@ -12,7 +12,7 @@ import { styles } from './game-screen.style'
 import { SecondaryButton } from '../../components/ui/buttons'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.lg * 4
+const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.lg * 2 - spacing.md * 2
 
 export const TEMP_MESSAGES = [
   "A god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic",
@@ -43,6 +43,11 @@ const GameScreen = () => {
       animated: true,
     })
 
+    updatePagination(newIndex)
+    setFlatlistIndex(newIndex)
+  }
+
+  const updatePagination = (newIndex: number) => {
     switch (newIndex) {
       case 0:
         setCurrentPaginationItem(0)
@@ -61,8 +66,6 @@ const GameScreen = () => {
         setCurrentPaginationItem(moreCloseToRight ? 3 : 2)
         break
     }
-
-    setFlatlistIndex(newIndex)
   }
 
   return (
@@ -81,6 +84,11 @@ const GameScreen = () => {
           keyExtractor={(_, index) => index.toString()}
           snapToAlignment='center'
           decelerationRate='fast'
+          onMomentumScrollEnd={e => {
+            const offsetX = e.nativeEvent.contentOffset.x
+            const newIndex = Math.round(offsetX / CONTAINER_WIDTH)
+            updatePagination(newIndex)
+          }}
           renderItem={({ item }) => (
             <View style={[{ maxWidth: CONTAINER_WIDTH }]}>
               <GradientText

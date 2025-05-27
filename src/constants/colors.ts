@@ -1,6 +1,8 @@
 export const colors = {
   white: '#fff',
   black: '#000',
+  dark: '#1A1A1A',
+  grey: '#A8A8A6',
   gradientGold: [
     '#C49337', // 0%
     '#EDCD78', // 50%

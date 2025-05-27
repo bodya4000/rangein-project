@@ -18,6 +18,7 @@ export default function RootLayout() {
         <Stack.Screen options={{ headerShown: false }} name='index' />
         <Stack.Screen options={{ headerShown: false }} name='profile' />
         <Stack.Screen options={{ headerShown: false }} name='game' />
+        <Stack.Screen options={{ headerShown: false }} name='chat' />
       </Stack>
     </I18nextProvider>
   )

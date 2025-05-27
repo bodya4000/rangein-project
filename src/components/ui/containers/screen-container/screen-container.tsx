@@ -64,6 +64,7 @@ import {
   Image,
   Dimensions,
   ImageBackground,
+  ViewStyle,
 } from 'react-native'
 
 import { spacing } from '@/constants/spacing'
@@ -81,9 +82,10 @@ interface Props {
   children: ReactNode
   background?: number
   animated?: boolean
+  style?: ViewStyle
 }
 
-export default function ScreenContainer({ animated = false, background, children }: Props) {
+export default function ScreenContainer({ animated = false, background, children, style }: Props) {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
 
@@ -116,7 +118,7 @@ export default function ScreenContainer({ animated = false, background, children
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
         <SafeAreaView style={styles.safeArea}>
-          <View style={styles.content}>{children}</View>
+          <View style={[styles.content, style]}>{children}</View>
         </SafeAreaView>
       </ImageBackground>
     )
@@ -127,7 +129,7 @@ export default function ScreenContainer({ animated = false, background, children
       <View style={styles.bgContainer}>
         <Image source={background} style={styles.bg} resizeMode='cover' />
         <SafeAreaView style={styles.safeArea}>
-          <View style={styles.content}>{children}</View>
+          <View style={[styles.content, style]}>{children}</View>
         </SafeAreaView>
       </View>
     )
@@ -152,7 +154,7 @@ export default function ScreenContainer({ animated = false, background, children
       </Animated.View>
 
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.content}>{children}</View>
+        <View style={[styles.content, style]}>{children}</View>
       </SafeAreaView>
     </View>
   )
@@ -185,6 +187,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: spacing.lg,
+    padding: spacing.md,
   },
 })
