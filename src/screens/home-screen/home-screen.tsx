@@ -41,7 +41,11 @@ const HomeScreen = () => {
         <PrimaryButton onPress={() => router.push('/profile')}>
           <Profile />
         </PrimaryButton>
-        <PrimaryButton style={styles.button_top} sizeType='big'>
+        <PrimaryButton
+          onPress={() => router.push('/game')}
+          style={styles.button_top}
+          sizeType='big'
+        >
           <Play />
         </PrimaryButton>
         <PrimaryButton>

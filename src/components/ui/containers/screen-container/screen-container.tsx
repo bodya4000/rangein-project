@@ -72,15 +72,18 @@ import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
 
+import { GradientText } from '../../text'
+
 const { width } = Dimensions.get('window')
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 
 interface Props {
   children: ReactNode
+  background?: number
   animated?: boolean
 }
 
-export default function ScreenContainer({ animated = false, children }: Props) {
+export default function ScreenContainer({ animated = false, background, children }: Props) {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
 
@@ -109,13 +112,24 @@ export default function ScreenContainer({ animated = false, children }: Props) {
     return () => clearInterval(interval)
   }, [currBannerIdx, translateX, animated])
 
-  if (!animated) {
+  if (!animated && !background) {
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.content}>{children}</View>
         </SafeAreaView>
       </ImageBackground>
+    )
+  }
+
+  if (background) {
+    return (
+      <View style={styles.bgContainer}>
+        <Image source={background} style={styles.bg} resizeMode='cover' />
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.content}>{children}</View>
+        </SafeAreaView>
+      </View>
     )
   }
 
@@ -127,13 +141,13 @@ export default function ScreenContainer({ animated = false, children }: Props) {
             <Image
               key={index}
               source={BACKGROUND_IMAGES[index]}
-              style={styles.bg}
+              style={styles.animatedBg}
               resizeMode='cover'
             />
           )
         })}
         {currBannerIdx == BACKGROUND_IMAGES.length - 1 && (
-          <Image source={BACKGROUND_IMAGES[0]} style={styles.bg} resizeMode='cover' />
+          <Image source={BACKGROUND_IMAGES[0]} style={styles.animatedBg} resizeMode='cover' />
         )}
       </Animated.View>
 
@@ -156,9 +170,14 @@ const styles = StyleSheet.create({
     width: width * 3,
     height: '100%',
   },
-  bg: {
+  animatedBg: {
     width,
     height: '100%',
+  },
+  bg: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
   },
   safeArea: {
     flex: 1,

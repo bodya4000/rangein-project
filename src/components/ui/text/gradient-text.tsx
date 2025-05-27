@@ -25,8 +25,9 @@ interface Props {
   color?: string[]
   style?: TextStyle
   containerStyle?: ViewStyle
-
+  quintessential?: boolean
   width?: number
+  numberOfLines?: number
 }
 
 export function GradientText({
@@ -37,6 +38,8 @@ export function GradientText({
   style,
   containerStyle,
   width,
+  quintessential = true,
+  numberOfLines,
 }: Props) {
   const { t, i18n } = useTranslation() // for future
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
@@ -52,7 +55,7 @@ export function GradientText({
     }
   }
 
-  const baseStyle = createGradienttxStyle(txStyle)
+  const baseStyle = createGradienttxStyle(txStyle, quintessential)
 
   useEffect(() => {
     setReady(false) // to rerender on lang change
@@ -82,7 +85,7 @@ export function GradientText({
               width: width ?? dimensions.width,
             }}
           >
-            <Text onLayout={handleLayout} style={[baseStyle, style]}>
+            <Text numberOfLines={numberOfLines} onLayout={handleLayout} style={[baseStyle, style]}>
               {content} {children}
             </Text>
           </View>
@@ -109,10 +112,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export function createGradienttxStyle(font: GradientFontStyle): TextStyle {
+export function createGradienttxStyle(font: GradientFontStyle, quintessential = true): TextStyle {
   const size = Number(font.replace('IR', ''))
   return {
-    fontFamily: 'Quintessential-Regular',
+    fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
     fontSize: scaleFont(size * 2),
   }
 }

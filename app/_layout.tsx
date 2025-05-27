@@ -2,8 +2,8 @@ import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { I18nextProvider } from 'react-i18next'
 import { StatusBar } from 'react-native'
-import i18n from '@/i18n'
 
+import i18n from '@/i18n'
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -17,6 +17,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen options={{ headerShown: false }} name='index' />
         <Stack.Screen options={{ headerShown: false }} name='profile' />
+        <Stack.Screen options={{ headerShown: false }} name='game' />
       </Stack>
     </I18nextProvider>
   )
