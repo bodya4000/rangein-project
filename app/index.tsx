@@ -3,7 +3,7 @@ import HomeScreen from '@/screens/home-screen/home-screen'
 
 export default function Home() {
   return (
-    <ScreenContainer>
+    <ScreenContainer animated>
       <HomeScreen />
     </ScreenContainer>
   )
