@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { FlatList, KeyboardAvoidingView, TextInput, View } from 'react-native'
+import { FlatList, KeyboardAvoidingView, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { ReceivedMessage } from '@/components/chat/received-message/received-message'
 import { SentMessage } from '@/components/chat/sent-message/sent-message'
 import { Burger, Send } from '@/components/icons'
 import Touchable from '@/components/ui/buttons/touchable/touchabe'
+import { ChatInput } from '@/components/ui/inputs'
 import { IS_IOS } from '@/utils'
 
 import { styles } from './chat-screen.style'
@@ -33,7 +34,7 @@ const ChatScreen = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
-        style={{ flex: 1 }} // важливо!
+        style={{ flex: 1 }}
         behavior={IS_IOS ? 'padding' : 'height'}
         keyboardVerticalOffset={150}
       >
@@ -55,9 +56,7 @@ const ChatScreen = () => {
             <Burger />
           </Touchable>
 
-          <View style={styles.inputView}>
-            <TextInput style={styles.input} value='Yes. Of course' />
-          </View>
+          <ChatInput value={userTextInput} onChangeText={setUserTextInput} />
 
           <Touchable>
             <Send />

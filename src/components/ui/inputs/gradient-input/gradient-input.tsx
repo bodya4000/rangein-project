@@ -9,7 +9,8 @@ import {
 
 import { colors } from '@/constants/colors'
 
-import { createGradienttxStyle, GradientFontStyle, GradientText, Text } from '../text'
+import { styles } from './gradient-input.style'
+import { createGradienttxStyle, GradientFontStyle, GradientText, Text } from '../../text'
 
 interface Props extends TextInputProps {
   value: string
@@ -26,7 +27,6 @@ export const GradientInput = ({
   placeholder,
   typeable = true,
 }: Props) => {
-  const [textWidth, setTextWidth] = useState(0)
   const inputRef = useRef<TextInput>(null)
   const measureRef = useRef<RnText>(null)
 
@@ -80,22 +80,3 @@ export const GradientInput = ({
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-  },
-  input: {
-    width: '100%',
-    color: 'transparent',
-    position: 'absolute',
-  },
-  placeholder: {
-    color: colors.white,
-    opacity: 0.5,
-  },
-  measureText: {
-    opacity: 0,
-    height: 0,
-  },
-})

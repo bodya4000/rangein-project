@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { TouchableOpacity, View } from 'react-native'
 
 import { Check, Edit } from '@/components/icons'
-import { GradientInput } from '@/components/ui/inputs/gradient-input'
+import { GradientInput } from '@/components/ui/inputs/gradient-input/gradient-input'
 
 import { styles } from './profile-username.style'
 
