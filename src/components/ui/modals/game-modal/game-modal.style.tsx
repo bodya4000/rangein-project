@@ -1,5 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native'
 
+import { spacing } from '@/constants/spacing'
+
 const MODAL_WIDTH = Dimensions.get('screen').width * 1
 const MIN_MODAL_HEIGHT = Dimensions.get('screen').width * 0.3
 
@@ -17,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     maxWidth: MODAL_WIDTH,
-    minHeight: MIN_MODAL_HEIGHT,
+    // minHeight: MIN_MODAL_HEIGHT,
   },
   background: {
     ...StyleSheet.absoluteFillObject,
@@ -27,6 +29,7 @@ export const styles = StyleSheet.create({
   },
   view: {
     alignItems: 'center',
+    gap: spacing.md,
     padding: 20,
   },
 

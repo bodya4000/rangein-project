@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur'
 import React, { JSX } from 'react'
-import { View, Modal, ModalProps, Image } from 'react-native'
+import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
 import BronzeModalPng from '@assets/images/modals/bronze.png'
 import GoldModalPng from '@assets/images/modals/gold.png'
@@ -39,8 +39,6 @@ export default function GameModal({
   renderFooter,
   ...modalProps
 }: Props) {
-  console.log(type)
-
   return (
     <Modal
       transparent
@@ -49,16 +47,18 @@ export default function GameModal({
       onRequestClose={onClose}
       {...modalProps}
     >
-      <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
-        <View style={styles.container}>
-          <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
-          <View style={styles.view}>
-            {renderHeader?.()}
-            {renderBody?.()}
-            {renderFooter?.()}
+      <Pressable style={{ flex: 1 }} onPress={onClose}>
+        <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
+          <View style={styles.container}>
+            <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
+            <View style={styles.view}>
+              {renderHeader?.()}
+              {renderBody?.()}
+              {renderFooter?.()}
+            </View>
           </View>
-        </View>
-      </BlurView>
+        </BlurView>
+      </Pressable>
     </Modal>
   )
 }

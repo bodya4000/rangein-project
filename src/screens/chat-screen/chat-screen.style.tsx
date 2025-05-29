@@ -13,12 +13,11 @@ export const styles = StyleSheet.create({
 
   messagesContainer: {
     paddingTop: spacing.lg,
-    gap: spacing['2xl'],
+    gap: spacing['sm'],
   },
 
   bottom: {
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing['md'],
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
@@ -36,5 +35,18 @@ export const styles = StyleSheet.create({
 
   input: {
     color: colors.white,
+  },
+
+  option: {
+    height: 65,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  cross: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    top: -30,
+    right: -spacing.sm,
   },
 })
