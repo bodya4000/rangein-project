@@ -5,6 +5,7 @@ import { View } from 'react-native'
 
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText } from '@/components/ui/text/gradient-text'
+import { globalStyles } from '@/constants/global-styles'
 
 import { styles } from './home-screen.style'
 import { PrimaryButton } from '../../components/ui/buttons'
@@ -36,7 +37,7 @@ const HomeScreen = () => {
   return (
     <>
       <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />
-      <View style={styles.spacer} />
+      <View style={globalStyles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>
           <Profile />

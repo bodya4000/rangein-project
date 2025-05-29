@@ -8,9 +8,6 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
-  spacer: {
-    flex: 1,
-  },
   container: {
     borderRadius: 20,
     overflow: 'hidden',

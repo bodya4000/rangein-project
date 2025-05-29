@@ -9,9 +9,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.sm,
   },
-  spacer: {
-    flex: 1,
-  },
   container: {
     borderRadius: 20,
     overflow: 'hidden',

@@ -10,10 +10,6 @@ export const styles = StyleSheet.create({
     paddingTop: 50,
   },
 
-  spacer: {
-    flex: 1,
-  },
-
   buttons_container: {
     flexDirection: 'row',
     justifyContent: 'space-between',

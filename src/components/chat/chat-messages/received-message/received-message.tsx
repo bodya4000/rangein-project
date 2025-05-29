@@ -3,6 +3,7 @@ import React from 'react'
 import { Image, View } from 'react-native'
 
 import { Text } from '@/components/ui'
+import { globalStyles } from '@/constants/global-styles'
 
 import Avatar from '@assets/images/icons/avatar.png'
 
@@ -26,7 +27,7 @@ export const ReceivedMessage = ({ text }: Props) => {
             {text}
           </Text>
         </BlurView>
-        <View style={styles.spacer} />
+        <View style={globalStyles.spacer} />
       </View>
     </View>
   )

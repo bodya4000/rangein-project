@@ -1,60 +1,3 @@
-// import React, { ReactNode, useEffect, useState } from 'react'
-// import { ImageBackground, SafeAreaView, View, StyleSheet } from 'react-native'
-
-// import { spacing } from '@/constants/spacing'
-
-// import DefaultBackground from '@assets/images/screens/default.png'
-// import Background1 from '@assets/images/screens/screen_1.png'
-// import Background2 from '@assets/images/screens/screen_2.png'
-
-// const BACKGROUND_IMAGES = [Background1, Background2]
-
-// interface Props {
-//   children: ReactNode
-//   isDefault?: boolean
-// }
-
-// export default function ScreenContainer({ isDefault = false, children }: Props) {
-//   const [currentIndex, setCurrentIndex] = useState(0)
-
-//   useEffect(() => {
-//     if (isDefault) return
-
-//     const interval = setInterval(
-//       () => {
-//         setCurrentIndex(prev => (prev + 1) % BACKGROUND_IMAGES.length)
-//       },
-//       2 * 60 * 1000,
-//     )
-
-//     return () => clearInterval(interval)
-//   }, [isDefault])
-
-//   const backgroundSource = isDefault ? DefaultBackground : BACKGROUND_IMAGES[currentIndex]
-
-//   return (
-//     <ImageBackground style={styles.bg} source={backgroundSource}>
-//       <SafeAreaView style={styles.safeArea}>
-//         <View style={styles.content}>{children}</View>
-//       </SafeAreaView>
-//     </ImageBackground>
-//   )
-// }
-
-// const styles = StyleSheet.create({
-//   bg: {
-//     flex: 1,
-//   },
-//   safeArea: {
-//     flex: 1,
-//     backgroundColor: 'rgba(0,0,0,0.2)',
-//   },
-//   content: {
-//     flex: 1,
-//     padding: spacing.lg,
-//   },
-// })
-
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import {
   Animated,
@@ -73,7 +16,6 @@ import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
 
-import { GradientText } from '../../text'
 
 const { width } = Dimensions.get('window')
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]

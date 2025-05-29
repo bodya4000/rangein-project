@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { GradientText } from '@/components/ui'
 import Touchable from '@/components/ui/buttons/touchable/touchabe'
 import { colors } from '@/constants/colors'
+import { globalStyles } from '@/constants/global-styles'
 import { spacing } from '@/constants/spacing'
 
 import { styles } from './game-screen.style'
@@ -70,7 +71,7 @@ const GameScreen = () => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.spacer} />
+      <View style={globalStyles.spacer} />
 
       <View style={styles.textContainer}>
         <GradientText txStyle='IR20'>Shore of Whispers</GradientText>

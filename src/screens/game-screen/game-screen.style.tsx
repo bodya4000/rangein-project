@@ -9,9 +9,6 @@ export const styles = StyleSheet.create({
     gap: spacing.md,
     paddingHorizontal: spacing.lg,
   },
-  spacer: {
-    flex: 1,
-  },
   textContainer: {
     gap: spacing.sm,
     alignItems: 'center',

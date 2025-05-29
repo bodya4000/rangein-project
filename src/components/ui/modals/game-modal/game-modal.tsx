@@ -2,6 +2,8 @@ import { BlurView } from 'expo-blur'
 import React, { JSX } from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
+import { globalStyles } from '@/constants/global-styles'
+
 import BronzeModalPng from '@assets/images/modals/bronze.png'
 import GoldModalPng from '@assets/images/modals/gold.png'
 import MetalModalPng from '@assets/images/modals/metal.png'
@@ -47,7 +49,7 @@ export default function GameModal({
       onRequestClose={onClose}
       {...modalProps}
     >
-      <Pressable style={{ flex: 1 }} onPress={onClose}>
+      <Pressable style={globalStyles.spacer} onPress={onClose}>
         <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />

@@ -1,5 +1,6 @@
 import { FlatList, View } from 'react-native'
 
+import { globalStyles } from '@/constants/global-styles'
 import { spacing } from '@/constants/spacing'
 
 import { styles } from './chat-messages.style'
@@ -27,7 +28,7 @@ const messagesData = [
 
 const ChatMessages = () => {
   return (
-    <View style={[styles.messagesContainer, styles.spacer]}>
+    <View style={[styles.messagesContainer, globalStyles.spacer]}>
       <FlatList
         data={messagesData}
         contentContainerStyle={{ paddingTop: spacing.lg, gap: spacing['2xl'] }}
