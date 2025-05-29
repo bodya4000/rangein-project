@@ -23,7 +23,7 @@ export type ModalType = keyof typeof MODAL_IMAGES
 
 interface Props extends Partial<ModalProps> {
   type?: ModalType
-  onClose: () => void
+  onClose?: () => void
   visible?: boolean
   renderHeader?: () => JSX.Element
   renderBody?: () => JSX.Element
@@ -32,7 +32,7 @@ interface Props extends Partial<ModalProps> {
 
 export default function GameModal({
   type = 'metal',
-  onClose,
+  onClose = () => {},
   visible = true,
   renderHeader,
   renderBody,
