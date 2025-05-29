@@ -1,82 +1,153 @@
-import React, { useRef, useState, useEffect } from 'react'
+import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient'
+import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
-  TextInput,
+  LayoutChangeEvent,
   StyleSheet,
-  TouchableOpacity,
+  TextInput,
   TextInputProps,
-  Text as RnText,
+  View,
+  ViewStyle,
 } from 'react-native'
 
 import { colors } from '@/constants/colors'
+import { scaleFont } from '@/utils'
 
-import { styles } from './gradient-input.style'
-import { createGradienttxStyle, GradientFontStyle, GradientText, Text } from '../../text'
+import { Text } from '../../text'
 
-interface Props extends TextInputProps {
-  value: string
-  setValue: (_: string) => void
-  placeholder?: string
+export type GradientFontStyle =
+  | 'IR10'
+  | 'IR12'
+  | 'IR14'
+  | 'IR16'
+  | 'IR20'
+  | 'IR24'
+  | 'IR40'
+  | 'IR80'
+
+interface GradientInputProps extends TextInputProps {
   txStyle?: GradientFontStyle
+  color?: string[]
+  containerStyle?: ViewStyle
+  quintessential?: boolean
   typeable?: boolean
 }
 
-export const GradientInput = ({
+export const GradientInput: React.FC<GradientInputProps> = ({
   value,
-  setValue,
-  txStyle = 'IR10',
+  onChangeText,
   placeholder,
+  txStyle = 'IR10',
+  color = colors.gradientMetal2,
+  style,
+  containerStyle,
+  quintessential = true,
   typeable = true,
-}: Props) => {
+  ...props
+}) => {
+  const { i18n } = useTranslation()
+  const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
+  const [ready, setReady] = useState(false)
   const inputRef = useRef<TextInput>(null)
-  const measureRef = useRef<RnText>(null)
+  inputRef.current?.focus()
 
-  const handlePress = () => {
-    inputRef.current?.focus()
+  const baseStyle = createGradienttxStyle(txStyle, quintessential)
+
+  const handleLayout = (e: LayoutChangeEvent) => {
+    const { height, width } = e.nativeEvent.layout
+    if (height !== dimensions.height || width !== dimensions.width) {
+      setDimensions({ height, width })
+      setReady(true)
+    }
   }
 
-  const baseStyle = createGradienttxStyle(txStyle)
-  const textWidthRef = useRef(0)
-
-  // update input width
   useEffect(() => {
-    if (measureRef.current) {
-      measureRef.current.measure((_, __, width, ___) => {
-        // setTextWidth(width)
-        textWidthRef.current = width
-      })
-    }
-  }, [value])
+    setReady(false)
+  }, [i18n.language, value, placeholder])
 
-  return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={1} style={styles.container}>
-      {value && (
-        <GradientText
-          width={textWidthRef.current}
-          txStyle={txStyle}
-          tx={value}
-          containerStyle={{ width: textWidthRef.current }}
-        />
-      )}
-      {placeholder && !value && (
-        <Text txStyle={txStyle} style={[baseStyle, styles.placeholder]}>
-          {placeholder}
-        </Text>
-      )}
-
-      {/* This is non-visible text just to each time input changes recalculate gradient text width */}
-      <RnText ref={measureRef} style={[baseStyle, styles.measureText]}>
-        {value}
-      </RnText>
-
-      {/* Non-visible input */}
+  if (!ready) {
+    return (
       <TextInput
         ref={inputRef}
-        style={[styles.input, baseStyle, { display: typeable ? 'flex' : 'none' }]}
         value={value}
-        onChangeText={setValue}
+        placeholder={placeholder}
+        style={[baseStyle, style]}
+        onLayout={handleLayout}
+        {...props}
+      />
+    )
+  }
+
+  return (
+    <View style={[styles.wrapper, containerStyle, { width: dimensions.width }]}>
+      <MaskedView
+        style={[{ height: dimensions.height, width: dimensions.width }, styles.container]}
+        maskElement={
+          <View
+            style={{
+              height: dimensions.height,
+              width: dimensions.width,
+            }}
+          >
+            <Text
+              style={[baseStyle, style, { height: dimensions.height, width: dimensions.width }]}
+            >
+              {value}
+            </Text>
+          </View>
+        }
+      >
+        <LinearGradient
+          colors={color as [string, string, ...string[]]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={{
+            height: dimensions.height,
+            width: dimensions.width,
+          }}
+        />
+      </MaskedView>
+
+      <TextInput
+        onLayout={() => inputRef.current?.focus()}
+        ref={inputRef}
+        value={value}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        editable={typeable}
+        style={[
+          baseStyle,
+          style,
+          {
+            position: 'absolute',
+            height: dimensions.height,
+            width: dimensions.width,
+            color: 'transparent',
+          },
+        ]}
         cursorColor={colors.white}
         selectionColor={colors.white}
       />
-    </TouchableOpacity>
+    </View>
   )
+}
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
+
+export function createGradienttxStyle(font: GradientFontStyle, quintessential = true): any {
+  const size = Number(font.replace('IR', ''))
+  return {
+    fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
+    fontSize: scaleFont(size * 2),
+  }
 }

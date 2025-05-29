@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
 
 import { ArrowRight, Minus, Plus } from '@/components/icons'
-import { ProfileLogo, ProfileSex } from '@/components/profile'
+import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile'
 import { GradientText, TouchableBlock } from '@/components/ui'
 import Touchable from '@/components/ui/buttons/touchable/touchabe'
 import ResultModal from '@/components/ui/modals/result-modal/result-modal'
@@ -33,7 +33,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      {/* <ProfileUsername /> */}
+      <ProfileUsername />
       <ProfileSex />
 
       <TouchableBlock touchable={false} style={styles.profileBlock}>
