@@ -1,1 +1,2 @@
-export * from './scale-font'
+export * from './device'
+export * from './font'

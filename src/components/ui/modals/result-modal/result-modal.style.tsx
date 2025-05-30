@@ -1,6 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-const MODAL_WIDTH = Dimensions.get('screen').width * 1
+import { WINDOW_WIDTH } from '@/utils'
+
+const MODAL_WIDTH = WINDOW_WIDTH * 1
 
 export const styles = StyleSheet.create({
   overlay: {
@@ -30,16 +32,13 @@ export const styles = StyleSheet.create({
 
   title: {
     fontSize: 48,
-    color: '#fff',
     fontWeight: 700,
-    fontFamily: 'Quintessential-Regular',
   },
 
   text: {
     maxWidth: '90%',
     textAlign: 'center',
     fontSize: 18,
-    color: '#fff',
     fontWeight: 300,
     marginBottom: 15,
   },
@@ -63,6 +62,4 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: -10,
   },
-
-  footer: {},
 })

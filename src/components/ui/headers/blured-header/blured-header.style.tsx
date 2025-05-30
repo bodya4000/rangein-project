@@ -1,4 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
+
+import { WINDOW_WIDTH } from '@/utils'
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,7 +9,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     zIndex: 999999999,
   },
   header: {

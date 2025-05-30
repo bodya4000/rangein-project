@@ -5,19 +5,17 @@ import {
   View,
   StyleSheet,
   Image,
-  Dimensions,
   ImageBackground,
   ViewStyle,
 } from 'react-native'
 
 import { spacing } from '@/constants/spacing'
+import { WINDOW_WIDTH } from '@/utils'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
 
-
-const { width } = Dimensions.get('window')
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 
 interface Props {
@@ -37,7 +35,7 @@ export default function ScreenContainer({ animated = false, background, children
     const interval = setInterval(
       () => {
         Animated.timing(translateX, {
-          toValue: -(currBannerIdx + 1) * width,
+          toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
           duration: 1000,
           useNativeDriver: true,
         }).start(() => {
@@ -111,11 +109,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     flexDirection: 'row',
-    width: width * 3,
+    width: WINDOW_WIDTH * 3,
     height: '100%',
   },
   animatedBg: {
-    width,
+    width: WINDOW_WIDTH,
     height: '100%',
   },
   bg: {

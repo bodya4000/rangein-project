@@ -1,8 +1,7 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { spacing } from '@/constants/spacing'
-
-const SCREEN_WIDTH = Dimensions.get('window').width
+import { WINDOW_WIDTH } from '@/utils'
 
 export const styles = StyleSheet.create({
   row: {
@@ -12,7 +11,7 @@ export const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     overflow: 'hidden',
-    maxWidth: SCREEN_WIDTH * 0.65,
+    maxWidth: WINDOW_WIDTH * 0.65,
     borderColor: '#24319E',
     borderWidth: 1,
   },

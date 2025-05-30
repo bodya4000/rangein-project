@@ -1,13 +1,13 @@
 import React from 'react'
-import { Dimensions, FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 
 import { GradientText } from '@/components/ui'
 import { spacing } from '@/constants'
+import { WINDOW_WIDTH } from '@/utils'
 
 import { styles } from './story-list.style'
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.lg * 2 - spacing.md * 2
+const CONTAINER_WIDTH = WINDOW_WIDTH - spacing.lg * 2 - spacing.md * 2
 
 export const TEMP_MESSAGES = [
   "A god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic",
