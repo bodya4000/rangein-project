@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 
 import { Burger, Send } from '@/components/icons'
-import Touchable from '@/components/ui/buttons/touchable/touchabe'
+import Touchable from '@/components/ui/buttons/touchable/touchable'
 import { ChatInput } from '@/components/ui/inputs'
 import { spacing } from '@/constants/spacing'
 

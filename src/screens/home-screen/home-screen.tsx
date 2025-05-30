@@ -4,11 +4,10 @@ import { useEffect } from 'react'
 import { View } from 'react-native'
 
 import { Continue, Play, Profile } from '@/components/icons'
-import { GradientText } from '@/components/ui/text/gradient-text'
-import { globalStyles } from '@/constants/global-styles'
+import { GradientText, PrimaryButton } from '@/components/ui'
+import { globalStyles } from '@/constants'
 
 import { styles } from './home-screen.style'
-import { PrimaryButton } from '../../components/ui/buttons'
 
 const audioSource = require('@assets/sound/background.mp3')
 

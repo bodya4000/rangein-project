@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import { Send } from '@/components/icons'
 import { GameModal, Text } from '@/components/ui'
-import Touchable from '@/components/ui/buttons/touchable/touchabe'
+import Touchable from '@/components/ui/buttons/touchable/touchable'
 import { ChatInput } from '@/components/ui/inputs'
 
 import { styles } from './chat-modal.style'

@@ -4,12 +4,12 @@ import {
   Text,
   ImageBackground,
   ViewStyle,
-  txStyle,
   GestureResponderEvent,
+  TextStyle,
 } from 'react-native'
 
 import { styles } from './secondary-button.style'
-import Touchable from '../touchable/touchabe'
+import { Touchable } from '../touchable/touchable'
 
 interface Props {
   title?: string
@@ -17,7 +17,7 @@ interface Props {
   width?: number
   height?: number
   containerStyle?: ViewStyle
-  txStyle?: txStyle
+  txStyle?: TextStyle
 }
 
 export function SecondaryButton({

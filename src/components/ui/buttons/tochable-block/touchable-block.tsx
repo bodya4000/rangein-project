@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { View, ViewStyle, GestureResponderEvent, Image } from 'react-native'
 
 import { styles } from './touchable-block.style'
-import Touchable from '../touchable/touchabe'
+import Touchable from '../touchable/touchable'
 
 interface Props {
   children?: ReactNode

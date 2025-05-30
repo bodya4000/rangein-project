@@ -5,7 +5,7 @@ import { View, ViewStyle, GestureResponderEvent, TextStyle } from 'react-native'
 import { ArrowLeft } from '@/components/icons'
 
 import { styles } from './back-button.style'
-import Touchable from '../touchable/touchabe'
+import Touchable from '../touchable/touchable'
 
 interface Props {
   title?: string

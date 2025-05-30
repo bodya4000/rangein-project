@@ -12,7 +12,13 @@ interface Props extends Partial<PressableProps> {
 
 const audioSource = require('@assets/sound/press.mp3')
 
-const Touchable = ({ children, onPress, touchable = true, soundable = true, ...props }: Props) => {
+export const Touchable = ({
+  children,
+  onPress,
+  touchable = true,
+  soundable = true,
+  ...props
+}: Props) => {
   const scale = useSharedValue(1)
   const rotate = useSharedValue(0)
 
@@ -45,5 +51,3 @@ const Touchable = ({ children, onPress, touchable = true, soundable = true, ...p
 
   return <>{children}</>
 }
-
-export default Touchable

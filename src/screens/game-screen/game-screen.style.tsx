@@ -18,9 +18,6 @@ export const styles = StyleSheet.create({
     lineHeight: scaleFont(70),
     paddingTop: 50,
   },
-  text: {
-    textAlign: 'center',
-  },
   buttons_container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -29,17 +26,5 @@ export const styles = StyleSheet.create({
   },
   icon: {
     padding: spacing.md,
-  },
-  paginationContainer: {
-    marginTop: spacing.sm,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.md,
-  },
-  paginationItem: {
-    width: 12,
-    height: 12,
-    borderRadius: 7.5,
   },
 })

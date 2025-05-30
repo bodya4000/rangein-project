@@ -4,9 +4,9 @@ import { View, Text } from 'react-native'
 import { BronzeStar, GoldStar } from '@/components/icons'
 import { SilverStar } from '@/components/icons/silver-star'
 
-import { GameModal } from '..'
 import { styles } from './result-modal.style'
 import { SecondaryButton } from '../../buttons/secondary-button/secondary-button'
+import GameModal from '../game-modal/game-modal'
 
 interface Props {
   stars?: 0 | 1 | 2 | 3

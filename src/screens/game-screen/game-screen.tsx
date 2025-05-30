@@ -1,19 +1,12 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import { useRef, useState } from 'react'
-import { Dimensions, FlatList, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 
+import { StoryList, StoryPagination } from '@/components/game-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
-import { GradientText } from '@/components/ui'
-import Touchable from '@/components/ui/buttons/touchable/touchabe'
-import { colors } from '@/constants/colors'
-import { globalStyles } from '@/constants/global-styles'
-import { spacing } from '@/constants/spacing'
+import { GradientText, SecondaryButton, Touchable } from '@/components/ui'
+import { globalStyles } from '@/constants'
 
 import { styles } from './game-screen.style'
-import { SecondaryButton } from '../../components/ui/buttons'
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.lg * 2 - spacing.md * 2
 
 export const TEMP_MESSAGES = [
   "A god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic god's broken sword poisons the land with mutating magic",
@@ -75,35 +68,7 @@ const GameScreen = () => {
 
       <View style={styles.textContainer}>
         <GradientText txStyle='IR20'>Shore of Whispers</GradientText>
-
-        <FlatList
-          ref={flatlistRef}
-          horizontal
-          data={TEMP_MESSAGES}
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(_, index) => index.toString()}
-          snapToAlignment='center'
-          decelerationRate='fast'
-          onMomentumScrollEnd={e => {
-            const offsetX = e.nativeEvent.contentOffset.x
-            const newIndex = Math.round(offsetX / CONTAINER_WIDTH)
-            updatePagination(newIndex)
-          }}
-          renderItem={({ item }) => (
-            <View style={[{ maxWidth: CONTAINER_WIDTH }]}>
-              <GradientText
-                numberOfLines={10}
-                txStyle='IR10'
-                quintessential={false}
-                width={CONTAINER_WIDTH}
-                style={styles.text}
-              >
-                {item}
-              </GradientText>
-            </View>
-          )}
-        />
+        <StoryList onScrollEndCb={updatePagination} />
       </View>
 
       <View style={styles.buttons_container}>
@@ -116,21 +81,7 @@ const GameScreen = () => {
         </Touchable>
       </View>
 
-      <View style={styles.paginationContainer}>
-        {Array.from({ length: 6 }).map((_, index) => {
-          const gradientColors =
-            currentPaginationItem === index ? colors.gradientMetal4 : colors.gradientMetal1
-          return (
-            <LinearGradient
-              key={index}
-              colors={gradientColors as [string, string, ...string[]]}
-              start={{ x: 0, y: 1 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.paginationItem}
-            />
-          )
-        })}
-      </View>
+      <StoryPagination currentIdx={currentPaginationItem} />
     </View>
   )
 }

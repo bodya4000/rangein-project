@@ -1,8 +1,7 @@
 import { KeyboardAvoidingView, View } from 'react-native'
 
-import ChatBottom from '@/components/chat/chat-bottom/chat-bottom'
-import ChatMessages from '@/components/chat/chat-messages/chat-messages'
-import { globalStyles } from '@/constants/global-styles'
+import { ChatBottom, ChatMessages } from '@/components/chat-screen'
+import { globalStyles } from '@/constants'
 import { IS_IOS } from '@/utils'
 
 const ChatScreen = () => {

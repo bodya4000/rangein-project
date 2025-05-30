@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { View, ViewStyle, ImageBackground, ButtonProps } from 'react-native'
 
 import { styles } from './primary-button.style'
-import Touchable from '../touchable/touchabe'
+import { Touchable } from '../touchable/touchable'
 
 type ButtonSizeType = 'big' | 'default'
 
