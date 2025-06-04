@@ -1,6 +1,7 @@
 export const colors = {
   white: '#fff',
   black: '#000',
+  overlay: 'rgba(0,0,0,0)',
   dark: '#1A1A1A',
   grey: '#A8A8A6',
   gradientGold: [

@@ -36,11 +36,11 @@ export const styles = StyleSheet.create({
   },
 
   text: {
-    maxWidth: '90%',
+    // maxWidth: '90%',
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: 300,
-    marginBottom: 15,
+    // fontWeight: 300,
+    // marginBottom: 15,
   },
 
   starsContainer: {

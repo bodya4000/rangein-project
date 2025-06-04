@@ -4,8 +4,12 @@ import { colors } from '@/constants/colors'
 import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
+  optionsContainer: {
+    gap: spacing.sm,
+  },
   bottom: {
     paddingHorizontal: spacing.md,
+    marginTop: spacing.lg,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
@@ -23,12 +27,6 @@ export const styles = StyleSheet.create({
 
   input: {
     color: colors.white,
-  },
-
-  option: {
-    height: 65,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   cross: {

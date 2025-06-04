@@ -27,9 +27,9 @@ interface Props extends Partial<ModalProps> {
   type?: ModalType
   onClose?: () => void
   visible?: boolean
-  renderHeader?: () => JSX.Element
-  renderBody?: () => JSX.Element
-  renderFooter?: () => JSX.Element
+  renderHeader?: () => React.ReactNode
+  renderBody?: () => React.ReactNode
+  renderFooter?: () => React.ReactNode
 }
 
 export default function GameModal({
@@ -43,7 +43,8 @@ export default function GameModal({
 }: Props) {
   return (
     <Modal
-      transparent
+      transparent={true}
+      style={{ backgroundColor: 'red' }}
       visible={visible}
       animationType='fade'
       onRequestClose={onClose}
@@ -54,9 +55,9 @@ export default function GameModal({
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
             <View style={styles.view}>
-              {renderHeader?.()}
-              {renderBody?.()}
-              {renderFooter?.()}
+              {renderHeader && renderHeader?.()}
+              {renderBody && renderBody?.()}
+              {renderFooter && renderFooter?.()}
             </View>
           </View>
         </BlurView>

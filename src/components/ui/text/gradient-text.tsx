@@ -32,7 +32,7 @@ interface Props {
 
 export function GradientText({
   children,
-  tx = 'nothing',
+  tx,
   txStyle = 'IR10',
   color = colors.gradientMetal2,
   style,
@@ -41,9 +41,9 @@ export function GradientText({
   quintessential = true,
   numberOfLines,
 }: Props) {
-  const { t, i18n } = useTranslation() // for future
+  const { t, i18n } = useTranslation()
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
-  const [ready, setReady] = useState(false)
+  const [_, rerender] = useState(false)
 
   const content = tx ? t(tx) : children
 
@@ -51,20 +51,26 @@ export function GradientText({
     const { height, width } = e.nativeEvent.layout
     if (height !== dimensions.height || width !== dimensions.width) {
       setDimensions({ height, width })
-      setReady(true)
+      rerender(true)
     }
   }
 
   const baseStyle = createGradienttxStyle(txStyle, quintessential)
 
   useEffect(() => {
-    setReady(false) // to rerender on lang change
+    rerender(false)
   }, [i18n.language, tx, children])
 
-  if (!ready) {
+  const isReady = dimensions.width > 0 && dimensions.height > 0
+
+  if (!isReady) {
     return (
-      <Text onLayout={handleLayout} style={[baseStyle, style]}>
-        {content} {children}
+      <Text
+        numberOfLines={numberOfLines}
+        onLayout={handleLayout}
+        style={[baseStyle, style, { opacity: 1, color: colors.white }]}
+      >
+        {content}
       </Text>
     )
   }

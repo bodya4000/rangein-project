@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     paddingRight: spacing.lg,
-    backgroundColor: colors.black,
+    backgroundColor: colors.overlay,
   },
 
   container: {

@@ -1,8 +1,7 @@
 import { FlatList, View } from 'react-native'
 
 import { Cross } from '@/components/icons'
-import { GradientText, TouchableBlock } from '@/components/ui'
-import { spacing } from '@/constants/spacing'
+import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
 
 import { styles } from './chat-options.style'
 
@@ -22,10 +21,10 @@ interface Props {
 
 const ChatOptions = ({ onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
   return (
-    <View style={{ gap: spacing.sm }}>
-      <TouchableBlock onPress={onCrossPress} style={styles.cross}>
-        <Cross />
-      </TouchableBlock>
+    <View style={styles.optionsContainer}>
+      <Touchable onPress={onCrossPress}>
+        <Cross style={styles.cross} />
+      </Touchable>
       <FlatList
         data={optionsData}
         keyExtractor={({ id }) => id.toString()}

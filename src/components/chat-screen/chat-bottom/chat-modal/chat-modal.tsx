@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { View } from 'react-native'
 
 import { Send } from '@/components/icons'
-import { GameModal, Text } from '@/components/ui'
-import Touchable from '@/components/ui/buttons/touchable/touchable'
+import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
 
 import { styles } from './chat-modal.style'
@@ -17,7 +16,7 @@ const ChatModal = ({ onClose }: Props) => {
   return (
     <GameModal
       onClose={onClose}
-      renderHeader={() => <Text>Enter your answer</Text>}
+      renderHeader={() => <GradientText>Enter your answer</GradientText>}
       renderBody={() => (
         <View style={styles.view}>
           <ChatInput value={text} onChangeText={setText} />

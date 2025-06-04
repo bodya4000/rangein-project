@@ -5,7 +5,6 @@ import { Text, View } from 'react-native'
 import { ArrowRight, Minus, Plus } from '@/components/icons'
 import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile-screen'
 import { GradientText, ResultModal, Touchable, TouchableBlock } from '@/components/ui'
-import { colors } from '@/constants'
 import { useSelectedLanguage } from '@/i18n'
 
 import { styles } from './profile-screen.style'
@@ -31,7 +30,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      <ProfileUsername />
+      {/* <ProfileUsername /> */}
       <ProfileSex />
 
       <TouchableBlock touchable={false} style={styles.profileBlock}>
@@ -40,9 +39,7 @@ const ProfileScreen = () => {
             <Minus />
           </View>
         </Touchable>
-        <GradientText color={colors.gradientMetal2}>
-          {age} {t('profile.years')}
-        </GradientText>
+        <GradientText>{`${age} ${t('profile.years')}`}</GradientText>
         <Touchable onPress={increaseAge}>
           <View style={styles.touchable_icon}>
             <Plus />

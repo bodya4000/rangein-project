@@ -6,6 +6,7 @@ import { SilverStar } from '@/components/icons/silver-star'
 
 import { styles } from './result-modal.style'
 import { SecondaryButton } from '../../buttons/secondary-button/secondary-button'
+import { GradientText } from '../../text/gradient-text'
 import GameModal from '../game-modal/game-modal'
 
 interface Props {
@@ -26,15 +27,15 @@ const Star = ({ stars = 0, id }: StarProps) => {
 }
 
 export default function ResultModal({ onClose, stars = 0 }: Props) {
-  const renderHeader = () => <Text style={styles.title}>{stars == 3 ? 'Winner' : 'Loser'}</Text>
+  const renderHeader = () => (
+    <GradientText style={styles.title}>{stars == 3 ? 'Winner' : 'Loser'}</GradientText>
+  )
 
   const renderBody = () => (
     <>
-      <Text style={styles.text}>
-        {stars == 3
-          ? 'Congratulations! You solved the mystery!'
-          : 'Terrible result, you are such a bad detective. I think you need one more game to improve it.'}
-      </Text>
+      <GradientText style={styles.text}>
+        Terrible result, you are such a bad detective. I think you need one more game to improve it.
+      </GradientText>
 
       <View style={styles.starsContainer}>
         <Star id={0} stars={stars} />
@@ -45,7 +46,7 @@ export default function ResultModal({ onClose, stars = 0 }: Props) {
   )
 
   const renderFooter = () => (
-    <View style={styles.footer}>
+    <View>
       <SecondaryButton title='Continue' onPress={onClose} />
     </View>
   )

@@ -2,9 +2,8 @@ import { useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 
 import { Burger, Send } from '@/components/icons'
-import Touchable from '@/components/ui/buttons/touchable/touchable'
+import { Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
-import { spacing } from '@/constants/spacing'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'
@@ -38,7 +37,7 @@ const ChatBottom = () => {
   return (
     <>
       {showOptions ? (
-        <View style={{ gap: spacing.sm }}>
+        <View style={styles.optionsContainer}>
           <ChatOptions
             onAnyOptionClick={onAnyOptionClick}
             onCrossPress={onCrossPress}
