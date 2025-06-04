@@ -39,7 +39,9 @@ const ProfileScreen = () => {
             <Minus />
           </View>
         </Touchable>
-        <GradientText>{`${age} ${t('profile.years')}`}</GradientText>
+        <GradientText>
+          {age} {t('profile.years')}
+        </GradientText>
         <Touchable onPress={increaseAge}>
           <View style={styles.touchable_icon}>
             <Plus />

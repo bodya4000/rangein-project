@@ -1,6 +1,6 @@
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useMemo, useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 
@@ -20,9 +20,9 @@ export type GradientFontStyle =
 
 interface Props {
   children?: ReactNode
-  tx?: TxKeyPath // by now
+  tx?: TxKeyPath
   txStyle?: GradientFontStyle
-  color?: string[]
+  color?: [string, string, ...string[]]
   style?: TextStyle
   containerStyle?: ViewStyle
   quintessential?: boolean
@@ -30,11 +30,11 @@ interface Props {
   numberOfLines?: number
 }
 
-export function GradientText({
+export const GradientText = memo(function GradientText({
   children,
   tx,
   txStyle = 'IR10',
-  color = colors.gradientMetal2,
+  color = [colors.gradientMetal2[0], colors.gradientMetal2[1], ...colors.gradientMetal2.slice(2)],
   style,
   containerStyle,
   width,
@@ -43,32 +43,35 @@ export function GradientText({
 }: Props) {
   const { t, i18n } = useTranslation()
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
-  const [_, rerender] = useState(false)
 
-  const content = tx ? t(tx) : children
-
-  const handleLayout = (e: LayoutChangeEvent) => {
-    const { height, width } = e.nativeEvent.layout
-    if (height !== dimensions.height || width !== dimensions.width) {
-      setDimensions({ height, width })
-      rerender(true)
-    }
-  }
-
-  const baseStyle = createGradienttxStyle(txStyle, quintessential)
-
-  useEffect(() => {
-    rerender(false)
-  }, [i18n.language, tx, children])
+  const content = useMemo(() => (tx ? t(tx) : children), [tx, t, children])
+  const baseStyle = useMemo(
+    () => createGradientTextStyle(txStyle, quintessential),
+    [txStyle, quintessential],
+  )
 
   const isReady = dimensions.width > 0 && dimensions.height > 0
+
+  const handleLayout = useCallback(
+    (e: LayoutChangeEvent) => {
+      const { height, width } = e.nativeEvent.layout
+      if (height > 0 && (height !== dimensions.height || width !== dimensions.width)) {
+        setDimensions({ height, width })
+      }
+    },
+    [dimensions],
+  )
+
+  useEffect(() => {
+    setDimensions({ height: 0, width: 0 })
+  }, [i18n.language, content])
 
   if (!isReady) {
     return (
       <Text
         numberOfLines={numberOfLines}
         onLayout={handleLayout}
-        style={[baseStyle, style, { opacity: 1, color: colors.white }]}
+        style={[styles.text, baseStyle, style, { color: colors.white }]}
       >
         {content}
       </Text>
@@ -76,13 +79,9 @@ export function GradientText({
   }
 
   return (
-    <View>
+    <View style={containerStyle}>
       <MaskedView
-        style={[
-          { height: dimensions.height, width: width ?? dimensions.width },
-          styles.container,
-          containerStyle,
-        ]}
+        style={[styles.container, { height: dimensions.height, width: width ?? dimensions.width }]}
         maskElement={
           <View
             onLayout={handleLayout}
@@ -91,14 +90,14 @@ export function GradientText({
               width: width ?? dimensions.width,
             }}
           >
-            <Text numberOfLines={numberOfLines} onLayout={handleLayout} style={[baseStyle, style]}>
-              {content} {children}
+            <Text numberOfLines={numberOfLines} style={[styles.text, baseStyle, style]}>
+              {content}
             </Text>
           </View>
         }
       >
         <LinearGradient
-          colors={color as [string, string, ...string[]]}
+          colors={color}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
@@ -109,6 +108,16 @@ export function GradientText({
       </MaskedView>
     </View>
   )
+})
+
+function createGradientTextStyle(font: GradientFontStyle, quintessential = true): TextStyle {
+  const size = Number(font.replace('IR', ''))
+  const scaled = scaleFont(size * 2)
+  return {
+    fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
+    fontSize: scaled,
+    lineHeight: scaled * 1.2,
+  }
 }
 
 const styles = StyleSheet.create({
@@ -116,12 +125,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  text: {},
 })
-
-export function createGradienttxStyle(font: GradientFontStyle, quintessential = true): TextStyle {
-  const size = Number(font.replace('IR', ''))
-  return {
-    fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
-    fontSize: scaleFont(size * 2),
-  }
-}
