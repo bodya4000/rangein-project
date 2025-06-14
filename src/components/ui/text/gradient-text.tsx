@@ -116,7 +116,6 @@ function createGradientTextStyle(font: GradientFontStyle, quintessential = true)
   return {
     fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
     fontSize: scaled,
-    lineHeight: scaled * 1.2,
   }
 }
 

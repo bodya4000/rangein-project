@@ -30,7 +30,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      {/* <ProfileUsername /> */}
+      <ProfileUsername />
       <ProfileSex />
 
       <TouchableBlock touchable={false} style={styles.profileBlock}>

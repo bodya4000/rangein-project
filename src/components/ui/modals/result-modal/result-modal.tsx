@@ -33,7 +33,7 @@ export default function ResultModal({ onClose, stars = 0 }: Props) {
 
   const renderBody = () => (
     <>
-      <GradientText style={styles.text}>
+      <GradientText quintessential={false} style={styles.text}>
         Terrible result, you are such a bad detective. I think you need one more game to improve it.
       </GradientText>
 

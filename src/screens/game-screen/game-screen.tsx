@@ -19,24 +19,27 @@ export const TEMP_MESSAGES = [
   'The ancient script upon the forgotten altar binds the living and the dead, forging a chain of souls that sings in silence and dread',
 ]
 
+const BUTTON_DELAY = 500
+
 const GameScreen = () => {
   const flatlistRef = useRef<FlatList>(null)
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [flatlistIndex, setFlatlistIndex] = useState(0)
+  const [isArrowDisabled, setIsArrowDisabled] = useState(false)
 
   const onArrowClick = (direction: 'prev' | 'next') => {
+    setIsArrowDisabled(true)
+    setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = flatlistIndex
     if (direction === 'next' && flatlistIndex < TEMP_MESSAGES.length - 1) {
       newIndex++
     } else if (direction === 'prev' && flatlistIndex > 0) {
       newIndex--
     }
-
     flatlistRef.current?.scrollToIndex({
       index: newIndex,
       animated: true,
     })
-
     updatePagination(newIndex)
     setFlatlistIndex(newIndex)
   }
@@ -68,15 +71,23 @@ const GameScreen = () => {
 
       <View style={styles.textContainer}>
         <GradientText txStyle='IR20'>Shore of Whispers</GradientText>
-        <StoryList onScrollEndCb={updatePagination} />
+        <StoryList ref={flatlistRef} onScrollEndCb={updatePagination} />
       </View>
 
       <View style={styles.buttons_container}>
-        <Touchable style={styles.icon} onPress={() => onArrowClick('prev')}>
+        <Touchable
+          style={styles.icon}
+          onPress={() => onArrowClick('prev')}
+          disabled={isArrowDisabled}
+        >
           <ArrowLeft width={36} height={36} />
         </Touchable>
         <SecondaryButton title='Continue' onPress={() => onArrowClick('next')} />
-        <Touchable style={styles.icon} onPress={() => onArrowClick('next')}>
+        <Touchable
+          style={styles.icon}
+          onPress={() => onArrowClick('next')}
+          disabled={isArrowDisabled}
+        >
           <ArrowRight width={36} height={36} />
         </Touchable>
       </View>
