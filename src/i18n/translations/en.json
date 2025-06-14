@@ -1,0 +1,14 @@
+{
+  "nothing": "",
+  "home": {
+    "title": "Big Logo Beautiful"
+  },
+  "profile": {
+    "header": "Profile",
+    "writeName": "Write name",
+    "male": "Male",
+    "female": "Female",
+    "years": "years",
+    "changeLanguage": "Change language"
+  }
+}

@@ -1,15 +1,10 @@
-import { Text, View } from 'react-native'
+import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
+import HomeScreen from '@/screens/home-screen/home-screen'
 
-export default function Index() {
+export default function Home() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <ScreenContainer animated>
+      <HomeScreen />
+    </ScreenContainer>
   )
 }

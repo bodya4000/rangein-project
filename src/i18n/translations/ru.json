@@ -1,0 +1,12 @@
+{
+  "nothing": "",
+  "home": { "title": "Логотип" },
+  "profile": {
+    "header": "Профиль",
+    "writeName": "Введите имя",
+    "male": "Мужской",
+    "female": "Женский",
+    "years": "лет",
+    "changeLanguage": "Изменить язык"
+  }
+}
