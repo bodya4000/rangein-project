@@ -55,7 +55,7 @@ const StoryList = React.forwardRef<FlatList, Props>(({ onScrollEndCb }, flatlist
             quintessential={false}
             width={CONTAINER_WIDTH}
             style={styles.text}
-            color={colors.gradientMetal2}
+            color={[...colors.gradientMetal2] as [string, string, ...string[]]}
           >
             {item}
           </GradientText>

@@ -1,3 +1,4 @@
+import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
@@ -32,13 +33,13 @@ const GameScreen = () => {
   const { data } = useGameInfo()
   if (!data) return null
 
-  logJson(data.story.parts)
-
   const onArrowClick = (direction: 'prev' | 'next') => {
     setIsArrowDisabled(true)
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = flatlistIndex
-    if (direction === 'next' && flatlistIndex < data.story.parts.length - 1) {
+    if (direction === 'next' && flatlistIndex == data.story.parts.length - 1) {
+      router.replace('/chat')
+    } else if (direction === 'next' && flatlistIndex < data.story.parts.length - 1) {
       newIndex++
     } else if (direction === 'prev' && flatlistIndex > 0) {
       newIndex--
