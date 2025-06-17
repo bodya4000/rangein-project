@@ -2,7 +2,15 @@ import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { ReactNode, useCallback, useEffect, useMemo, useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LayoutChangeEvent, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
+import {
+  LayoutChangeEvent,
+  StyleSheet,
+  Text,
+  TextProps,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native'
 
 import { colors } from '@/constants/colors'
 import { TxKeyPath } from '@/i18n/react-i18next'
@@ -18,7 +26,7 @@ export type GradientFontStyle =
   | 'IR40'
   | 'IR80'
 
-interface Props {
+interface Props extends TextProps {
   children?: ReactNode
   tx?: TxKeyPath
   txStyle?: GradientFontStyle
@@ -40,6 +48,7 @@ export const GradientText = memo(function GradientText({
   width,
   quintessential = true,
   numberOfLines,
+  ...textProps
 }: Props) {
   const { t, i18n } = useTranslation()
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
@@ -72,6 +81,7 @@ export const GradientText = memo(function GradientText({
         numberOfLines={numberOfLines}
         onLayout={handleLayout}
         style={[styles.text, baseStyle, style, { color: colors.white }]}
+        {...textProps}
       >
         {content}
       </Text>
@@ -81,16 +91,19 @@ export const GradientText = memo(function GradientText({
   return (
     <View style={containerStyle}>
       <MaskedView
-        style={[styles.container, { height: dimensions.height, width: width ?? dimensions.width }]}
+        style={[styles.container, { width: width ?? dimensions.width }]}
         maskElement={
           <View
             onLayout={handleLayout}
             style={{
-              height: dimensions.height,
               width: width ?? dimensions.width,
             }}
           >
-            <Text numberOfLines={numberOfLines} style={[styles.text, baseStyle, style]}>
+            <Text
+              {...textProps}
+              numberOfLines={numberOfLines}
+              style={[styles.text, baseStyle, style]}
+            >
               {content}
             </Text>
           </View>
@@ -101,7 +114,7 @@ export const GradientText = memo(function GradientText({
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            height: dimensions.height,
+            height: dimensions.height + 1,
             width: width ?? dimensions.width,
           }}
         />

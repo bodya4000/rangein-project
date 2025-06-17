@@ -1,8 +1,9 @@
 import React from 'react'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 
+import { useGameInfo } from '@/api/hooks'
 import { GradientText } from '@/components/ui'
-import { spacing } from '@/constants'
+import { colors, spacing } from '@/constants'
 import { WINDOW_WIDTH } from '@/utils'
 
 import { styles } from './story-list.style'
@@ -31,11 +32,14 @@ const StoryList = React.forwardRef<FlatList, Props>(({ onScrollEndCb }, flatlist
     onScrollEndCb(newIndex)
   }
 
+  const { data } = useGameInfo()
+  if (!data) return null
+
   return (
     <FlatList
       ref={flatlistRef}
       horizontal
-      data={TEMP_MESSAGES}
+      data={data.story.parts}
       pagingEnabled
       showsHorizontalScrollIndicator={false}
       keyExtractor={(_, index) => index.toString()}
@@ -45,11 +49,13 @@ const StoryList = React.forwardRef<FlatList, Props>(({ onScrollEndCb }, flatlist
       renderItem={({ item }) => (
         <View style={[{ maxWidth: CONTAINER_WIDTH }]}>
           <GradientText
-            numberOfLines={10}
-            txStyle='IR10'
+            numberOfLines={20}
+            txStyle='IR12'
+            ellipsizeMode='clip'
             quintessential={false}
             width={CONTAINER_WIDTH}
             style={styles.text}
+            color={colors.gradientMetal2}
           >
             {item}
           </GradientText>

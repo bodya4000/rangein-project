@@ -7,6 +7,7 @@ import { styles } from './story-pagination.style'
 
 interface Props {
   currentIdx: number
+  parts: number
 }
 
 const StoryPagination = ({ currentIdx }: Props) => {

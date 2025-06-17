@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
+import { useGameInfo } from '@/api/hooks'
 import { StoryList, StoryPagination } from '@/components/game-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { GradientText, SecondaryButton, Touchable } from '@/components/ui'
 import { globalStyles } from '@/constants'
+import { logJson } from '@/utils'
 
 import { styles } from './game-screen.style'
 
@@ -27,11 +29,16 @@ const GameScreen = () => {
   const [flatlistIndex, setFlatlistIndex] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
 
+  const { data } = useGameInfo()
+  if (!data) return null
+
+  logJson(data.story.parts)
+
   const onArrowClick = (direction: 'prev' | 'next') => {
     setIsArrowDisabled(true)
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = flatlistIndex
-    if (direction === 'next' && flatlistIndex < TEMP_MESSAGES.length - 1) {
+    if (direction === 'next' && flatlistIndex < data.story.parts.length - 1) {
       newIndex++
     } else if (direction === 'prev' && flatlistIndex > 0) {
       newIndex--
@@ -52,14 +59,14 @@ const GameScreen = () => {
       case 1:
         setCurrentPaginationItem(1)
         break
-      case TEMP_MESSAGES.length - 2:
+      case data.story.parts.length - 2:
         setCurrentPaginationItem(4)
         break
-      case TEMP_MESSAGES.length - 1:
+      case data.story.parts.length - 1:
         setCurrentPaginationItem(5)
         break
       default:
-        const moreCloseToRight = newIndex > TEMP_MESSAGES.length / 2
+        const moreCloseToRight = newIndex > data.story.parts.length / 2
         setCurrentPaginationItem(moreCloseToRight ? 3 : 2)
         break
     }
@@ -67,12 +74,15 @@ const GameScreen = () => {
 
   return (
     <View style={styles.screen}>
+      <View style={styles.textContainer}>
+        <GradientText style={styles.title} txStyle='IR24'>
+          {data.story.title}
+        </GradientText>
+      </View>
+
       <View style={globalStyles.spacer} />
 
-      <View style={styles.textContainer}>
-        <GradientText txStyle='IR20'>Shore of Whispers</GradientText>
-        <StoryList ref={flatlistRef} onScrollEndCb={updatePagination} />
-      </View>
+      <StoryList ref={flatlistRef} onScrollEndCb={updatePagination} />
 
       <View style={styles.buttons_container}>
         <Touchable
@@ -92,7 +102,7 @@ const GameScreen = () => {
         </Touchable>
       </View>
 
-      <StoryPagination currentIdx={currentPaginationItem} />
+      <StoryPagination parts={data.story.parts.length} currentIdx={currentPaginationItem} />
     </View>
   )
 }
