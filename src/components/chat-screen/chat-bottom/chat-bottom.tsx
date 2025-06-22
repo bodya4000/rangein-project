@@ -5,7 +5,6 @@ import { useSendMessage } from '@/api/hooks'
 import { Burger, Send } from '@/components/icons'
 import { Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
-import { logJson } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'

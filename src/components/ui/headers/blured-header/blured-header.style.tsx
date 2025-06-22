@@ -1,6 +1,6 @@
+import { WINDOW_WIDTH } from '@/constants'
 import { StyleSheet } from 'react-native'
 
-import { WINDOW_WIDTH } from '@/utils'
 
 export const styles = StyleSheet.create({
   container: {

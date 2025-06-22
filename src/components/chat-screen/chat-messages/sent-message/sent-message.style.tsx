@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 import { spacing } from '@/constants/spacing'
-import { WINDOW_WIDTH } from '@/utils'
+import { WINDOW_WIDTH } from '@/constants'
 
 export const styles = StyleSheet.create({
   row: {

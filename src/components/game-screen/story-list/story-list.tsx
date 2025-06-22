@@ -3,8 +3,7 @@ import { FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-n
 
 import { useGameInfo } from '@/api/hooks'
 import { GradientText } from '@/components/ui'
-import { colors, spacing } from '@/constants'
-import { WINDOW_WIDTH } from '@/utils'
+import { colors, spacing, WINDOW_WIDTH } from '@/constants'
 
 import { styles } from './story-list.style'
 

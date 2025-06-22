@@ -9,12 +9,11 @@ import {
   ViewStyle,
 } from 'react-native'
 
-import { spacing } from '@/constants/spacing'
-import { WINDOW_WIDTH } from '@/utils'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
+import { spacing, WINDOW_WIDTH } from '@/constants'
 
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 

@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, spacing } from '@/constants'
-import { WINDOW_WIDTH } from '@/utils'
+import { colors, spacing, WINDOW_WIDTH } from '@/constants'
 
 const MODAL_WIDTH = WINDOW_WIDTH * 1
 

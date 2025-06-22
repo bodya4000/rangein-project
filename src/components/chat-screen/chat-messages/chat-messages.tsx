@@ -22,10 +22,12 @@ const ChatMessages = ({ messagesData }: Props) => {
     <View style={[styles.messagesContainer]}>
       <FlatList
         data={messagesData}
+        style={{ height: 10000 }}
+        bounces={false}
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
-          if (item.role == 'ASSISTANT_AI') return <ReceivedMessage text={item.message} />
+          if (item.role == 'DETECTIVE_ASSISTANT_AI') return <ReceivedMessage text={item.message} />
           return <SentMessage text={item.message} />
         }}
       />
