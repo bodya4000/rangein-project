@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, View } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import { FlatList, KeyboardAvoidingView, View } from 'react-native'
 
 import { useGameSetup } from '@/api'
 import { ChatBottom, ChatMessages } from '@/components/chat-screen'
 import { getDeviceId, globalStyles, IS_IOS } from '@/constants'
 
 const ChatScreen = () => {
+  const flatlistRef = useRef<FlatList>(null)
   const { data: gameData } = useGameSetup({ userId: getDeviceId() })
   const [chatMessages, setChatMessages] = useState(gameData?.messageData.messages || [])
 
@@ -15,6 +16,11 @@ const ChatScreen = () => {
     }
   }, [gameData?.messageData.messages])
 
+  const onNewMessage = () => {
+    setTimeout(() => {
+      flatlistRef.current?.scrollToEnd({ animated: true })
+    }, 300) // time to give a flat list time to rerender list
+  }
   if (!gameData) return null
   return (
     <View style={globalStyles.spacer}>
@@ -24,8 +30,12 @@ const ChatScreen = () => {
         behavior={IS_IOS ? 'padding' : 'height'}
         keyboardVerticalOffset={80}
       >
-        <ChatMessages messagesData={chatMessages} />
-        <ChatBottom gameId={gameData.gameId} setChatMessages={setChatMessages} />
+        <ChatMessages ref={flatlistRef} messagesData={chatMessages} />
+        <ChatBottom
+          onNewMessage={onNewMessage}
+          gameId={gameData.gameId}
+          setChatMessages={setChatMessages}
+        />
       </KeyboardAvoidingView>
     </View>
   )

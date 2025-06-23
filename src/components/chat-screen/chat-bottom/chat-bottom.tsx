@@ -12,10 +12,11 @@ import ChatOptions from './chat-options/chat-options'
 
 interface Props {
   gameId: string
+  onNewMessage: () => void
   setChatMessages: Dispatch<any>
 }
 
-const ChatBottom = ({ gameId, setChatMessages }: Props) => {
+const ChatBottom = ({ gameId, setChatMessages, onNewMessage }: Props) => {
   const sentMessagesCount = useRef<number>(0)
   const inputRef = useRef<TextInput>(null)
   const [userTextInput, setUserTextInput] = useState('')
@@ -44,6 +45,8 @@ const ChatBottom = ({ gameId, setChatMessages }: Props) => {
   }
 
   const onMessageSend = () => {
+    setUserTextInput('')
+    onNewMessage()
     setChatMessages(prevData => [
       ...prevData,
       { messageId: sentMessagesCount.current++, message: userTextInput },
@@ -52,11 +55,13 @@ const ChatBottom = ({ gameId, setChatMessages }: Props) => {
     sendMessage(
       { gameId, message: userTextInput },
       {
-        onSuccess: data =>
+        onSuccess: data => {
+          onNewMessage()
           setChatMessages(prevData => [
             ...prevData,
             { messageId: data.messageId, message: data.message, role: data.role },
-          ]),
+          ])
+        },
       },
     )
   }
