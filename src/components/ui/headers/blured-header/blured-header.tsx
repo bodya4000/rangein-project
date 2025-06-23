@@ -10,13 +10,14 @@ import { BackButton } from '../../buttons/back-button/back-button'
 import { GradientText } from '../../text/gradient-text'
 
 interface Props {
-  txTitle: TxKeyPath
+  txTitle?: TxKeyPath
+  title?: string
 }
 
 const BLUR_INTENSITY = 75
 const BLUR_TINT = 'dark'
 
-export default function BluredHeader({ txTitle }: Props) {
+export default function BluredHeader({ txTitle, title }: Props) {
   const insets = useSafeAreaInsets()
   const headerHeight = (StatusBar.currentHeight ?? insets.top) + 80
   return (
@@ -26,8 +27,12 @@ export default function BluredHeader({ txTitle }: Props) {
       style={[styles.container, { height: headerHeight }]}
     >
       <View style={[styles.header, { marginTop: insets.top }]}>
-        <BackButton containerStyle={styles.back} />
-        <GradientText txStyle='IR16' tx={txTitle} style={styles.title} />
+        <View style={styles.back}>
+          <BackButton containerStyle={styles.back} />
+        </View>
+        <GradientText txStyle='IR16' tx={txTitle} style={styles.title}>
+          {title}
+        </GradientText>
       </View>
     </BlurView>
   )

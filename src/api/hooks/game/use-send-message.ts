@@ -5,7 +5,7 @@ import { QUERIES } from '@/constants'
 
 export const useSendMessage = () => {
   const data = useMutation({
-    mutationKey: [QUERIES.GAME],
+    mutationKey: [QUERIES.MESSAGES],
     mutationFn: (data: { gameId: string; message: string }) => gameService.sendMessage(data),
   })
 

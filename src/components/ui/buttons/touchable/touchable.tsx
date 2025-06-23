@@ -1,6 +1,6 @@
 import { Audio } from 'expo-av'
 import { ReactNode } from 'react'
-import { GestureResponderEvent, Pressable, PressableProps } from 'react-native'
+import { GestureResponderEvent, Pressable, PressableProps, StyleSheet, View } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 interface Props extends Partial<PressableProps> {
@@ -8,6 +8,7 @@ interface Props extends Partial<PressableProps> {
   onPress?: (_: GestureResponderEvent) => void
   touchable?: boolean
   soundable?: boolean
+  disabled?: boolean
 }
 
 const audioSource = require('@assets/sound/press.mp3')
@@ -17,6 +18,7 @@ export const Touchable = ({
   onPress,
   touchable = true,
   soundable = true,
+  disabled = false,
   ...props
 }: Props) => {
   const scale = useSharedValue(1)
@@ -44,10 +46,24 @@ export const Touchable = ({
 
   if (touchable)
     return (
-      <Pressable {...props} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
+      <Pressable
+        {...props}
+        style={disabled ? styles.disabled : {}}
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={onPress}
+      >
         <Animated.View style={animatedStyles}>{children}</Animated.View>
       </Pressable>
     )
 
-  return <>{children}</>
+  return <View style={disabled ? styles.disabled : {}}>{children}</View>
 }
+
+const styles = StyleSheet.create({
+  disabled: {
+    opacity: 0.5,
+    pointerEvents: 'none',
+  },
+})

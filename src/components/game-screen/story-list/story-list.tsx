@@ -3,7 +3,7 @@ import { FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-n
 
 import { useGameInfo } from '@/api/hooks'
 import { GradientText } from '@/components/ui'
-import { colors, spacing, WINDOW_WIDTH } from '@/constants'
+import { colors, getDeviceId, spacing, WINDOW_WIDTH } from '@/constants'
 
 import { styles } from './story-list.style'
 
@@ -31,7 +31,7 @@ const StoryList = React.forwardRef<FlatList, Props>(({ onScrollEndCb }, flatlist
     onScrollEndCb(newIndex)
   }
 
-  const { data } = useGameInfo()
+  const { data } = useGameInfo({ userId: getDeviceId() })
   if (!data) return null
 
   return (

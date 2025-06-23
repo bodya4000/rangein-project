@@ -5,14 +5,13 @@ import { I18nextProvider } from 'react-i18next'
 import { StatusBar } from 'react-native'
 
 import { queryClient } from '@/constants'
+import { useSetup } from '@/hooks'
 import i18n from '@/i18n'
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    'Quintessential-Regular': require('../assets/fonts/Quintessential-Regular.ttf'),
-  })
+  const { ready } = useSetup()
 
-  if (!fontsLoaded) return null
+  if (!ready) return null
   return (
     <QueryClientProvider client={queryClient}>
       <I18nextProvider i18n={i18n}>

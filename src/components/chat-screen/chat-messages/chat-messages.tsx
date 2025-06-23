@@ -17,13 +17,11 @@ interface Props {
 }
 
 const ChatMessages = ({ messagesData }: Props) => {
-  logJson(messagesData)
   return (
     <View style={[styles.messagesContainer]}>
       <FlatList
         data={messagesData}
-        style={{ height: 10000 }}
-        bounces={false}
+        bounces={true}
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {

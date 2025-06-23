@@ -28,10 +28,11 @@ export function BackButton({ onPress, containerStyle }: Props) {
   }
 
   return (
-    <Touchable style={containerStyle} onPress={onButtonPress}>
-      <View style={[styles.container, { width, height }]}>
-        <ArrowLeft />
-      </View>
+    <Touchable
+      style={[styles.container, { width, height }, containerStyle]}
+      onPress={onButtonPress}
+    >
+      <ArrowLeft />
     </Touchable>
   )
 }

@@ -3,36 +3,22 @@ import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { View } from 'react-native'
 
+import { useGameInfo, useUserInfo } from '@/api/hooks'
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText, PrimaryButton } from '@/components/ui'
-import { globalStyles } from '@/constants'
+import { getDeviceId, globalStyles } from '@/constants'
+import { useBackgroundMusic } from '@/hooks/use-background-music'
+import { logJson } from '@/utils'
 
 import { styles } from './home-screen.style'
-
-const audioSource = require('@assets/sound/background.mp3')
 
 const HomeScreen = () => {
   const router = useRouter()
 
-  useEffect(() => {
-    let sound: Audio.Sound
+  const {} = useBackgroundMusic()
+  const deviceId = getDeviceId()
 
-    const playMysteryMusic = async () => {
-      const { sound: loadedSound } = await Audio.Sound.createAsync(audioSource)
-      sound = loadedSound
-      // await sound.setIsLoopingAsync(true)
-      // await sound.setVolumeAsync(0.2)
-      // await sound.playAsync()
-    }
-    playMysteryMusic()
-
-    return () => {
-      if (sound) {
-        sound.unloadAsync()
-      }
-    }
-  }, [])
-
+  const { data: userInfo } = useUserInfo({ deviceId })
   return (
     <>
       <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />
@@ -48,7 +34,10 @@ const HomeScreen = () => {
         >
           <Play />
         </PrimaryButton>
-        <PrimaryButton onPress={() => router.push('/chat')}>
+        <PrimaryButton
+          disabled={!userInfo || !userInfo.gameId}
+          onPress={() => router.push('/chat')}
+        >
           <Continue />
         </PrimaryButton>
       </View>
