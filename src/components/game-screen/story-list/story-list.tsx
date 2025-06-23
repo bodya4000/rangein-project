@@ -1,9 +1,8 @@
 import React from 'react'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 
-import { useGameInfo } from '@/api/hooks'
 import { GradientText } from '@/components/ui'
-import { colors, getDeviceId, spacing, WINDOW_WIDTH } from '@/constants'
+import { colors, spacing, WINDOW_WIDTH } from '@/constants'
 
 import { styles } from './story-list.style'
 
@@ -21,24 +20,24 @@ export const TEMP_MESSAGES = [
 ]
 
 interface Props {
+  parts: string[]
   onScrollEndCb: (_: number) => void
 }
 
-const StoryList = React.forwardRef<FlatList, Props>(({ onScrollEndCb }, flatlistRef) => {
+const StoryList = React.forwardRef<FlatList, Props>(({ parts, onScrollEndCb }, flatlistRef) => {
   const onScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = e.nativeEvent.contentOffset.x
     const newIndex = Math.round(offsetX / CONTAINER_WIDTH)
     onScrollEndCb(newIndex)
   }
 
-  const { data } = useGameInfo({ userId: getDeviceId() })
-  if (!data) return null
+  if (!parts) return null
 
   return (
     <FlatList
       ref={flatlistRef}
       horizontal
-      data={data.story.parts}
+      data={parts}
       pagingEnabled
       showsHorizontalScrollIndicator={false}
       keyExtractor={(_, index) => index.toString()}

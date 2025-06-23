@@ -1,2 +1,2 @@
-export * from './game'
-export * from './user'
+export * from './game-service'
+export * from './user-service'

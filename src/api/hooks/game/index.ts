@@ -1,3 +1,2 @@
-export * from './use-game-info'
-export * from './use-game-messages'
+export * from './use-game-setup'
 export * from './use-send-message'

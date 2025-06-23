@@ -2,11 +2,12 @@ import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
-import { useGameInfo } from '@/api/hooks'
+import { useGameSetup } from '@/api/hooks/game/use-game-setup'
 import { StoryList, StoryPagination } from '@/components/game-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { GradientText, SecondaryButton, Touchable } from '@/components/ui'
-import { getDeviceId, globalStyles } from '@/constants'
+import { getDeviceId, globalStyles, QUERIES, queryClient } from '@/constants'
+import { logJson } from '@/utils'
 
 import { styles } from './game-screen.style'
 
@@ -17,16 +18,20 @@ const GameScreen = () => {
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
 
-  const { data } = useGameInfo({ userId: getDeviceId() })
-  if (!data) return null
+  const { data: gameInfo, isSuccess } = useGameSetup({ userId: getDeviceId() })
+  if (isSuccess) {
+    queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
+  }
+  logJson(gameInfo)
+  if (!gameInfo) return null
 
   const onArrowClick = (direction: 'prev' | 'next') => {
     setIsArrowDisabled(true)
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = currentPaginationItem
-    if (direction === 'next' && currentPaginationItem == data.story.parts.length - 1) {
+    if (direction === 'next' && currentPaginationItem == gameInfo.story.parts.length - 1) {
       router.replace('/chat')
-    } else if (direction === 'next' && currentPaginationItem < data.story.parts.length - 1) {
+    } else if (direction === 'next' && currentPaginationItem < gameInfo.story.parts.length - 1) {
       newIndex++
     } else if (direction === 'prev' && currentPaginationItem > 0) {
       newIndex--
@@ -42,13 +47,17 @@ const GameScreen = () => {
     <View style={styles.screen}>
       <View style={styles.textContainer}>
         <GradientText style={styles.title} txStyle='IR24'>
-          {data.story.title}
+          {gameInfo.story.title}
         </GradientText>
       </View>
 
       <View style={globalStyles.spacer} />
 
-      <StoryList ref={flatlistRef} onScrollEndCb={setCurrentPaginationItem} />
+      <StoryList
+        parts={gameInfo.story.parts}
+        ref={flatlistRef}
+        onScrollEndCb={setCurrentPaginationItem}
+      />
 
       <View style={styles.buttons_container}>
         <Touchable
@@ -58,7 +67,11 @@ const GameScreen = () => {
         >
           <ArrowLeft width={36} height={36} />
         </Touchable>
-        <SecondaryButton title='Continue' onPress={() => onArrowClick('next')} />
+        <SecondaryButton
+          title='Continue'
+          onPress={() => onArrowClick('next')}
+          disabled={isArrowDisabled}
+        />
         <Touchable
           style={styles.icon}
           onPress={() => onArrowClick('next')}
@@ -68,7 +81,7 @@ const GameScreen = () => {
         </Touchable>
       </View>
 
-      <StoryPagination parts={data.story.parts.length} currentIdx={currentPaginationItem} />
+      <StoryPagination parts={gameInfo.story.parts.length} currentIdx={currentPaginationItem} />
     </View>
   )
 }

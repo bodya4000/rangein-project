@@ -14,7 +14,9 @@ interface Props {
 export default function Header({ txTitle }: Props) {
   return (
     <View style={styles.container}>
-      <BackButton containerStyle={styles.back} />
+      <View style={styles.back}>
+        <BackButton containerStyle={styles.back} />
+      </View>
       <GradientText txStyle='IR16' tx={txTitle} style={styles.title} />
     </View>
   )

@@ -1,5 +1,6 @@
 import { BlurView } from 'expo-blur'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { StatusBar, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -18,8 +19,11 @@ const BLUR_INTENSITY = 75
 const BLUR_TINT = 'dark'
 
 export default function BluredHeader({ txTitle, title }: Props) {
+  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
   const headerHeight = (StatusBar.currentHeight ?? insets.top) + 80
+  const titleText = txTitle ? t(txTitle) : title
+  if (!titleText) return null
   return (
     <BlurView
       intensity={BLUR_INTENSITY}
@@ -30,8 +34,8 @@ export default function BluredHeader({ txTitle, title }: Props) {
         <View style={styles.back}>
           <BackButton containerStyle={styles.back} />
         </View>
-        <GradientText txStyle='IR16' tx={txTitle} style={styles.title}>
-          {title}
+        <GradientText txStyle={titleText.length > 4 ? 'IR14' : 'IR16'} style={styles.title}>
+          {titleText}
         </GradientText>
       </View>
     </BlurView>

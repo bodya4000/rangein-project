@@ -1,1 +1,1 @@
-export * from './use-user-info'
+export * from './use-get-user'

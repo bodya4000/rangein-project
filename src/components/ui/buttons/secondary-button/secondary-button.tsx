@@ -18,6 +18,7 @@ interface Props {
   height?: number
   containerStyle?: ViewStyle
   txStyle?: TextStyle
+  disabled?: boolean
 }
 
 export function SecondaryButton({
@@ -27,9 +28,10 @@ export function SecondaryButton({
   height = 80,
   containerStyle,
   txStyle,
+  disabled,
 }: Props) {
   return (
-    <Touchable onPress={onPress}>
+    <Touchable onPress={onPress} disabled={disabled}>
       <View style={[styles.container, { width, height }, containerStyle]}>
         <ImageBackground
           resizeMode='stretch'

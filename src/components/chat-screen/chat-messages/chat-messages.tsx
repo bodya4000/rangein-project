@@ -1,5 +1,6 @@
 import { FlatList, View } from 'react-native'
 
+import { GameRole } from '@/api'
 import { logJson } from '@/utils'
 
 import { styles } from './chat-messages.style'
@@ -25,7 +26,8 @@ const ChatMessages = ({ messagesData }: Props) => {
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
-          if (item.role == 'DETECTIVE_ASSISTANT_AI') return <ReceivedMessage text={item.message} />
+          if (item.role == GameRole.DETECTIVE_ASSISTANT_AI)
+            return <ReceivedMessage text={item.message} />
           return <SentMessage text={item.message} />
         }}
       />

@@ -1,4 +1,4 @@
-import { useGameInfo } from '@/api/hooks'
+import { useGameSetup } from '@/api/hooks'
 import { BluredHeader } from '@/components/ui'
 import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
 import { getDeviceId } from '@/constants'
@@ -7,8 +7,7 @@ import ChatScreen from '@/screens/chat-screen/chat-screen'
 import Background from '@assets/images/screens/screen_chat.png'
 
 export default function Chat() {
-  const { data: gameData } = useGameInfo({ userId: getDeviceId() })
-
+  const { data: gameData } = useGameSetup({ userId: getDeviceId() })
   if (!gameData) return null
 
   return (
