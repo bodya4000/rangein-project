@@ -10,10 +10,10 @@ interface Props {
   parts: number
 }
 
-const StoryPagination = ({ currentIdx }: Props) => {
+const StoryPagination = ({ currentIdx, parts }: Props) => {
   return (
     <View style={styles.paginationContainer}>
-      {Array.from({ length: 6 }).map((_, index) => {
+      {Array.from({ length: parts }).map((_, index) => {
         const gradientColors = currentIdx === index ? colors.gradientMetal4 : colors.gradientMetal1
         return (
           <LinearGradient

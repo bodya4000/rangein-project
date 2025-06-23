@@ -15,7 +15,6 @@ const BUTTON_DELAY = 500
 const GameScreen = () => {
   const flatlistRef = useRef<FlatList>(null)
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
-  const [flatlistIndex, setFlatlistIndex] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
 
   const { data } = useGameInfo({ userId: getDeviceId() })
@@ -24,41 +23,19 @@ const GameScreen = () => {
   const onArrowClick = (direction: 'prev' | 'next') => {
     setIsArrowDisabled(true)
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
-    let newIndex = flatlistIndex
-    if (direction === 'next' && flatlistIndex == data.story.parts.length - 1) {
+    let newIndex = currentPaginationItem
+    if (direction === 'next' && currentPaginationItem == data.story.parts.length - 1) {
       router.replace('/chat')
-    } else if (direction === 'next' && flatlistIndex < data.story.parts.length - 1) {
+    } else if (direction === 'next' && currentPaginationItem < data.story.parts.length - 1) {
       newIndex++
-    } else if (direction === 'prev' && flatlistIndex > 0) {
+    } else if (direction === 'prev' && currentPaginationItem > 0) {
       newIndex--
     }
     flatlistRef.current?.scrollToIndex({
       index: newIndex,
       animated: true,
     })
-    updatePagination(newIndex)
-    setFlatlistIndex(newIndex)
-  }
-
-  const updatePagination = (newIndex: number) => {
-    switch (newIndex) {
-      case 0:
-        setCurrentPaginationItem(0)
-        break
-      case 1:
-        setCurrentPaginationItem(1)
-        break
-      case data.story.parts.length - 2:
-        setCurrentPaginationItem(4)
-        break
-      case data.story.parts.length - 1:
-        setCurrentPaginationItem(5)
-        break
-      default:
-        const moreCloseToRight = newIndex > data.story.parts.length / 2
-        setCurrentPaginationItem(moreCloseToRight ? 3 : 2)
-        break
-    }
+    setCurrentPaginationItem(newIndex)
   }
 
   return (
@@ -71,7 +48,7 @@ const GameScreen = () => {
 
       <View style={globalStyles.spacer} />
 
-      <StoryList ref={flatlistRef} onScrollEndCb={updatePagination} />
+      <StoryList ref={flatlistRef} onScrollEndCb={setCurrentPaginationItem} />
 
       <View style={styles.buttons_container}>
         <Touchable
