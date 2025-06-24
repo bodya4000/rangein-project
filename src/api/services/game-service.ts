@@ -49,11 +49,11 @@ export type GameSetupResponse = {
   messageData: MessageData
 }
 
-const BASE_URL = API_URL + '/game'
+const BASE_URL = API_URL + '/games'
 
 class GameService {
   async setupGameForUser({ userId }: GameSetupRequest) {
-    return (await axios.post<GameSetupResponse>(`${BASE_URL}/user/${userId}`)).data
+    return (await axios.post<GameSetupResponse>(`${BASE_URL}/users/${userId}`)).data
   }
 
   async sendMessage({ gameId, message }: SendMessageRequest): Promise<GameMessage> {

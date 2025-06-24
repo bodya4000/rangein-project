@@ -10,7 +10,6 @@ import i18n from '@/i18n'
 
 export default function RootLayout() {
   const { ready } = useSetup()
-
   if (!ready) return null
   return (
     <QueryClientProvider client={queryClient}>

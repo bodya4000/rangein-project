@@ -17,7 +17,6 @@ const HomeScreen = () => {
   const deviceId = getDeviceId()
   const { data: userInfo } = useGetUser({ deviceId })
   logJson(userInfo)
-  if (!userInfo) return null
   return (
     <>
       <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />

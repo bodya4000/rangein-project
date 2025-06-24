@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
-import { spacing } from '@/constants/spacing'
 import { WINDOW_WIDTH } from '@/constants'
+import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
   row: {
@@ -18,6 +18,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
   },
   text: {
-    textAlign: 'right',
+    textAlign: 'left',
   },
 })

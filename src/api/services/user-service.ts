@@ -17,7 +17,7 @@ export type GetUserResponse = {
 
 class UserService {
   async getUserInfo({ deviceId }: GetUserRequest): Promise<GetUserResponse> {
-    return (await axios.post(`${API_URL}/user/${deviceId}`)).data
+    return (await axios.post(`${API_URL}/users/${deviceId}`)).data
   }
 }
 
