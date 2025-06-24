@@ -4,7 +4,6 @@ import { FlatList, KeyboardAvoidingView, View } from 'react-native'
 import { useGameSetup } from '@/api'
 import { ChatBottom, ChatMessages } from '@/components/chat-screen'
 import { getDeviceId, globalStyles, IS_IOS } from '@/constants'
-import { logJson } from '@/utils'
 
 const ChatScreen = () => {
   const flatlistRef = useRef<FlatList>(null)

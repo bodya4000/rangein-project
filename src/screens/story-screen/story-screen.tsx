@@ -3,17 +3,17 @@ import { useRef, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
-import { StoryList, StoryPagination } from '@/components/game-screen'
+import { StoryList, StoryPagination } from '@/components/story-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { GradientText, SecondaryButton, Touchable } from '@/components/ui'
 import { getDeviceId, globalStyles, QUERIES, queryClient } from '@/constants'
 import { logJson } from '@/utils'
 
-import { styles } from './game-screen.style'
+import { styles } from './story-screen.style'
 
 const BUTTON_DELAY = 500
 
-const GameScreen = () => {
+const StoryScreen = () => {
   const flatlistRef = useRef<FlatList>(null)
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
@@ -86,4 +86,4 @@ const GameScreen = () => {
   )
 }
 
-export default GameScreen
+export default StoryScreen
