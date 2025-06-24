@@ -4,6 +4,7 @@ import uuid from 'react-native-uuid'
 
 import { useSendMessage } from '@/api/hooks'
 import { QUERIES, queryClient } from '@/constants'
+import { useChatStore } from '@/store'
 
 export const useSendMessageFlow = ({
   gameId,
@@ -18,10 +19,12 @@ export const useSendMessageFlow = ({
   const [userTextInput, setUserTextInput] = useState('')
   const [showOptions, setShowOptions] = useState(false)
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
+  const setTyping = useChatStore(state => state.setTyping)
 
   const { mutate: sendMessage } = useSendMessage()
 
   const handleSendMessage = (message: string, onSuccess = () => {}) => {
+    setTyping(true)
     onNewMessage()
     if (!message.trim()) return
 
@@ -36,6 +39,7 @@ export const useSendMessageFlow = ({
       { gameId, message },
       {
         onSuccess: data => {
+          setTyping(false)
           onNewMessage()
           const newMessage = { messageId: data.messageId, message: data.message, role: data.role }
           setChatMessages(prev => [...prev, newMessage])
