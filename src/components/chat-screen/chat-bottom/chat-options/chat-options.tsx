@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { Cross } from '@/components/icons'
@@ -5,38 +6,32 @@ import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
 
 import { styles } from './chat-options.style'
 
-const optionsData = [
-  { id: 1, option: 'option', label: '"Option"' },
-  { id: 2, option: 'option', label: '"Option"' },
-  { id: 3, option: 'option', label: '"Option"' },
-  { id: 4, option: 'option', label: '"Option"' },
-  { id: 5, option: 'my_option', label: 'My Option' },
-]
-
 interface Props {
+  options: string[]
   onCrossPress: () => void
-  onAnyOptionClick: () => void
+  onAnyOptionClick: (_: string) => void
   onMyOptionClick: () => void
 }
 
-const ChatOptions = ({ onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
+const ChatOptions = ({ options, onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
+  const extendedOptions = useMemo(() => [...options, 'My option'], [options])
   return (
     <View style={styles.optionsContainer}>
       <Touchable onPress={onCrossPress}>
         <Cross style={styles.cross} />
       </Touchable>
       <FlatList
-        data={optionsData}
-        keyExtractor={({ id }) => id.toString()}
+        data={extendedOptions}
+        keyExtractor={item => item}
         scrollEnabled={false}
         renderItem={({ item }) => {
           return (
             <TouchableBlock
-              onPress={() => (item.option == 'my_option' ? onMyOptionClick() : onAnyOptionClick())}
+              onPress={() => (item == 'My option' ? onMyOptionClick() : onAnyOptionClick(item))}
               style={styles.option}
             >
               <View>
-                <GradientText>{item.label}</GradientText>
+                <GradientText>{item}</GradientText>
               </View>
             </TouchableBlock>
           )

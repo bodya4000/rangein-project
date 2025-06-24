@@ -1,75 +1,42 @@
-import { Dispatch, useRef, useState } from 'react'
-import { TextInput, View } from 'react-native'
+import { Dispatch } from 'react'
+import { View } from 'react-native'
 
-import { useSendMessage } from '@/api/hooks'
 import { Burger, Send } from '@/components/icons'
 import { Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
+import { useSendMessageFlow } from '@/hooks'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'
 import ChatOptions from './chat-options/chat-options'
 
 interface Props {
+  options: string[]
   gameId: string
   onNewMessage: () => void
   setChatMessages: Dispatch<any>
 }
 
-const ChatBottom = ({ gameId, setChatMessages, onNewMessage }: Props) => {
-  const sentMessagesCount = useRef<number>(0)
-  const inputRef = useRef<TextInput>(null)
-  const [userTextInput, setUserTextInput] = useState('')
-  const [showOptions, setShowOptions] = useState(false)
-  const [showMyOptionModal, setShowMyOptionModal] = useState(false)
-  const { mutate: sendMessage } = useSendMessage()
-
-  const onBurgerPress = () => {
-    if (inputRef.current) {
-      inputRef.current.blur()
-    }
-    setShowOptions(true)
-  }
-
-  const onCrossPress = () => {
-    setShowOptions(false)
-  }
-
-  const onAnyOptionClick = () => {
-    setShowMyOptionModal(true)
-  }
-
-  const onMyOptionClick = () => {
-    setShowOptions(false)
-    setShowMyOptionModal(true)
-  }
-
-  const onMessageSend = () => {
-    setUserTextInput('')
-    onNewMessage()
-    setChatMessages(prevData => [
-      ...prevData,
-      { messageId: sentMessagesCount.current++, message: userTextInput },
-    ])
-
-    sendMessage(
-      { gameId, message: userTextInput },
-      {
-        onSuccess: data => {
-          onNewMessage()
-          setChatMessages(prevData => [
-            ...prevData,
-            { messageId: data.messageId, message: data.message, role: data.role },
-          ])
-        },
-      },
-    )
-  }
+const ChatBottom = ({ options, gameId, setChatMessages, onNewMessage }: Props) => {
+  const {
+    inputRef,
+    userTextInput,
+    setUserTextInput,
+    showOptions,
+    showMyOptionModal,
+    setShowMyOptionModal,
+    onBurgerPress,
+    onCrossPress,
+    onAnyOptionClick,
+    onMyOptionClick,
+    onMessageSend,
+  } = useSendMessageFlow({ gameId, setChatMessages, onNewMessage })
   return (
     <>
       {showOptions ? (
         <View style={styles.optionsContainer}>
           <ChatOptions
+            options={options}
             onAnyOptionClick={onAnyOptionClick}
             onCrossPress={onCrossPress}
             onMyOptionClick={onMyOptionClick}

@@ -47,6 +47,7 @@ export type GameSetupResponse = {
   gameId: string
   story: GameStory
   messageData: MessageData
+  options: string[]
 }
 
 const BASE_URL = API_URL + '/games'

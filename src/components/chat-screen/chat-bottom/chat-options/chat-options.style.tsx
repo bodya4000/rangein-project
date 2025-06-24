@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   option: {
-    height: 65,
+    padding: 4,
+    minHeight: 65,
     justifyContent: 'center',
     alignItems: 'center',
   },
