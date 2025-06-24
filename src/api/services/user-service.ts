@@ -1,6 +1,6 @@
-import axios from 'axios'
-
 import { API_URL } from '@/constants'
+
+import { api } from './api'
 
 export type GetUserRequest = {
   deviceId: string
@@ -17,7 +17,7 @@ export type GetUserResponse = {
 
 class UserService {
   async getUserInfo({ deviceId }: GetUserRequest): Promise<GetUserResponse> {
-    return (await axios.post(`${API_URL}/users/${deviceId}`)).data
+    return (await api.post(`${API_URL}/users/${deviceId}`)).data
   }
 }
 

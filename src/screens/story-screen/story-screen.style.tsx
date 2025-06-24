@@ -1,9 +1,17 @@
 import { StyleSheet } from 'react-native'
 
+import { colors } from '@/constants'
 import { spacing } from '@/constants/spacing'
 import { scaleFont } from '@/utils'
 
 export const styles = StyleSheet.create({
+  aiContainer: {
+    backgroundColor: colors.black,
+    opacity: 0.5,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   screen: {
     flex: 1,
     gap: spacing.md,

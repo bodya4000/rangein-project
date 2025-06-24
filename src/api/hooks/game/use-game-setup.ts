@@ -7,5 +7,8 @@ export const useGameSetup = ({ userId }: GameSetupRequest) => {
   return useQuery({
     queryFn: () => gameService.setupGameForUser({ userId }),
     queryKey: [QUERIES.GAME],
+    retry: 1,
+    staleTime: 0,
+    refetchOnWindowFocus: false,
   })
 }

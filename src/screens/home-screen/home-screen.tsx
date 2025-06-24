@@ -26,7 +26,7 @@ const HomeScreen = () => {
           <Profile />
         </PrimaryButton>
         <PrimaryButton
-          onPress={() => router.push('/game')}
+          onPress={() => router.push('/story')}
           style={styles.button_top}
           sizeType='big'
         >

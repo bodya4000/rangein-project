@@ -1,5 +1,5 @@
 import { BlurView } from 'expo-blur'
-import React, { JSX } from 'react'
+import React from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
 import { globalStyles } from '@/constants/global-styles'
@@ -44,7 +44,6 @@ export default function GameModal({
   return (
     <Modal
       transparent={true}
-      style={{ backgroundColor: 'red' }}
       visible={visible}
       animationType='fade'
       onRequestClose={onClose}

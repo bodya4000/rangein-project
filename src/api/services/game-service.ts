@@ -1,6 +1,6 @@
-import axios from 'axios'
-
 import { API_URL } from '@/constants'
+
+import { api } from './api'
 
 export enum GameRole {
   SYSTEM_BACKEND = 'SYSTEM_BACKEND',
@@ -54,11 +54,11 @@ const BASE_URL = API_URL + '/games'
 
 class GameService {
   async setupGameForUser({ userId }: GameSetupRequest) {
-    return (await axios.post<GameSetupResponse>(`${BASE_URL}/users/${userId}`)).data
+    return (await api.post<GameSetupResponse>(`${BASE_URL}/users/${userId}`)).data
   }
 
   async sendMessage({ gameId, message }: SendMessageRequest): Promise<GameMessage> {
-    return (await axios.post<SendMessageResponse>(`${BASE_URL}/messages`, { gameId, message })).data
+    return (await api.post<SendMessageResponse>(`${BASE_URL}/messages`, { gameId, message })).data
   }
 }
 

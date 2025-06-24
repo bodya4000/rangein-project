@@ -3,7 +3,7 @@ import StoryScreen from '@/screens/story-screen/story-screen'
 
 import Background from '@assets/images/screens/screen_game.png'
 
-export default function Home() {
+export default function Story() {
   return (
     <ScreenContainer background={Background}>
       <StoryScreen />
