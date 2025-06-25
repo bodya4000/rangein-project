@@ -2,24 +2,24 @@ import { useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import uuid from 'react-native-uuid'
 
+import { GameMessage, GameRole } from '@/api'
 import { useSendMessage } from '@/api/hooks'
 import { QUERIES, queryClient } from '@/constants'
 import { useChatStore } from '@/store'
 
 export const useSendMessageFlow = ({
   gameId,
-  onNewMessage,
-  setChatMessages,
+  onNewMessage = () => {},
 }: {
   gameId: string
-  onNewMessage: () => void
-  setChatMessages: React.Dispatch<React.SetStateAction<any[]>>
+  onNewMessage?: () => void
 }) => {
   const inputRef = useRef<TextInput>(null)
   const [userTextInput, setUserTextInput] = useState('')
   const [showOptions, setShowOptions] = useState(false)
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
   const setTyping = useChatStore(state => state.setTyping)
+  const addMessage = useChatStore(state => state.addMessage)
 
   const { mutate: sendMessage } = useSendMessage()
 
@@ -29,9 +29,8 @@ export const useSendMessageFlow = ({
     if (!message.trim()) return
 
     const tempId = uuid.v4()
-    const newMessage = { messageId: tempId, message }
-
-    setChatMessages(prev => [...prev, newMessage])
+    const newMessage: GameMessage = { messageId: tempId, message, role: GameRole.DETECTIVE_USER }
+    addMessage(newMessage)
 
     inputRef.current?.blur()
 
@@ -41,8 +40,12 @@ export const useSendMessageFlow = ({
         onSuccess: data => {
           setTyping(false)
           onNewMessage()
-          const newMessage = { messageId: data.messageId, message: data.message, role: data.role }
-          setChatMessages(prev => [...prev, newMessage])
+          const newMessage: GameMessage = {
+            messageId: data.messageId,
+            message: data.message,
+            role: data.role,
+          }
+          addMessage(newMessage)
           onSuccess()
           queryClient.invalidateQueries({ queryKey: [QUERIES.GAME] })
         },

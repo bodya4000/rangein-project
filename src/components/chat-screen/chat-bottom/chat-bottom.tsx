@@ -13,11 +13,9 @@ import ChatOptions from './chat-options/chat-options'
 interface Props {
   options: string[]
   gameId: string
-  onNewMessage: () => void
-  setChatMessages: Dispatch<any>
 }
 
-const ChatBottom = ({ options, gameId, setChatMessages, onNewMessage }: Props) => {
+const ChatBottom = ({ options, gameId }: Props) => {
   const {
     inputRef,
     userTextInput,
@@ -30,7 +28,7 @@ const ChatBottom = ({ options, gameId, setChatMessages, onNewMessage }: Props) =
     onAnyOptionClick,
     onMyOptionClick,
     onMessageSend,
-  } = useSendMessageFlow({ gameId, setChatMessages, onNewMessage })
+  } = useSendMessageFlow({ gameId })
   return (
     <>
       {showOptions ? (

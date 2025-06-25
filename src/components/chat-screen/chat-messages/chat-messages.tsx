@@ -1,4 +1,6 @@
-import { forwardRef, useMemo } from 'react'
+import { log } from 'console'
+
+import { forwardRef, useEffect, useMemo } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, GameRole } from '@/api'
@@ -21,13 +23,22 @@ const loadingMessage: GameMessage = {
 const ChatMessages = forwardRef<FlatList<GameMessage>, Props>(({ messagesData }, ref) => {
   const typing = useChatStore(state => state.typing)
   const messageList = useMemo(
-    () => (typing ? [...messagesData, loadingMessage] : messagesData),
+    () => (typing ? [loadingMessage, ...messagesData] : messagesData),
     [messagesData, typing],
   )
+
+  useEffect(() => {
+    if (ref && typeof ref !== 'function' && ref.current) {
+      setTimeout(() => {
+        ref.current?.scrollToOffset({ offset: 0, animated: true })
+      }, 400)
+    }
+  }, [messagesData])
   return (
     <View style={styles.messagesContainer}>
       <FlatList
         ref={ref}
+        inverted
         data={messageList}
         bounces={true}
         contentContainerStyle={styles.messageListContainer}

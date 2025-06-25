@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 
+import { useGameSetup } from '@/api'
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
+import { getDeviceId } from '@/constants'
+import { useSendMessageFlow } from '@/hooks'
+import { useChatStore } from '@/store'
 
 import { styles } from './chat-modal.style'
 
@@ -13,6 +17,14 @@ interface Props {
 
 const ChatModal = ({ onClose }: Props) => {
   const [text, setText] = useState('')
+  const { data: gameData } = useGameSetup({ userId: getDeviceId() })
+  const {} = useSendMessageFlow({ gameId: gameData?.gameId ?? '' })
+  const setUserOption = useChatStore(state => state.setUserOption)
+
+  const onMyOptionSend = () => {
+    if (text) {
+    }
+  }
   return (
     <GameModal
       onClose={onClose}

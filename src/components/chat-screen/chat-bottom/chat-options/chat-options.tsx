@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native'
 
 import { Cross } from '@/components/icons'
 import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
+import { useChatStore } from '@/store'
 
 import { styles } from './chat-options.style'
 
@@ -14,7 +15,19 @@ interface Props {
 }
 
 const ChatOptions = ({ options, onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
-  const extendedOptions = useMemo(() => [...options, 'My option'], [options])
+  const userOption = useChatStore(state => state.userOption)
+  const extendedOptions = useMemo(() => {
+    if (userOption) return [...options, userOption, 'My option']
+    return [...options, 'My option']
+  }, [options, userOption])
+
+  const onBlockPress = (option: string) => {
+    if (option == 'My Option') {
+      onMyOptionClick()
+    } else {
+      onAnyOptionClick(option)
+    }
+  }
   return (
     <View style={styles.optionsContainer}>
       <Touchable onPress={onCrossPress}>
@@ -26,10 +39,7 @@ const ChatOptions = ({ options, onCrossPress, onMyOptionClick, onAnyOptionClick 
         scrollEnabled={false}
         renderItem={({ item }) => {
           return (
-            <TouchableBlock
-              onPress={() => (item == 'My option' ? onMyOptionClick() : onAnyOptionClick(item))}
-              style={styles.option}
-            >
+            <TouchableBlock onPress={() => onBlockPress(item)} style={styles.option}>
               <View>
                 <GradientText>{item}</GradientText>
               </View>
