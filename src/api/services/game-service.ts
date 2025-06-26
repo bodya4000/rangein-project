@@ -41,7 +41,9 @@ export type SendMessageRequest = {
   message: string
 }
 
-export type SendMessageResponse = GameMessage
+export type SendMessageResponse = GameMessage & {
+  options: string[]
+}
 
 export type GameSetupResponse = {
   gameId: string
@@ -57,7 +59,7 @@ class GameService {
     return (await api.post<GameSetupResponse>(`${BASE_URL}/users/${userId}`)).data
   }
 
-  async sendMessage({ gameId, message }: SendMessageRequest): Promise<GameMessage> {
+  async sendMessage({ gameId, message }: SendMessageRequest): Promise<SendMessageResponse> {
     return (await api.post<SendMessageResponse>(`${BASE_URL}/messages`, { gameId, message })).data
   }
 }

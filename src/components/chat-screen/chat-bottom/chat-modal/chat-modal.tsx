@@ -1,43 +1,80 @@
-import { useState } from 'react'
-import { View } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import { View, TextInput } from 'react-native'
 
-import { useGameSetup } from '@/api'
+import { GameMessage, useGameSetup, useSendMessage } from '@/api'
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
 import { getDeviceId } from '@/constants'
-import { useSendMessageFlow } from '@/hooks'
 import { useChatStore } from '@/store'
+import { isStringEmpty, newUserMessage } from '@/utils'
 
 import { styles } from './chat-modal.style'
 
 interface Props {
-  onClose?: () => void
+  onClose: () => void
 }
 
 const ChatModal = ({ onClose }: Props) => {
+  const textRef = useRef<TextInput | null>(null)
   const [text, setText] = useState('')
+  const [openModal, setOpenModal] = useState(true)
   const { data: gameData } = useGameSetup({ userId: getDeviceId() })
-  const {} = useSendMessageFlow({ gameId: gameData?.gameId ?? '' })
+  const { mutate: sendMessage } = useSendMessage()
+
   const setUserOption = useChatStore(state => state.setUserOption)
+  const setTyping = useChatStore(state => state.setTyping)
+  const addMessage = useChatStore(state => state.addMessage)
+
+  const onSuccessMessageSend = (message: GameMessage) => {
+    setTyping(false)
+    addMessage(message)
+    setUserOption(text)
+    setText('')
+    onClose()
+  }
 
   const onMyOptionSend = () => {
-    if (text) {
+    if (gameData?.gameId) {
+      setTyping(true)
+      const newMessage = newUserMessage(text)
+      addMessage(newMessage)
+      sendMessage(
+        { gameId: gameData.gameId, message: text },
+        {
+          onSuccess: onSuccessMessageSend,
+          onError: err => {
+            console.log('SEND ERROR:', err)
+            onClose()
+          },
+        },
+      )
+      setOpenModal(false)
     }
   }
+
+  useEffect(() => {
+    if (textRef.current) {
+      textRef.current.focus()
+    }
+  }, [textRef])
   return (
-    <GameModal
-      onClose={onClose}
-      renderHeader={() => <GradientText>Enter your answer</GradientText>}
-      renderBody={() => (
-        <View style={styles.view}>
-          <ChatInput value={text} onChangeText={setText} />
-          <Touchable>
-            <Send width={42} height={42} />
-          </Touchable>
-        </View>
+    <View>
+      {openModal && (
+        <GameModal
+          onClose={onClose}
+          renderHeader={() => <GradientText>Enter your answer</GradientText>}
+          renderBody={() => (
+            <View style={styles.view}>
+              <ChatInput ref={textRef} value={text} onChangeText={setText} />
+              <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
+                <Send width={42} height={42} />
+              </Touchable>
+            </View>
+          )}
+        />
       )}
-    />
+    </View>
   )
 }
 

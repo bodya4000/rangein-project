@@ -8,21 +8,22 @@ import { useChatStore } from '@/store'
 import { styles } from './chat-options.style'
 
 interface Props {
-  options: string[]
   onCrossPress: () => void
   onAnyOptionClick: (_: string) => void
   onMyOptionClick: () => void
 }
 
-const ChatOptions = ({ options, onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
+const ChatOptions = ({ onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
+  const options = useChatStore(state => state.options)
   const userOption = useChatStore(state => state.userOption)
-  const extendedOptions = useMemo(() => {
-    if (userOption) return [...options, userOption, 'My option']
-    return [...options, 'My option']
+  const extendedOptions: string[] = useMemo(() => {
+    if (!options && !userOption) return ['My option']
+    if (!options && userOption) return [userOption, 'My option']
+    return [...options, userOption, 'My option'].filter((opt): opt is string => opt !== null)
   }, [options, userOption])
 
   const onBlockPress = (option: string) => {
-    if (option == 'My Option') {
+    if (option.toLocaleLowerCase() == 'my option') {
       onMyOptionClick()
     } else {
       onAnyOptionClick(option)

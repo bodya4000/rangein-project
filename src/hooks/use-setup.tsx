@@ -7,26 +7,27 @@ import { storage } from '@/store'
 
 export const useSetup = () => {
   const [ready, setReady] = useState(false)
-
   const [fontsLoaded] = useFonts({
     'Quintessential-Regular': require('@assets/fonts/Quintessential-Regular.ttf'),
   })
 
   useEffect(() => {
-    const initialize = async () => {
+    const initDeviceId = async () => {
       let deviceId = storage.getItem(STORAGE_KEYS.DEVICE_ID)
       if (!deviceId) {
         deviceId = await DeviceInfo.getUniqueId()
         storage.setItem(STORAGE_KEYS.DEVICE_ID, deviceId)
       }
-      if (fontsLoaded) {
-        setReady(true)
-      }
     }
-    initialize()
+
+    initDeviceId()
+  }, [])
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      setReady(true)
+    }
   }, [fontsLoaded])
 
-  return {
-    ready,
-  }
+  return { ready }
 }

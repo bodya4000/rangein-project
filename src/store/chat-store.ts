@@ -9,12 +9,15 @@ interface ChatStore {
   typing: boolean
   setTyping: (_: boolean) => void
 
+  userOption: string | null
+  setUserOption: (_: string) => void
+
   messages: GameMessage[]
   setMessages: (_: GameMessage[]) => void
   addMessage: (_: GameMessage) => void
 
-  userOption: string | null
-  setUserOption: (_: string) => void
+  options: string[]
+  setOptions: (_: string[]) => void
 }
 
 export const useChatStore = create<ChatStore>()(
@@ -29,6 +32,9 @@ export const useChatStore = create<ChatStore>()(
 
       userOption: null,
       setUserOption: value => set({ userOption: value }),
+
+      options: [],
+      setOptions: options => set({ options }),
     }),
     {
       name: 'chat-store',

@@ -1,18 +1,13 @@
-import { log } from 'console'
-
-import { forwardRef, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
-import { GameMessage, GameRole } from '@/api'
+import { GameMessage, GameRole, useGameSetup } from '@/api'
+import { getDeviceId } from '@/constants'
 import { useChatStore } from '@/store'
 
 import { styles } from './chat-messages.style'
 import { ReceivedMessage } from './received-message/received-message'
 import { SentMessage } from './sent-message/sent-message'
-
-interface Props {
-  messagesData: GameMessage[]
-}
 
 const loadingMessage: GameMessage = {
   message: '',
@@ -20,40 +15,55 @@ const loadingMessage: GameMessage = {
   role: GameRole.DETECTIVE_ASSISTANT_AI,
 }
 
-const ChatMessages = forwardRef<FlatList<GameMessage>, Props>(({ messagesData }, ref) => {
+const ChatMessages = () => {
   const typing = useChatStore(state => state.typing)
+  const messages = useChatStore(state => state.messages)
+  const setMessages = useChatStore(state => state.setMessages)
+  const { data: gameData } = useGameSetup({ userId: getDeviceId() })
   const messageList = useMemo(
-    () => (typing ? [loadingMessage, ...messagesData] : messagesData),
-    [messagesData, typing],
+    () => (typing ? [loadingMessage, ...messages] : messages),
+    [messages, typing],
   )
-
   useEffect(() => {
-    if (ref && typeof ref !== 'function' && ref.current) {
+    if (gameData) {
+      setMessages(gameData.messageData.messages)
+    }
+  }, [gameData])
+
+  /**
+   * Auto bottom scroll
+   */
+  const flatlistRef = useRef<FlatList>(null)
+  useEffect(() => {
+    if (flatlistRef.current) {
       setTimeout(() => {
-        ref.current?.scrollToOffset({ offset: 0, animated: true })
+        flatlistRef.current?.scrollToOffset({ offset: 0, animated: true })
       }, 400)
     }
-  }, [messagesData])
+  }, [messages])
+
   return (
     <View style={styles.messagesContainer}>
       <FlatList
-        ref={ref}
+        ref={flatlistRef}
         inverted
         data={messageList}
-        bounces={true}
+        bounces
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
-          if (item.messageId == '-1') return <ReceivedMessage typing={true} />
-          if (item.role === GameRole.DETECTIVE_ASSISTANT_AI)
-            return <ReceivedMessage text={item.message} />
-          else return <SentMessage text={item.message} />
+          if (item.messageId === '-1') {
+            return <ReceivedMessage typing />
+          }
+          return item.role === GameRole.DETECTIVE_ASSISTANT_AI ? (
+            <ReceivedMessage text={item.message} />
+          ) : (
+            <SentMessage text={item.message} />
+          )
         }}
       />
     </View>
   )
-})
-
-ChatMessages.displayName = 'ChatMessages'
+}
 
 export default ChatMessages
