@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, GameRole, useGameSetup } from '@/api'
-import { getDeviceId } from '@/constants'
+import { getDeviceId, globalStyles } from '@/constants'
 import { useChatStore } from '@/store'
 
 import { styles } from './chat-messages.style'
@@ -44,6 +44,7 @@ const ChatMessages = () => {
 
   return (
     <View style={styles.messagesContainer}>
+      <View style={globalStyles.spacer} />
       <FlatList
         ref={flatlistRef}
         inverted

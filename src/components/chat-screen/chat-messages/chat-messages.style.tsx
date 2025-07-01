@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
   },
 
   messageListContainer: {
-    flexGrow: 1,
     paddingBottom: HEADER_HEIGHT + spacing['2xl'], // actually it's top padding, as flatlist is inverted
     gap: spacing['2xl'],
     justifyContent: 'flex-end',
