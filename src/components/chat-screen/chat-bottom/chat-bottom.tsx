@@ -1,19 +1,21 @@
+import { useRouter } from 'expo-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 
-import { GameMessage, GameRole, useGameSetup, useSendMessage } from '@/api'
+import { GameMessage, GameResult, GameRole, useGameSetup, useSendMessage } from '@/api'
 import { Burger, Send } from '@/components/icons'
-import { Touchable } from '@/components/ui'
+import { ResultModal, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
 import { getDeviceId } from '@/constants'
 import { useChatStore } from '@/store'
-import { isStringEmpty, newId } from '@/utils'
+import { isStringEmpty, logJson, newId } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'
 import ChatOptions from './chat-options/chat-options'
 
 const ChatBottom = () => {
+  const router = useRouter()
   const deviceId = useMemo(getDeviceId, [])
   const { data: gameData } = useGameSetup({ userId: deviceId })
 
@@ -21,6 +23,7 @@ const ChatBottom = () => {
   const [userTextInput, setUserTextInput] = useState('')
   const [showOptions, setShowOptions] = useState(false)
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
+  const [gameResult, setGameResult] = useState<GameResult | null>(null)
 
   const setTyping = useChatStore(state => state.setTyping)
   const addMessage = useChatStore(state => state.addMessage)
@@ -52,10 +55,14 @@ const ChatBottom = () => {
     sendMessage(
       { gameId, message },
       {
-        onSuccess: receivedMessage => {
+        onSuccess: (receivedMessage: any) => {
+          console.log('receivedMessage:', logJson(receivedMessage))
           setTyping(false)
           addMessage(receivedMessage)
           setOptions(receivedMessage.options)
+          if (receivedMessage.finished) {
+            setGameResult(receivedMessage.score)
+          }
         },
       },
     )
@@ -104,7 +111,7 @@ const ChatBottom = () => {
           </Touchable>
         </View>
       )}
-
+      {gameResult && <ResultModal stars={gameResult} onClose={() => router.replace('/')} />}
       {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
     </>
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
+import { GameResult } from '@/api'
 import { BronzeStar, GoldStar } from '@/components/icons'
 import { SilverStar } from '@/components/icons/silver-star'
 
@@ -16,7 +17,7 @@ interface Props {
 
 interface StarProps {
   id: number
-  stars?: 0 | 1 | 2 | 3
+  stars?: GameResult
 }
 
 const Star = ({ stars = 0, id }: StarProps) => {

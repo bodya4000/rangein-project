@@ -52,6 +52,8 @@ export type GameSetupResponse = {
   options: string[]
 }
 
+export type GameResult = 0 | 1 | 2 | 3
+
 const BASE_URL = API_URL + '/games'
 
 class GameService {
