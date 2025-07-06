@@ -10,5 +10,8 @@
     "female": "Female",
     "years": "years",
     "changeLanguage": "Change language"
+  },
+  "userDataQuestioner": {
+    "title": "Tell us a bit about yourself"
   }
 }

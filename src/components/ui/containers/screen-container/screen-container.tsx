@@ -9,11 +9,11 @@ import {
   ViewStyle,
 } from 'react-native'
 
+import { spacing, WINDOW_WIDTH } from '@/constants'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
-import { spacing, WINDOW_WIDTH } from '@/constants'
 
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 
@@ -22,9 +22,22 @@ interface Props {
   background?: number
   animated?: boolean
   style?: ViewStyle
+  padding?: 'sm' | 'md' | 'lg'
 }
 
-export default function ScreenContainer({ animated = false, background, children, style }: Props) {
+const PADDING_MAP = {
+  sm: 6,
+  md: 16,
+  lg: 24,
+}
+
+export default function ScreenContainer({
+  animated = false,
+  background,
+  children,
+  style,
+  padding = 'sm',
+}: Props) {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
 
@@ -57,7 +70,7 @@ export default function ScreenContainer({ animated = false, background, children
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, style]}>{children}</View>
+          <View style={[styles.content, style, { padding: PADDING_MAP[padding] }]}>{children}</View>
         </SafeAreaView>
       </ImageBackground>
     )
@@ -126,6 +139,5 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: spacing.md,
   },
 })
