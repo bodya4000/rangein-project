@@ -1,11 +1,13 @@
-import { useRef, useState } from 'react'
+import { useRouter } from 'expo-router'
+import { use, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
-import { globalStyles } from '@/constants'
+import { getDeviceId, globalStyles } from '@/constants'
+import { useAuthStore } from '@/store'
 import { Sex } from '@/types'
 import { logJson } from '@/utils'
 
@@ -24,9 +26,15 @@ const initForm: RegisterForm = {
 }
 
 const Register = () => {
+  const router = useRouter()
   const stepperRef = useRef<RegisterStepperRef>(null)
   const [stepIndex, setStepIndex] = useState(0)
   const { control, handleSubmit, trigger } = useForm<RegisterForm>({ defaultValues: initForm })
+
+  const register = useAuthStore(state => state.register)
+  const user = useAuthStore(state => state.user)
+  const authError = useAuthStore(state => state.error)
+  const authLoading = useAuthStore(state => state.authLoading)
 
   const onNext = async () => {
     let valid = true
@@ -42,9 +50,17 @@ const Register = () => {
     }
   }
 
-  const onSubmit = (data: RegisterForm) => {
-    logJson(data)
+  const onSubmit = ({ age, sex, username }: RegisterForm) => {
+    if (age && sex && username) {
+      register({ age, sex, username, deviceId: getDeviceId() })
+    }
   }
+
+  useEffect(() => {
+    if (user) {
+      router.replace('/home')
+    }
+  }, [user])
 
   return (
     <View style={globalStyles.spacer}>

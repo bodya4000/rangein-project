@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (ready) {
-      router.replace('/(auth)')
+      // router.replace('/(auth)')
     }
   }, [ready])
 
@@ -26,6 +26,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen options={{ headerShown: false }} name='(auth)' />
           <Stack.Screen options={{ headerShown: false }} name='index' />
+          <Stack.Screen options={{ headerShown: false }} name='home' />
           <Stack.Screen options={{ headerShown: false }} name='profile' />
           <Stack.Screen options={{ headerShown: false }} name='story' />
           <Stack.Screen options={{ headerShown: false }} name='chat' />
