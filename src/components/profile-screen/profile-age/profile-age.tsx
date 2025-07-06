@@ -7,9 +7,13 @@ import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
 
 import { styles } from './profile-screen.style'
 
-export const ProfileAge = () => {
+interface Props {
+  age: number
+  setAge: (_: number) => void
+}
+
+export const ProfileAge = ({ age, setAge }: Props) => {
   const { t } = useTranslation()
-  const [age, setAge] = useState(0)
   const increaseAge = () => {
     setAge(age + 1)
   }

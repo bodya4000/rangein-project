@@ -13,8 +13,12 @@ interface Dimensions {
   height: number | 'auto'
 }
 
-export const ProfileSex = () => {
-  const [isMale, setIsMale] = useState(false)
+interface Props {
+  isMale: boolean
+  setIsMale: (_: boolean) => void
+}
+
+export const ProfileSex = ({ isMale, setIsMale }: Props) => {
   const [dimensions, setDimensions] = useState<Dimensions>({ width: 'auto', height: 'auto' })
 
   const handleLayout = (event: LayoutChangeEvent) => {
@@ -25,7 +29,7 @@ export const ProfileSex = () => {
   }
 
   const toggleSex = () => {
-    setIsMale(prev => !prev)
+    setIsMale(!isMale)
   }
 
   const computedButtonStyle =
