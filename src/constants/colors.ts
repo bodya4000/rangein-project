@@ -40,6 +40,7 @@ export const colors = {
   ],
 
   light_dark: ['#2B2B2B', '#1D1D1D'],
+  red: '#B00020',
 }
 
 export const imageColors = {

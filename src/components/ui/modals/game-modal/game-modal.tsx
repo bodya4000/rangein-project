@@ -53,11 +53,11 @@ export default function GameModal({
         <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
-            <View style={styles.view}>
+            <Pressable style={styles.view}>
               {renderHeader && renderHeader?.()}
               {renderBody && renderBody?.()}
               {renderFooter && renderFooter?.()}
-            </View>
+            </Pressable>
           </View>
         </BlurView>
       </Pressable>

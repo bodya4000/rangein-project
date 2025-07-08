@@ -22,7 +22,7 @@ const ProfileScreen = () => {
     }),
     [user],
   )
-  const { control, watch, handleSubmit } = useForm<UpdateUserData>({ defaultValues })
+  const { control, watch, handleSubmit, trigger } = useForm<UpdateUserData>({ defaultValues })
   const isChanged = JSON.stringify(watch()) !== JSON.stringify(defaultValues)
 
   const { mutate: updateUser } = useUpdateUser()
@@ -41,7 +41,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      <ProfileUsername control={control} username={user?.username} />
+      <ProfileUsername control={control} username={user?.username} trigger={trigger} />
       <ProfileSex control={control} />
       <ProfileAge control={control} />
       <LangContainer />
