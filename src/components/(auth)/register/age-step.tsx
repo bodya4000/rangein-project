@@ -2,6 +2,7 @@ import { Control, Controller } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 import { ProfileAge } from '@/components/profile-screen'
+import { AgeContainer } from '@/components/ui/containers/age-container/age-container'
 import { RegisterForm } from '@/screens/auth'
 
 interface Props {
@@ -22,7 +23,7 @@ export const AgeStep = ({ control }: Props) => {
       }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <View>
-          <ProfileAge age={value || 0} setAge={onChange} />
+          <AgeContainer age={value || 0} setAge={onChange} />
           {error && (
             <Text style={{ color: 'red', marginTop: 8 }}>{error.message || 'Invalid age'}</Text>
           )}

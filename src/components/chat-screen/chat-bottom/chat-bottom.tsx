@@ -7,7 +7,7 @@ import { Burger, Send } from '@/components/icons'
 import { ResultModal, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
 import { getDeviceId } from '@/constants'
-import { useChatStore } from '@/store'
+import { useAuthStore, useChatStore } from '@/store'
 import { isStringEmpty, logJson, newUserMessage } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
@@ -25,8 +25,11 @@ const ChatBottom = () => {
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
   const [gameResult, setGameResult] = useState<{ message: string; score: GameResult } | null>(null)
 
+  const user = useAuthStore(state => state.user)
+  const typing = useChatStore(state => state.typing)
   const setTyping = useChatStore(state => state.setTyping)
   const addMessage = useChatStore(state => state.addMessage)
+  const setNewMessages = useChatStore(state => state.setNewMessages)
   const setOptions = useChatStore(state => state.setOptions)
 
   const { mutate: sendMessage } = useSendMessage()
@@ -43,17 +46,18 @@ const ChatBottom = () => {
   const handleSendMessage = (message: string) => {
     if (isStringEmpty(message)) return
     setTyping(true)
-    const newMessage = newUserMessage(message)
+    const newMessage = newUserMessage(message,user?.username)
     addMessage(newMessage)
     inputRef.current?.blur()
     sendMessage(
       { gameId, message },
       {
         onSuccess: (response: SendMessageResponse) => {
-          logJson(response)
-          for (let msg of response.messages) {
-            addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
-          }
+          // logJson(response)
+          // for (let msg of response.messages) {
+          //   addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
+          // }
+          setNewMessages(response.messages)
           setTyping(false)
           setOptions(response.options)
           if (response.finished) {
@@ -87,33 +91,34 @@ const ChatBottom = () => {
     setShowOptions(true)
   }
 
-  return (
-    <>
-      {showOptions ? (
-        <View style={styles.optionsContainer}>
-          <ChatOptions
-            onAnyOptionClick={onAnyOptionClick}
-            onCrossPress={() => setShowOptions(false)}
-            onMyOptionClick={onMyOptionClick}
-          />
-        </View>
-      ) : (
-        <View style={styles.bottom}>
-          <Touchable onPress={onBurgerPress}>
-            <Burger />
-          </Touchable>
+  if (!typing)
+    return (
+      <>
+        {showOptions ? (
+          <View style={styles.optionsContainer}>
+            <ChatOptions
+              onAnyOptionClick={onAnyOptionClick}
+              onCrossPress={() => setShowOptions(false)}
+              onMyOptionClick={onMyOptionClick}
+            />
+          </View>
+        ) : (
+          <View style={styles.bottom}>
+            <Touchable onPress={onBurgerPress}>
+              <Burger />
+            </Touchable>
 
-          <ChatInput ref={inputRef} value={userTextInput} onChangeText={setUserTextInput} />
+            <ChatInput ref={inputRef} value={userTextInput} onChangeText={setUserTextInput} />
 
-          <Touchable onPress={onMessageSend} disabled={isStringEmpty(userTextInput)}>
-            <Send />
-          </Touchable>
-        </View>
-      )}
-      {gameResult && <ResultModal stars={gameResult.score} onClose={() => router.replace('/')} />}
-      {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
-    </>
-  )
+            <Touchable onPress={onMessageSend} disabled={isStringEmpty(userTextInput)}>
+              <Send />
+            </Touchable>
+          </View>
+        )}
+        {gameResult && <ResultModal stars={gameResult.score} onClose={() => router.replace('/')} />}
+        {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
+      </>
+    )
 }
 
 export default ChatBottom

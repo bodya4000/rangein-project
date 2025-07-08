@@ -3,12 +3,11 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import { Control } from 'react-hook-form'
 import { FlatList, StyleSheet, View } from 'react-native'
 
-import { PagedList } from '@/components/ui'
+import { LangContainer, PagedList } from '@/components/ui'
 import { WINDOW_WIDTH } from '@/constants'
 import { RegisterForm } from '@/screens/auth'
 
 import { AgeStep } from './age-step'
-import { LangStep } from './lang-step'
 import { SexStep } from './sex-step'
 import { UsernameStep } from './username-step'
 
@@ -66,7 +65,7 @@ export const RegisterStepper = forwardRef<RegisterStepperRef, Props>(
         keyboardShouldPersistTaps='handled'
         renderItem={item => (
           <View style={{ width: STEP_WIDTH }}>
-            {item.item === 'lang' && <LangStep />}
+            {item.item === 'lang' && <LangContainer />}
             {item.item === 'username' && <UsernameStep control={control} />}
             {item.item === 'sex' && <SexStep control={control} />}
             {item.item === 'age' && <AgeStep control={control} />}

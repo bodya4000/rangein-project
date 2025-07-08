@@ -14,6 +14,11 @@ interface ChatStore {
 
   messages: GameMessage[]
   setMessages: (_: GameMessage[]) => void
+
+  newMessages: GameMessage[]
+  setNewMessages: (_: GameMessage[]) => void
+  popNewMessages: () => void
+
   addMessage: (_: GameMessage) => void
 
   options: string[]
@@ -28,6 +33,21 @@ export const useChatStore = create<ChatStore>()(
 
       messages: [],
       setMessages: messages => set({ messages }),
+
+      newMessages: [],
+      setNewMessages: newMessages => set({ newMessages }),
+      popNewMessages: () =>
+        set(state => {
+          if (state.newMessages.length > 0) {
+            const message = state.newMessages[state.newMessages.length - 1]
+            return {
+              newMessages: state.newMessages.slice(0, -1),
+              messages: [message, ...state.messages],
+            }
+          }
+          return {}
+        }),
+
       addMessage: message => set({ messages: [message, ...get().messages] }),
 
       userOption: null,

@@ -41,3 +41,16 @@ export const colors = {
 
   light_dark: ['#2B2B2B', '#1D1D1D'],
 }
+
+export const imageColors = {
+  redOrange: ['#FF3C38', '#FF9A00'],
+  bluePurple: ['#3A0CA3', '#4361EE'],
+  pinkYellow: ['#FF6F91', '#FFC75F'],
+  cyanGreen: ['#00C9A7', '#00FF6A'],
+  magentaViolet: ['#D000FF', '#6F00FF'],
+  limeTurquoise: ['#AFFF00', '#00F0FF'],
+  peachCoral: ['#FF9770', '#FF6F61'],
+  yellowTeal: ['#FFD23F', '#20C997'],
+  hotPinkIndigo: ['#FF2E63', '#6A0572'],
+  neonCombo: ['#39FF14', '#FF2079'],
+}

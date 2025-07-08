@@ -2,6 +2,7 @@ import { Control, Controller } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 import { ProfileSex } from '@/components/profile-screen'
+import { SexContainer } from '@/components/ui'
 import { RegisterForm } from '@/screens/auth'
 import { Sex } from '@/types'
 
@@ -22,15 +23,16 @@ export const SexStep = ({ control }: Props) => {
       }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <View>
-          <ProfileSex
-            isMale={value === Sex.MALE}
-            setIsMale={isMale => onChange(isMale ? Sex.MALE : Sex.FEMALE)}
+          <SexContainer
+            sex={value}
+            setSex={sex => {
+              console.log(sex)
+              onChange(sex)
+            }}
           />
-          {error && (
-            <Text style={{ color: 'red', marginTop: 8 }}>
-              {error.message || 'Invalid selection'}
-            </Text>
-          )}
+          <Text style={{ color: 'red', marginTop: 8 }}>
+            {error && (error.message || 'Invalid selection')}
+          </Text>
         </View>
       )}
     />

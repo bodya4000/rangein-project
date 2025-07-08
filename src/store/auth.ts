@@ -8,6 +8,7 @@ type Error = 'network' | 'bad' | '500' | null
 
 interface ChatStore {
   user: GetUserResponse | null
+  setUser: (_: GetUserResponse) => void
   login: () => void
   register: (_: RegisterRequest) => void
   error: Error
@@ -22,6 +23,9 @@ export const useAuthStore = create<ChatStore>()(
       authLoading: false,
       error: null,
 
+      setUser: user => {
+        set({ user })
+      },
       login: async () => {
         set({ authLoading: true })
         try {

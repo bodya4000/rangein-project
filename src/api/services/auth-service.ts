@@ -12,6 +12,7 @@ export type RegisterRequest = {
   username: string
   age: number
   sex: Sex
+  avatarColors: string[]
 }
 
 class AuthService {

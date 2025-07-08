@@ -1,42 +1,20 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { Control, Controller } from 'react-hook-form'
 
-import { Minus, Plus } from '@/components/icons'
-import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
-
-import { styles } from './profile-screen.style'
+import { UpdateUserData } from '@/api'
+import { AgeContainer } from '@/components/ui/containers/age-container/age-container'
 
 interface Props {
-  age: number
-  setAge: (_: number) => void
+  control: Control<UpdateUserData>
 }
 
-export const ProfileAge = ({ age, setAge }: Props) => {
-  const { t } = useTranslation()
-  const increaseAge = () => {
-    setAge(age + 1)
-  }
-  const decreaseAge = () => {
-    if (age > 10) {
-      setAge(age - 1)
-    }
-  }
+export const ProfileAge = ({ control }: Props) => {
   return (
-    <TouchableBlock touchable={false} style={styles.profileBlock}>
-      <Touchable onPress={decreaseAge}>
-        <View style={styles.touchable_icon}>
-          <Minus />
-        </View>
-      </Touchable>
-      <GradientText>
-        {age} {t('profile.years')}
-      </GradientText>
-      <Touchable onPress={increaseAge}>
-        <View style={styles.touchable_icon}>
-          <Plus />
-        </View>
-      </Touchable>
-    </TouchableBlock>
+    <Controller
+      name='age'
+      control={control}
+      render={({ field: { value, onChange } }) => {
+        return <AgeContainer age={value || 0} setAge={onChange} />
+      }}
+    />
   )
 }

@@ -4,15 +4,13 @@ import { STORAGE_KEYS } from '@/constants'
 import { useSelectedLanguage } from '@/i18n'
 import { storage } from '@/store'
 
-import { styles } from './profile-lang.style'
+import { styles } from './lang-container.style'
 
-export const ProfileLang = () => {
+export const LangContainer = () => {
   const { language, setLanguage } = useSelectedLanguage()
 
   const onChangeLanguagePress = () => {
     const newLang = language == 'en' ? 'ru' : 'en'
-    console.log(newLang)
-
     setLanguage(newLang)
   }
   return (

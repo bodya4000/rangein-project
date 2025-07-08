@@ -66,6 +66,16 @@ export const GradientInput: React.FC<GradientInputProps> = ({
     setReady(false)
   }, [i18n.language, value, placeholder])
 
+  useEffect(() => {
+    if (typeable) {
+      const timeout = setTimeout(() => {
+        inputRef.current?.focus()
+      }, 100)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [])
+
   if (!ready) {
     return (
       <TextInput

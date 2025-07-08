@@ -10,6 +10,7 @@ import { getDeviceId, globalStyles } from '@/constants'
 import { useAuthStore } from '@/store'
 import { Sex } from '@/types'
 import { logJson } from '@/utils'
+import { generateRandomGradientColors } from '@/utils/colors'
 
 import { styles } from './index.style'
 
@@ -29,12 +30,12 @@ const Register = () => {
   const router = useRouter()
   const stepperRef = useRef<RegisterStepperRef>(null)
   const [stepIndex, setStepIndex] = useState(0)
-  const { control, handleSubmit, trigger } = useForm<RegisterForm>({ defaultValues: initForm })
+  const { control, handleSubmit, trigger } = useForm<RegisterForm>({
+    defaultValues: initForm,
+  })
 
   const register = useAuthStore(state => state.register)
   const user = useAuthStore(state => state.user)
-  const authError = useAuthStore(state => state.error)
-  const authLoading = useAuthStore(state => state.authLoading)
 
   const onNext = async () => {
     let valid = true
@@ -52,7 +53,8 @@ const Register = () => {
 
   const onSubmit = ({ age, sex, username }: RegisterForm) => {
     // if (age && sex && username) {
-    register({ age, sex, username, deviceId: getDeviceId() })
+    const avatarColors = generateRandomGradientColors()
+    register({ age, sex, username, deviceId: getDeviceId(), avatarColors })
     // }
   }
 

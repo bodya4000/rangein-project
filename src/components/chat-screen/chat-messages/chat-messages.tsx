@@ -2,36 +2,56 @@ import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
-import { getDeviceId, globalStyles, QUERIES, queryClient } from '@/constants'
+import { getDeviceId, globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
-import { logJson } from '@/utils'
 
 import { styles } from './chat-messages.style'
 import { ReceivedMessage } from './received-message/received-message'
 import { SentMessage } from './sent-message/sent-message'
 
+const TYPING_ID = '-1'
 const loadingMessage: GameMessage = {
   message: '',
-  messageId: '-1',
+  messageId: TYPING_ID,
   sender: '',
 }
 
 const ChatMessages = () => {
   const typing = useChatStore(state => state.typing)
   const messages = useChatStore(state => state.messages)
+  const newMessages = useChatStore(state => state.newMessages)
   const user = useAuthStore(state => state.user)
   const setMessages = useChatStore(state => state.setMessages)
+  const setTyping = useChatStore(state => state.setTyping)
+  const popNewMessages = useChatStore(state => state.popNewMessages)
   const { data: gameData } = useGameSetup({ userId: getDeviceId() })
   const { data: messageData } = useMessages({ gameId: gameData?.gameId ?? '' })
   const messageList = useMemo(
     () => (typing ? [loadingMessage, ...messages] : messages),
     [messages, typing],
   )
+
   useEffect(() => {
-    if (gameData?.gameId) {
-      queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES, gameData.gameId] })
+    if (newMessages.length === 0) return
+
+    let idx = 0
+
+    const handleMessage = () => {
+      if (idx >= newMessages.length) return
+
+      setTyping(true)
+
+      setTimeout(() => {
+        popNewMessages()
+        setTyping(false)
+
+        idx++
+        handleMessage()
+      }, 1000)
     }
-  }, [gameData?.gameId])
+
+    handleMessage()
+  }, [newMessages])
 
   useEffect(() => {
     if (messageData) {
@@ -39,23 +59,17 @@ const ChatMessages = () => {
     }
   }, [messageData])
 
-  useEffect(() => {
-    if (gameData?.gameId) {
-      queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES, gameData.gameId] })
-    }
-  }, [gameData?.gameId])
-
   /**
    * Auto bottom scroll
    */
   const flatlistRef = useRef<FlatList>(null)
   useEffect(() => {
-    if (flatlistRef.current) {
+    if (flatlistRef.current && messages.length > 0) {
       setTimeout(() => {
         flatlistRef.current?.scrollToOffset({ offset: 0, animated: true })
       }, 400)
     }
-  }, [messages])
+  }, [messages.length])
 
   return (
     <View style={styles.messagesContainer}>
@@ -68,10 +82,10 @@ const ChatMessages = () => {
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
-          if (item.messageId === '-1') {
+          if (item.messageId === TYPING_ID) {
             return <ReceivedMessage typing />
           }
-          return item.sender == user?.username ? (
+          return item.sender == user?.username || item.sender === 'PLAYER' ? (
             <SentMessage text={item.message} />
           ) : (
             <ReceivedMessage sender={item.sender} text={item.message} />
