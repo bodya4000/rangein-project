@@ -13,16 +13,17 @@ const BLUR_INTENSITY = 70
 
 interface Props {
   text?: string
+  sender?: string
   typing?: boolean
 }
 
-export const ReceivedMessage = ({ text, typing }: Props) => {
+export const ReceivedMessage = ({ text, sender, typing }: Props) => {
   return (
     <View style={styles.row}>
       <Image style={styles.avatar} source={Avatar} />
       <View style={styles.container}>
         <BlurView style={styles.blur} intensity={BLUR_INTENSITY} tint={'dark'}>
-          <Text style={styles.name}>Sam</Text>
+          <Text style={styles.name}>{sender}</Text>
           {typing ? (
             <ChatLoader />
           ) : (

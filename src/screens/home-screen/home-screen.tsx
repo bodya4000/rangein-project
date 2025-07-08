@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
-import { useGetUser } from '@/api/hooks'
+import { useGetUser, useMessages } from '@/api/hooks'
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText, PrimaryButton } from '@/components/ui'
 import { getDeviceId, globalStyles } from '@/constants'
@@ -16,7 +16,6 @@ const HomeScreen = () => {
   const {} = useBackgroundMusic()
   const deviceId = getDeviceId()
   const { data: userInfo } = useGetUser({ deviceId })
-  logJson(userInfo)
   return (
     <>
       <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />

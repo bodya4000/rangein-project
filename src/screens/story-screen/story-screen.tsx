@@ -1,6 +1,5 @@
-import { router, useRouter } from 'expo-router'
-import LottieView from 'lottie-react-native'
-import React, { useRef, useState } from 'react'
+import { useRouter } from 'expo-router'
+import React, { useEffect, useRef, useState } from 'react'
 import { Alert, FlatList, View } from 'react-native'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
@@ -20,17 +19,23 @@ const StoryScreen = () => {
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
 
-  const { data: gameInfo, isLoading, isSuccess } = useGameSetup({ userId: getDeviceId() })
-  if (isSuccess) {
-    queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
-  }
+  const { data: gameInfo, isError, error, isSuccess } = useGameSetup({ userId: getDeviceId() })
+  useEffect(() => {
+    if (isSuccess) {
+      queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
+    }
+  }, [isSuccess])
 
-  if (!isLoading && !isSuccess) {
-    Alert.alert('Error', 'Failed to connect to network!', [
-      { text: 'OK', onPress: () => router.back() },
-    ])
-    return null
-  }
+  useEffect(() => {
+    if (isError && error) {
+      console.warn('Full error object:', error)
+      Alert.alert('Error', 'Failed to connect to network!', [
+        { text: 'OK', onPress: () => router.back() },
+      ])
+    }
+  }, [isError, error])
+
+  logJson(gameInfo)
 
   const onArrowClick = (direction: 'prev' | 'next') => {
     if (!gameInfo) return

@@ -12,6 +12,7 @@ import GameModal from '../game-modal/game-modal'
 
 interface Props {
   stars?: 0 | 1 | 2 | 3
+  summary?: string
   onClose: () => void
 }
 
@@ -27,7 +28,10 @@ const Star = ({ stars = 0, id }: StarProps) => {
   return <SilverStar filled={false} />
 }
 
-export default function ResultModal({ onClose, stars = 0 }: Props) {
+const DEFAULT_RESULT_TEXT =
+  'Terrible result, you are such a bad detective. I think you need one more game to improve it'
+
+export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
   const renderHeader = () => (
     <GradientText style={styles.title}>{stars == 3 ? 'Winner' : 'Loser'}</GradientText>
   )
@@ -35,7 +39,7 @@ export default function ResultModal({ onClose, stars = 0 }: Props) {
   const renderBody = () => (
     <>
       <GradientText quintessential={false} style={styles.text}>
-        Terrible result, you are such a bad detective. I think you need one more game to improve it.
+        {summary || DEFAULT_RESULT_TEXT}
       </GradientText>
 
       <View style={styles.starsContainer}>

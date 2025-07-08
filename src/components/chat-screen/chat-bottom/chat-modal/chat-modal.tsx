@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { View, TextInput } from 'react-native'
 
-import { GameMessage, useGameSetup, useSendMessage } from '@/api'
+import { GameMessage, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
@@ -26,9 +26,11 @@ const ChatModal = ({ onClose }: Props) => {
   const setTyping = useChatStore(state => state.setTyping)
   const addMessage = useChatStore(state => state.addMessage)
 
-  const onSuccessMessageSend = (message: GameMessage) => {
+  const onSuccessMessageSend = (resp: SendMessageResponse) => {
     setTyping(false)
-    addMessage(message)
+    for (const msg of resp.messages) {
+      addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
+    }
     setUserOption(text)
     setText('')
     onClose()
@@ -44,7 +46,6 @@ const ChatModal = ({ onClose }: Props) => {
         {
           onSuccess: onSuccessMessageSend,
           onError: err => {
-            console.log('SEND ERROR:', err)
             onClose()
           },
         },

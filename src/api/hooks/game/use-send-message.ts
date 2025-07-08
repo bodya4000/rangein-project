@@ -1,12 +1,14 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { gameService } from '@/api/services'
-import { QUERIES } from '@/constants'
+import { QUERIES, queryClient } from '@/constants'
 
 export const useSendMessage = () => {
   const data = useMutation({
-    mutationKey: [QUERIES.MESSAGES],
     mutationFn: (data: { gameId: string; message: string }) => gameService.sendMessage(data),
+    onSuccess: (_, { gameId }) => {
+      queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
+    },
   })
 
   return data

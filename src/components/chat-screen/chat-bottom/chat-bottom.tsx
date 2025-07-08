@@ -2,13 +2,13 @@ import { useRouter } from 'expo-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 
-import { GameMessage, GameResult, GameRole, useGameSetup, useSendMessage } from '@/api'
+import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Burger, Send } from '@/components/icons'
 import { ResultModal, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
 import { getDeviceId } from '@/constants'
 import { useChatStore } from '@/store'
-import { isStringEmpty, logJson, newId } from '@/utils'
+import { isStringEmpty, logJson, newUserMessage } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'
@@ -23,7 +23,7 @@ const ChatBottom = () => {
   const [userTextInput, setUserTextInput] = useState('')
   const [showOptions, setShowOptions] = useState(false)
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
-  const [gameResult, setGameResult] = useState<GameResult | null>(null)
+  const [gameResult, setGameResult] = useState<{ message: string; score: GameResult } | null>(null)
 
   const setTyping = useChatStore(state => state.setTyping)
   const addMessage = useChatStore(state => state.addMessage)
@@ -42,26 +42,25 @@ const ChatBottom = () => {
 
   const handleSendMessage = (message: string) => {
     if (isStringEmpty(message)) return
-
     setTyping(true)
-    const newMessage: GameMessage = {
-      messageId: newId(),
-      message,
-      role: GameRole.DETECTIVE_USER,
-    }
+    const newMessage = newUserMessage(message)
     addMessage(newMessage)
     inputRef.current?.blur()
-
     sendMessage(
       { gameId, message },
       {
-        onSuccess: (receivedMessage: any) => {
-          console.log('receivedMessage:', logJson(receivedMessage))
+        onSuccess: (response: SendMessageResponse) => {
+          logJson(response)
+          for (let msg of response.messages) {
+            addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
+          }
           setTyping(false)
-          addMessage(receivedMessage)
-          setOptions(receivedMessage.options)
-          if (receivedMessage.finished) {
-            setGameResult(receivedMessage.score)
+          setOptions(response.options)
+          if (response.finished) {
+            setGameResult({
+              message: response.summary,
+              score: response.score ?? 0,
+            })
           }
         },
       },
@@ -111,7 +110,7 @@ const ChatBottom = () => {
           </Touchable>
         </View>
       )}
-      {gameResult && <ResultModal stars={gameResult} onClose={() => router.replace('/')} />}
+      {gameResult && <ResultModal stars={gameResult.score} onClose={() => router.replace('/')} />}
       {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
     </>
   )

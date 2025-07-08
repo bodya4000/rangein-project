@@ -51,9 +51,9 @@ const Register = () => {
   }
 
   const onSubmit = ({ age, sex, username }: RegisterForm) => {
-    if (age && sex && username) {
-      register({ age, sex, username, deviceId: getDeviceId() })
-    }
+    // if (age && sex && username) {
+    register({ age, sex, username, deviceId: getDeviceId() })
+    // }
   }
 
   useEffect(() => {
