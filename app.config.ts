@@ -16,6 +16,7 @@ const config: ExpoConfig = {
   icon: './assets/images/icon.png',
   scheme: 'rangeinproject',
   userInterfaceStyle: 'automatic',
+  jsEngine: 'hermes',
   newArchEnabled: true,
   ios: {
     supportsTablet: true,

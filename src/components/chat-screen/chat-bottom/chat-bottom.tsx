@@ -6,9 +6,8 @@ import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@
 import { Burger, Send } from '@/components/icons'
 import { ResultModal, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
-import { getDeviceId } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
-import { isStringEmpty, logJson, newUserMessage } from '@/utils'
+import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 import ChatModal from './chat-modal/chat-modal'
@@ -46,7 +45,7 @@ const ChatBottom = () => {
   const handleSendMessage = (message: string) => {
     if (isStringEmpty(message)) return
     setTyping(true)
-    const newMessage = newUserMessage(message,user?.username)
+    const newMessage = newUserMessage(message, user?.username)
     addMessage(newMessage)
     inputRef.current?.blur()
     sendMessage(

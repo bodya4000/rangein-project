@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 
 import { UpdateUserRequest, userService } from '@/api/services'
-import { QUERIES, queryClient } from '@/constants'
+import { QUERIES, queryClient } from '@/constants/api'
 
 export const useUpdateUser = (options?: UseMutationOptions<any, unknown, UpdateUserRequest>) => {
   return useMutation<any, unknown, UpdateUserRequest>({

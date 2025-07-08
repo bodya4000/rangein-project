@@ -6,10 +6,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
-import { getDeviceId, globalStyles } from '@/constants'
+import { globalStyles } from '@/constants'
 import { useAuthStore } from '@/store'
 import { Sex } from '@/types'
-import { logJson } from '@/utils'
+import { getDeviceId, logJson } from '@/utils'
 import { generateRandomGradientColors } from '@/utils/colors'
 
 import { styles } from './index.style'

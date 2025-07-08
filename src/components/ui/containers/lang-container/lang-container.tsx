@@ -1,10 +1,9 @@
 import { ArrowRight } from '@/components/icons'
-import { GradientText, TouchableBlock } from '@/components/ui'
-import { STORAGE_KEYS } from '@/constants'
 import { useSelectedLanguage } from '@/i18n'
-import { storage } from '@/store'
 
 import { styles } from './lang-container.style'
+import { TouchableBlock } from '../../buttons'
+import { GradientText } from '../../text'
 
 export const LangContainer = () => {
   const { language, setLanguage } = useSelectedLanguage()

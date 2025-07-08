@@ -1,12 +1,13 @@
-import { use, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, View } from 'react-native'
 
 import { UpdateUserData, useUpdateUser } from '@/api'
 import { ProfileAge, ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile-screen'
 import { LangContainer, SmoothButton } from '@/components/ui'
-import { getDeviceId, globalStyles } from '@/constants'
+import { globalStyles } from '@/constants'
 import { useAuthStore } from '@/store'
+import { getDeviceId } from '@/utils'
 
 import { styles } from './profile-screen.style'
 
@@ -27,7 +28,6 @@ const ProfileScreen = () => {
   const { mutate: updateUser } = useUpdateUser()
 
   const onSubmit = (data: UpdateUserData) => {
-    console.log(data)
     updateUser(
       { path: getDeviceId(), update: data },
       {

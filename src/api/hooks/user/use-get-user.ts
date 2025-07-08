@@ -1,7 +1,7 @@
 import { UseMutationOptions, useQuery } from '@tanstack/react-query'
 
 import { GetUserRequest, userService } from '@/api/services'
-import { QUERIES } from '@/constants'
+import { QUERIES } from '@/constants/api'
 
 export const useGetUser = (
   getUserRequest: GetUserRequest,

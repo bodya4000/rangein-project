@@ -1,4 +1,4 @@
-import { API_URL } from '@/constants'
+import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
 import { api } from './api'

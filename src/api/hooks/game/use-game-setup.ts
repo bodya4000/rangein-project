@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { gameService, GameSetupRequest } from '@/api/services'
-import { QUERIES } from '@/constants'
+import { QUERIES } from '@/constants/api'
 
 const FIVE_MINUTES = 1000 * 60 * 5
 

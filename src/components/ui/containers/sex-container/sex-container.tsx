@@ -2,12 +2,13 @@ import { LinearGradient } from 'expo-linear-gradient'
 import React, { useState } from 'react'
 import { LayoutChangeEvent, View } from 'react-native'
 
-import { GradientText, TouchableBlock } from '@/components/ui'
 import { colors } from '@/constants/colors'
 import { TxKeyPath } from '@/i18n/react-i18next'
 import { Sex } from '@/types'
 
 import { styles } from './sex-container.style'
+import { TouchableBlock } from '../../buttons'
+import { GradientText } from '../../text'
 
 interface Dimensions {
   width: number | 'auto'

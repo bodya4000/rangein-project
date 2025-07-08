@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { gameService } from '@/api/services'
-import { QUERIES, queryClient } from '@/constants'
+import { QUERIES, queryClient } from '@/constants/api'
 
 export const useSendMessage = () => {
   const data = useMutation({

@@ -299,7 +299,7 @@ PODS:
     - ExpoModulesCore
   - ExpoLinearGradient (14.1.4):
     - ExpoModulesCore
-  - ExpoLinking (7.1.5):
+  - ExpoLinking (7.1.7):
     - ExpoModulesCore
   - ExpoModulesCore (2.3.13):
     - DoubleConversion
@@ -2461,12 +2461,12 @@ DEPENDENCIES:
   - "ExpoFileSystem (from `../node_modules/.pnpm/expo-file-system@18.1.10_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react_d25cb25cffdeb9517508bd6a104637da/node_modules/expo-file-system/ios`)"
   - "ExpoFont (from `../node_modules/.pnpm/expo-font@13.3.1_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-native@_9bffe401a7f404ba0ba3553a51ac2a1f/node_modules/expo-font/ios`)"
   - "ExpoHaptics (from `../node_modules/.pnpm/expo-haptics@14.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nati_d481ca347e9492dbf5534b8b791308d5/node_modules/expo-haptics/ios`)"
-  - "ExpoHead (from `../node_modules/.pnpm/expo-router@5.0.7_2cd70958ec9fa91fa3cd9573bb0b8a4a/node_modules/expo-router/ios`)"
+  - "ExpoHead (from `../node_modules/.pnpm/expo-router@5.0.7_854b6f504fc07ac2f4a8875234cf2819/node_modules/expo-router/ios`)"
   - "ExpoImage (from `../node_modules/.pnpm/expo-image@2.1.7_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-native@_c99bf7c8964aaf44974332016cfacb2e/node_modules/expo-image/ios`)"
   - "ExpoImagePicker (from `../node_modules/.pnpm/expo-image-picker@16.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react_db1ccfe8dc75fa89abbe73fa304e5dea/node_modules/expo-image-picker/ios`)"
   - "ExpoKeepAwake (from `../node_modules/.pnpm/expo-keep-awake@14.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-n_c38808bc866c5c6bf6064a93fc5b2d1e/node_modules/expo-keep-awake/ios`)"
   - "ExpoLinearGradient (from `../node_modules/.pnpm/expo-linear-gradient@14.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_re_59f873ce01016fbb5434b30bcb90aaee/node_modules/expo-linear-gradient/ios`)"
-  - "ExpoLinking (from `../node_modules/.pnpm/expo-linking@7.1.5_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nativ_051ac5a2afa4cae045b9ea3a48010949/node_modules/expo-linking/ios`)"
+  - "ExpoLinking (from `../node_modules/.pnpm/expo-linking@7.1.7_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nativ_c9d99c066dfeb96d6aaee60e9a221910/node_modules/expo-linking/ios`)"
   - "ExpoModulesCore (from `../node_modules/.pnpm/expo-modules-core@2.3.13/node_modules/expo-modules-core`)"
   - "ExpoSplashScreen (from `../node_modules/.pnpm/expo-splash-screen@0.30.8_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_reac_8ba3da9d399611623aa42caa27627f8d/node_modules/expo-splash-screen/ios`)"
   - "ExpoSymbols (from `../node_modules/.pnpm/expo-symbols@0.4.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nativ_9da19fabef3039f585aff3b13d6aedd4/node_modules/expo-symbols/ios`)"
@@ -2602,7 +2602,7 @@ EXTERNAL SOURCES:
   ExpoHaptics:
     :path: "../node_modules/.pnpm/expo-haptics@14.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nati_d481ca347e9492dbf5534b8b791308d5/node_modules/expo-haptics/ios"
   ExpoHead:
-    :path: "../node_modules/.pnpm/expo-router@5.0.7_2cd70958ec9fa91fa3cd9573bb0b8a4a/node_modules/expo-router/ios"
+    :path: "../node_modules/.pnpm/expo-router@5.0.7_854b6f504fc07ac2f4a8875234cf2819/node_modules/expo-router/ios"
   ExpoImage:
     :path: "../node_modules/.pnpm/expo-image@2.1.7_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-native@_c99bf7c8964aaf44974332016cfacb2e/node_modules/expo-image/ios"
   ExpoImagePicker:
@@ -2612,7 +2612,7 @@ EXTERNAL SOURCES:
   ExpoLinearGradient:
     :path: "../node_modules/.pnpm/expo-linear-gradient@14.1.4_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_re_59f873ce01016fbb5434b30bcb90aaee/node_modules/expo-linear-gradient/ios"
   ExpoLinking:
-    :path: "../node_modules/.pnpm/expo-linking@7.1.5_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nativ_051ac5a2afa4cae045b9ea3a48010949/node_modules/expo-linking/ios"
+    :path: "../node_modules/.pnpm/expo-linking@7.1.7_expo@53.0.9_@babel+core@7.27.1_@expo+metro-runtime@5.0.4_react-nativ_c9d99c066dfeb96d6aaee60e9a221910/node_modules/expo-linking/ios"
   ExpoModulesCore:
     :path: "../node_modules/.pnpm/expo-modules-core@2.3.13/node_modules/expo-modules-core"
   ExpoSplashScreen:
@@ -2806,7 +2806,7 @@ SPEC CHECKSUMS:
   ExpoImagePicker: 0963da31800c906e01c03e25d7c849f16ebf02a2
   ExpoKeepAwake: bf0811570c8da182bfb879169437d4de298376e7
   ExpoLinearGradient: a3126d055dd021c1eb38a2cf28052ccbd1a2b3e2
-  ExpoLinking: b85ff4eafeae6fc638c6cace60007ae521af0ef4
+  ExpoLinking: d5c183998ca6ada66ff45e407e0f965b398a8902
   ExpoModulesCore: 5d37821c36f3781dcd0ea9a393800c90eaa6259d
   ExpoSplashScreen: f524572afd81522e40850eaa7163e2ae99cce783
   ExpoSymbols: 5324de61341b396965a1cd3d2c738227b13d6a60

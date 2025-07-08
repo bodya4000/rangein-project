@@ -6,8 +6,8 @@ import { useGameSetup } from '@/api/hooks/game/use-game-setup'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { StoryList, StoryPagination } from '@/components/story-screen'
 import { BlurModal, GradientText, PrimaryLoader, SecondaryButton, Touchable } from '@/components/ui'
-import { getDeviceId, globalStyles, QUERIES, queryClient } from '@/constants'
-import { logJson } from '@/utils'
+import { globalStyles, QUERIES, queryClient } from '@/constants'
+import { getDeviceId, logJson } from '@/utils'
 
 import { styles } from './story-screen.style'
 

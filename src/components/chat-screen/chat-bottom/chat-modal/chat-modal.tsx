@@ -5,9 +5,8 @@ import { GameMessage, SendMessageResponse, useGameSetup, useSendMessage } from '
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { ChatInput } from '@/components/ui/inputs'
-import { getDeviceId } from '@/constants'
 import { useChatStore } from '@/store'
-import { isStringEmpty, newUserMessage } from '@/utils'
+import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
 import { styles } from './chat-modal.style'
 

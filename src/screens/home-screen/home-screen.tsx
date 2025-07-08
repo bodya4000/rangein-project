@@ -4,9 +4,9 @@ import { View } from 'react-native'
 import { useGetUser, useMessages } from '@/api/hooks'
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText, PrimaryButton } from '@/components/ui'
-import { getDeviceId, globalStyles } from '@/constants'
+import { globalStyles } from '@/constants'
 import { useBackgroundMusic } from '@/hooks/use-background-music'
-import { logJson } from '@/utils'
+import { getDeviceId, logJson } from '@/utils'
 
 import { styles } from './home-screen.style'
 
