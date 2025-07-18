@@ -4,7 +4,8 @@ import { View, TextInput } from 'react-native'
 import { GameMessage, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
-import { ChatInput } from '@/components/ui/inputs'
+import { DefaultInput } from '@/components/ui/inputs'
+import { globalStyles, spacing } from '@/constants'
 import { useChatStore } from '@/store'
 import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
@@ -63,10 +64,17 @@ const ChatModal = ({ onClose }: Props) => {
       {openModal && (
         <GameModal
           onClose={onClose}
+          style={{ paddingHorizontal: spacing.lg }}
           renderHeader={() => <GradientText>Enter your answer</GradientText>}
           renderBody={() => (
             <View style={styles.view}>
-              <ChatInput ref={textRef} value={text} onChangeText={setText} />
+              <DefaultInput
+                ref={textRef}
+                containerStyle={globalStyles.spacer}
+                placeholder='Type your answer...'
+                value={text}
+                onChangeText={setText}
+              />
               <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
                 <Send width={42} height={42} />
               </Touchable>

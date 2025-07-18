@@ -4,6 +4,7 @@ import {
   FlatListProps,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  View,
   ViewStyle,
 } from 'react-native'
 
@@ -52,5 +53,5 @@ function PagedListInner<ItemT>(
 }
 
 export const PagedList = React.forwardRef(PagedListInner) as <T>(
-  props: PagedListProps<T> & { ref?: React.Ref<FlatList<T>> },
+  _: PagedListProps<T> & { ref?: React.Ref<FlatList<T>> },
 ) => React.ReactElement

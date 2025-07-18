@@ -7,7 +7,6 @@ import { spacing } from '@/constants/spacing'
 export const styles = StyleSheet.create({
   inputView: {
     backgroundColor: colors.dark,
-    paddingVertical: spacing.lg,
     paddingHorizontal: spacing.lg,
     borderColor: colors.grey,
     borderWidth: 1,
@@ -15,7 +14,10 @@ export const styles = StyleSheet.create({
   },
 
   input: {
+    height: 40,
+    paddingVertical: 0,
+    paddingHorizontal: 0,
     color: colors.white,
-    fontSize: font.size['xl'],
+    fontSize: font.size['sm'],
   },
 })

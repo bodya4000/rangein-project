@@ -21,7 +21,7 @@ const BLUR_TINT = 'dark'
 export default function BluredHeader({ txTitle, title }: Props) {
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
-  const headerHeight = (StatusBar.currentHeight ?? insets.top) + 80
+  const headerHeight = (StatusBar.currentHeight ?? insets.top) + 66
   const titleText = txTitle ? t(txTitle) : title
   if (!titleText) return null
   return (

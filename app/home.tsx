@@ -3,7 +3,7 @@ import HomeScreen from '@/screens/home-screen/home-screen'
 
 export default function Home() {
   return (
-    <ScreenContainer animated>
+    <ScreenContainer padding='md' type='fullscreen' animated>
       <HomeScreen />
     </ScreenContainer>
   )

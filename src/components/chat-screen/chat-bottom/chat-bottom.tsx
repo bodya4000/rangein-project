@@ -5,7 +5,8 @@ import { TextInput, View } from 'react-native'
 import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Burger, Send } from '@/components/icons'
 import { ResultModal, Touchable } from '@/components/ui'
-import { ChatInput } from '@/components/ui/inputs'
+import { DefaultInput } from '@/components/ui/inputs'
+import { globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
@@ -107,7 +108,13 @@ const ChatBottom = () => {
               <Burger />
             </Touchable>
 
-            <ChatInput ref={inputRef} value={userTextInput} onChangeText={setUserTextInput} />
+            <DefaultInput
+              containerStyle={globalStyles.spacer}
+              placeholder='Type your message...'
+              ref={inputRef}
+              value={userTextInput}
+              onChangeText={setUserTextInput}
+            />
 
             <Touchable onPress={onMessageSend} disabled={isStringEmpty(userTextInput)}>
               <Send />

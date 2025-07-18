@@ -4,13 +4,15 @@ import { WINDOW_WIDTH } from '@/constants'
 
 export const styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 66,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     width: WINDOW_WIDTH,
     zIndex: 999999999,
+    borderBottomEndRadius: 15,
+    borderBottomStartRadius: 15,
   },
   header: {
     position: 'relative',

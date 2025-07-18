@@ -29,7 +29,13 @@ export const UsernameStep = ({ control }: Props) => {
       }}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View style={styles.container}>
-          <DefaultInput value={value} onChangeText={onChange} onBlur={onBlur} />
+          <DefaultInput
+            value={value || ''}
+            placeholder='Enter your username'
+            cursorColor={'white'}
+            onChangeText={onChange}
+            onBlur={onBlur}
+          />
           {error && <Text style={styles.errorText}>{error.message || 'Invalid username'}</Text>}
         </View>
       )}
@@ -40,6 +46,7 @@ export const UsernameStep = ({ control }: Props) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: 50,
   },
   errorText: {
     color: 'red',

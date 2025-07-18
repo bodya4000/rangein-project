@@ -1,15 +1,14 @@
 import { useRouter } from 'expo-router'
-import { use, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Keyboard, Pressable, View } from 'react-native'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
 import { globalStyles } from '@/constants'
 import { useAuthStore } from '@/store'
 import { Sex } from '@/types'
-import { getDeviceId, logJson } from '@/utils'
+import { getDeviceId } from '@/utils'
 import { generateRandomGradientColors } from '@/utils/colors'
 
 import { styles } from './index.style'
@@ -65,20 +64,12 @@ const Register = () => {
   }, [user])
 
   return (
-    <View style={globalStyles.spacer}>
-      <KeyboardAwareScrollView
-        contentContainerStyle={styles.screenContainer}
-        enableOnAndroid={true}
-        keyboardShouldPersistTaps='handled'
-        bounces={false}
-        extraScrollHeight={200}
-      >
-        <Header back={false} txTitle='userDataQuestioner.title' />
-        <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
-        {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'Next'} />}
-        {stepIndex == 3 && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'submit'} />}
-      </KeyboardAwareScrollView>
-    </View>
+    <Pressable onPress={Keyboard.dismiss} style={styles.screenContainer}>
+      <Header back={false} txTitle='userDataQuestioner.title' />
+      <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
+      {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'Next'} />}
+      {stepIndex == 3 && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'submit'} />}
+    </Pressable>
   )
 }
 

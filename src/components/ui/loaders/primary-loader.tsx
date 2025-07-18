@@ -11,15 +11,12 @@ const SIZE_MAP = {
   lg: 250,
 }
 
+import loaderAnim from '@assets/animations/loader.json'
+
 export const PrimaryLoader = ({ size = 'md' }: Props) => {
   const dimension = SIZE_MAP[size] ?? SIZE_MAP.md
 
   return (
-    <LottieView
-      source={require('@assets/animations/loader.json')}
-      autoPlay
-      loop
-      style={{ width: dimension, height: dimension }}
-    />
+    <LottieView source={loaderAnim} autoPlay loop style={{ width: dimension, height: dimension }} />
   )
 }

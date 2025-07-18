@@ -6,6 +6,7 @@ import { spacing } from '@/constants/spacing'
 export const styles = StyleSheet.create({
   optionsContainer: {
     gap: spacing.sm,
+    marginVertical: spacing.sm,
   },
   bottom: {
     paddingHorizontal: spacing.md,

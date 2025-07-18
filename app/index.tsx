@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { GameModal, GradientText, PrimaryLoader, Text } from '@/components/ui'
+import { GameModal, GradientText, Text } from '@/components/ui'
 import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
 import { spacing } from '@/constants'
 import { useAuthStore } from '@/store'
@@ -30,7 +30,9 @@ export default function Splash() {
   if (authLoading) {
     return (
       <ScreenContainer style={styles.container}>
-        <PrimaryLoader />
+        <ActivityIndicator size={'large'} style={styles.ai} />
+        <Text>Loading...</Text>
+        {/* <PrimaryLoader size='lg' /> */}
       </ScreenContainer>
     )
   }
@@ -56,6 +58,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  ai: {
+    marginTop: spacing.lg,
+    marginBottom: spacing.lg,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 200,
+    borderRadius: spacing.md,
+    padding: spacing.md,
+    shadowOffset: { width: 0, height: 2 },
   },
 
   body: {

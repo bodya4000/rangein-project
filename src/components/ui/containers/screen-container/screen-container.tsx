@@ -1,15 +1,18 @@
+import { useFocusEffect } from 'expo-router'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import {
   Animated,
-  SafeAreaView,
   View,
   StyleSheet,
   Image,
   ImageBackground,
   ViewStyle,
+  StatusBar,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import SystemNavigationBar from 'react-native-system-navigation-bar'
 
-import { spacing, WINDOW_WIDTH } from '@/constants'
+import { colors, WINDOW_WIDTH } from '@/constants'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
@@ -22,13 +25,15 @@ interface Props {
   background?: number
   animated?: boolean
   style?: ViewStyle
+  type?: 'fullscreen' | 'noTab' | 'noStatus' | 'default'
+  navBarColor?: string
   padding?: 'sm' | 'md' | 'lg'
 }
 
 const PADDING_MAP = {
-  sm: 6,
-  md: 16,
-  lg: 24,
+  sm: 16,
+  md: 24,
+  lg: 36,
 }
 
 export default function ScreenContainer({
@@ -36,6 +41,8 @@ export default function ScreenContainer({
   background,
   children,
   style,
+  navBarColor = colors.dark,
+  type = 'fullscreen',
   padding = 'sm',
 }: Props) {
   let translateX = useRef(new Animated.Value(0)).current
@@ -66,6 +73,40 @@ export default function ScreenContainer({
     return () => clearInterval(interval)
   }, [currBannerIdx, translateX, animated])
 
+  useFocusEffect(
+    React.useCallback(() => {
+      switch (type) {
+        case 'fullscreen': {
+          SystemNavigationBar.fullScreen()
+          StatusBar.setHidden(true)
+          break
+        }
+        case 'noStatus': {
+          SystemNavigationBar.navigationShow()
+          StatusBar.setHidden(true)
+          break
+        }
+        case 'noTab': {
+          SystemNavigationBar.navigationHide()
+          StatusBar.setHidden(false)
+          break
+        }
+        default: {
+          SystemNavigationBar.navigationShow()
+          StatusBar.setHidden(false)
+          break
+        }
+      }
+    }, [type]),
+  )
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SystemNavigationBar.setNavigationColor(navBarColor)
+    }, [navBarColor]),
+  )
+
+  // default
   if (!animated && !background) {
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
@@ -81,7 +122,7 @@ export default function ScreenContainer({
       <View style={styles.bgContainer}>
         <Image source={background} style={styles.bg} resizeMode='cover' />
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, style]}>{children}</View>
+          <View style={[styles.content, { padding: PADDING_MAP[padding] }, style]}>{children}</View>
         </SafeAreaView>
       </View>
     )
@@ -105,8 +146,8 @@ export default function ScreenContainer({
         )}
       </Animated.View>
 
-      <SafeAreaView style={styles.safeArea}>
-        <View style={[styles.content, style]}>{children}</View>
+      <SafeAreaView style={styles.safeArea} edges={['bottom', 'left', 'right']}>
+        <View style={[styles.content, { padding: PADDING_MAP[padding] }, style]}>{children}</View>
       </SafeAreaView>
     </View>
   )

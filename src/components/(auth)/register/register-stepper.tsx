@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import { Control } from 'react-hook-form'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, Keyboard, StyleSheet, View } from 'react-native'
 
 import { LangContainer, PagedList } from '@/components/ui'
 import { WINDOW_WIDTH } from '@/constants'
@@ -11,7 +11,7 @@ import { AgeStep } from './age-step'
 import { SexStep } from './sex-step'
 import { UsernameStep } from './username-step'
 
-const STEP_WIDTH = WINDOW_WIDTH - 12
+const STEP_WIDTH = WINDOW_WIDTH - 32
 const STEPS = ['lang', 'username', 'sex', 'age']
 
 export type RegisterStepperRef = {
@@ -59,6 +59,7 @@ export const RegisterStepper = forwardRef<RegisterStepperRef, Props>(
         containerWidth={STEP_WIDTH * STEPS.length}
         pagingEnabled
         data={STEPS}
+        onPageChange={() => Keyboard.dismiss()}
         style={styles.list}
         contentContainerStyle={styles.listContainer}
         horizontal

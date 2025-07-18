@@ -2,12 +2,13 @@ import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
-import { getDeviceId, globalStyles } from '@/constants'
+import { globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 
 import { styles } from './chat-messages.style'
 import { ReceivedMessage } from './received-message/received-message'
 import { SentMessage } from './sent-message/sent-message'
+import { getDeviceId } from '@/utils'
 
 const TYPING_ID = '-1'
 const loadingMessage: GameMessage = {

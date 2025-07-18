@@ -1,5 +1,5 @@
 import { Audio } from 'expo-av'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 import { GestureResponderEvent, Pressable, PressableProps, StyleSheet, View } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
@@ -24,24 +24,46 @@ export const Touchable = ({
   const scale = useSharedValue(1)
   const rotate = useSharedValue(0)
 
+  const soundRef = useRef<Audio.Sound | null>(null)
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ perspective: 800 }, { scale: scale.value }, { rotateY: `${rotate.value}deg` }],
     }
   })
 
+  // useEffect(() => {
+  //   let mounted = true
+
+  //   if (soundable) {
+  //     requestAnimationFrame(() => {
+  //       Audio.Sound.createAsync(audioSource).then(({ sound: s }) => {
+  //         if (mounted) soundRef.current = s
+  //       })
+  //     })
+  //   }
+
+  //   return () => {
+  //     mounted = false
+  //     if (soundRef.current) {
+  //       requestAnimationFrame(() => {
+  //         soundRef.current?.unloadAsync().catch(() => {})
+  //       })
+  //     }
+  //   }
+  // }, [soundable])
+
   const handlePressIn = async () => {
-    if (soundable) {
-      const { sound } = await Audio.Sound.createAsync(audioSource)
-      await sound.playAsync()
-    }
-    scale.value = withTiming(0.85, { duration: 70 })
-    rotate.value = withTiming(-7, { duration: 70 })
+    // if (soundable && soundRef.current) {
+    //   soundRef.current.replayAsync()
+    // }
+    scale.value = withTiming(0.85, { duration: 150 })
+    rotate.value = withTiming(-3, { duration: 150 })
   }
 
   const handlePressOut = () => {
-    scale.value = withTiming(1, { duration: 100 })
-    rotate.value = withTiming(0, { duration: 100 })
+    scale.value = withTiming(1, { duration: 150 })
+    rotate.value = withTiming(0, { duration: 150 })
   }
 
   if (touchable)

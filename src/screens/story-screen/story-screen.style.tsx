@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     gap: spacing.md,
-    paddingHorizontal: spacing.lg,
+    padding: spacing.lg,
   },
   textContainer: {
     gap: spacing.sm,
