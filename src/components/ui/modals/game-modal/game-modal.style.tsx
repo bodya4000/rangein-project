@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
-    paddingRight: spacing.lg,
     backgroundColor: colors.overlay,
+    paddingHorizontal: spacing.xl,
   },
 
   container: {
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   background: {
     ...StyleSheet.absoluteFillObject,
     height: '100%',
-    width: MODAL_WIDTH,
+    width: '100%',
     borderRadius: spacing['2xl'],
   },
 

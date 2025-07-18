@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Keyboard, Pressable, View } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, Pressable, View } from 'react-native'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
@@ -64,11 +64,13 @@ const Register = () => {
   }, [user])
 
   return (
-    <Pressable onPress={Keyboard.dismiss} style={styles.screenContainer}>
-      <Header back={false} txTitle='userDataQuestioner.title' />
-      <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
-      {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'Next'} />}
-      {stepIndex == 3 && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'submit'} />}
+    <Pressable onPress={Keyboard.dismiss} style={globalStyles.spacer}>
+      <KeyboardAvoidingView style={styles.screenContainer} behavior='padding'>
+        <Header back={false} txTitle='userDataQuestioner.title' />
+        <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
+        {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'Next'} />}
+        {stepIndex == 3 && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'submit'} />}
+      </KeyboardAvoidingView>
     </Pressable>
   )
 }

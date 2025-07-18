@@ -32,7 +32,6 @@ export const styles = StyleSheet.create({
 
   title: {
     fontSize: 48,
-    fontWeight: 700,
   },
 
   text: {
@@ -48,11 +47,6 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  star: {
-    width: 100,
-    height: 100,
-    marginHorizontal: -5,
-  },
   star_bottom: {
     marginTop: 30,
   },

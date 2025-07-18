@@ -1,5 +1,5 @@
 import { useFocusEffect } from 'expo-router'
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
   View,
@@ -42,11 +42,18 @@ export default function ScreenContainer({
   children,
   style,
   navBarColor = colors.dark,
-  type = 'fullscreen',
+  type = 'default',
   padding = 'sm',
 }: Props) {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
+
+  const paddingTop = useMemo(() => {
+    if (type === 'fullscreen' || type === 'noStatus') {
+      return PADDING_MAP[padding] + (StatusBar.currentHeight ?? 0)
+    }
+    return PADDING_MAP[padding]
+  }, [type, padding])
 
   useEffect(() => {
     if (!animated) return
@@ -111,7 +118,18 @@ export default function ScreenContainer({
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, style, { padding: PADDING_MAP[padding] }]}>{children}</View>
+          <View
+            style={[
+              styles.content,
+              style,
+              {
+                padding: PADDING_MAP[padding],
+                paddingTop,
+              },
+            ]}
+          >
+            {children}
+          </View>
         </SafeAreaView>
       </ImageBackground>
     )
@@ -122,7 +140,9 @@ export default function ScreenContainer({
       <View style={styles.bgContainer}>
         <Image source={background} style={styles.bg} resizeMode='cover' />
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, { padding: PADDING_MAP[padding] }, style]}>{children}</View>
+          <View style={[styles.content, { padding: PADDING_MAP[padding], paddingTop }, style]}>
+            {children}
+          </View>
         </SafeAreaView>
       </View>
     )
@@ -147,7 +167,9 @@ export default function ScreenContainer({
       </Animated.View>
 
       <SafeAreaView style={styles.safeArea} edges={['bottom', 'left', 'right']}>
-        <View style={[styles.content, { padding: PADDING_MAP[padding] }, style]}>{children}</View>
+        <View style={[styles.content, { padding: PADDING_MAP[padding], paddingTop }, style]}>
+          {children}
+        </View>
       </SafeAreaView>
     </View>
   )

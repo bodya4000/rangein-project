@@ -4,7 +4,7 @@ import ProfileScreen from '@/screens/profile-screen/profile-screen'
 
 export default function Home() {
   return (
-    <ScreenContainer>
+    <ScreenContainer type='noStatus'>
       <Header txTitle='profile.header' />
       <ProfileScreen />
     </ScreenContainer>

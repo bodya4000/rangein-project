@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
 
   input: {
-    height: 40,
+    height: 50,
     paddingVertical: 0,
     paddingHorizontal: 0,
     color: colors.white,

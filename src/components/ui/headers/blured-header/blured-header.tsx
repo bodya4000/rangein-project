@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { StatusBar, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { spacing } from '@/constants'
 import { TxKeyPath } from '@/i18n/react-i18next'
 
 import { styles } from './blured-header.style'
@@ -21,16 +22,22 @@ const BLUR_TINT = 'dark'
 export default function BluredHeader({ txTitle, title }: Props) {
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
-  const headerHeight = (StatusBar.currentHeight ?? insets.top) + 66
+
   const titleText = txTitle ? t(txTitle) : title
   if (!titleText) return null
   return (
     <BlurView
       intensity={BLUR_INTENSITY}
       tint={BLUR_TINT}
-      style={[styles.container, { height: headerHeight }]}
+      style={[
+        styles.container,
+        {
+          paddingTop: (StatusBar.currentHeight || insets.top) * 1.4,
+          paddingBottom: spacing.lg,
+        },
+      ]}
     >
-      <View style={[styles.header, { marginTop: insets.top }]}>
+      <View style={[styles.header]}>
         <View style={styles.back}>
           <BackButton containerStyle={styles.back} />
         </View>

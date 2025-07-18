@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
 
 import { HEADER_HEIGHT } from '@/constants'
 

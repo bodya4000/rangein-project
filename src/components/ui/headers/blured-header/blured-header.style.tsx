@@ -4,10 +4,8 @@ import { WINDOW_WIDTH } from '@/constants'
 
 export const styles = StyleSheet.create({
   container: {
-    height: 66,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     position: 'absolute',
     width: WINDOW_WIDTH,
     zIndex: 999999999,
