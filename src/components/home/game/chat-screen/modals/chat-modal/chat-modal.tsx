@@ -1,88 +1,60 @@
 import { useEffect, useRef, useState } from 'react'
 import { View, TextInput } from 'react-native'
 
-import { GameMessage, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { DefaultInput } from '@/components/ui/inputs'
 import { globalStyles, spacing } from '@/constants'
 import { useChatStore } from '@/store'
-import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
+import { isStringEmpty } from '@/utils'
 
 import { styles } from './chat-modal.style'
 
 interface Props {
+  handleSendMessage: (_: string, __?: { onSuccess?: () => void; onError?: () => void }) => void
   onClose: () => void
 }
 
-const ChatModal = ({ onClose }: Props) => {
+const ChatModal = ({ handleSendMessage, onClose }: Props) => {
   const textRef = useRef<TextInput | null>(null)
   const [text, setText] = useState('')
-  const [openModal, setOpenModal] = useState(true)
-  const { data: gameData } = useGameSetup({ userId: getDeviceId() })
-  const { mutate: sendMessage } = useSendMessage()
 
   const setUserOption = useChatStore(state => state.setUserOption)
-  const setTyping = useChatStore(state => state.setTyping)
-  const addMessage = useChatStore(state => state.addMessage)
-
-  const onSuccessMessageSend = (resp: SendMessageResponse) => {
-    setTyping(false)
-    for (const msg of resp.messages) {
-      addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
-    }
-    setUserOption(text)
-    setText('')
-    onClose()
-  }
 
   const onMyOptionSend = () => {
-    if (gameData?.gameId) {
-      setTyping(true)
-      const newMessage = newUserMessage(text)
-      addMessage(newMessage)
-      sendMessage(
-        { gameId: gameData.gameId, message: text },
-        {
-          onSuccess: onSuccessMessageSend,
-          onError: err => {
-            onClose()
-          },
-        },
-      )
-      setOpenModal(false)
-    }
+    const msg = text
+    handleSendMessage(msg, {
+      onSuccess: () => {
+        setUserOption(msg)
+        onClose()
+      },
+      onError: onClose,
+    })
   }
 
   useEffect(() => {
-    if (textRef.current) {
-      textRef.current.focus()
-    }
-  }, [textRef])
+    textRef.current?.focus()
+  }, [])
   return (
-    <View>
-      {openModal && (
-        <GameModal
-          onClose={onClose}
-          style={{ paddingHorizontal: spacing.lg }}
-          renderHeader={() => <GradientText>Enter your answer</GradientText>}
-          renderBody={() => (
-            <View style={styles.view}>
-              <DefaultInput
-                ref={textRef}
-                containerStyle={globalStyles.spacer}
-                placeholder='Type your answer...'
-                value={text}
-                onChangeText={setText}
-              />
-              <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
-                <Send width={42} height={42} />
-              </Touchable>
-            </View>
-          )}
-        />
+    <GameModal
+      onClose={onClose}
+      style={{ paddingHorizontal: spacing.lg }}
+      renderHeader={() => <GradientText>Enter your answer</GradientText>}
+      renderBody={() => (
+        <View style={styles.view}>
+          <DefaultInput
+            ref={textRef}
+            containerStyle={globalStyles.spacer}
+            placeholder='Type your answer...'
+            value={text}
+            onChangeText={setText}
+          />
+          <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
+            <Send width={42} height={42} />
+          </Touchable>
+        </View>
       )}
-    </View>
+    />
   )
 }
 

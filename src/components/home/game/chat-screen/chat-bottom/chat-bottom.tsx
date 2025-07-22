@@ -46,20 +46,23 @@ const ChatBottom = () => {
   if (!gameData) return null
   const { gameId } = gameData
 
-  const handleSendMessage = (message: string) => {
+  const handleSendMessage = (
+    message: string,
+    {
+      onSuccess = () => {},
+      onError = () => {},
+    }: { onSuccess?: () => void; onError?: () => void } = {},
+  ) => {
     if (isStringEmpty(message)) return
+    if (!user?.username) return
     setTyping(true)
-    const newMessage = newUserMessage(message, user?.username)
+    const newMessage = newUserMessage(message, user.username)
     addMessage(newMessage)
-    inputRef.current?.blur()
     sendMessage(
       { gameId, message },
       {
         onSuccess: (response: SendMessageResponse) => {
-          // logJson(response)
-          // for (let msg of response.messages) {
-          //   addMessage({ message: msg.message, messageId: msg.messageId, sender: msg.sender })
-          // }
+          onSuccess()
           setNewMessages(response.messages)
           setTyping(false)
           setOptions(response.options)
@@ -70,12 +73,14 @@ const ChatBottom = () => {
             })
           }
         },
+        onError,
       },
     )
   }
 
   const onMessageSend = () => {
     handleSendMessage(userTextInput)
+    inputRef.current?.blur()
     setUserTextInput('')
   }
 
@@ -139,7 +144,12 @@ const ChatBottom = () => {
         {justBeenDead && (
           <DeadInfoModal nameOfDeadCharacter={justBeenDead} onClose={onDeadInfoModalClose} />
         )}
-        {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
+        {showMyOptionModal && (
+          <ChatModal
+            handleSendMessage={handleSendMessage}
+            onClose={() => setShowMyOptionModal(false)}
+          />
+        )}
       </>
     )
 }
