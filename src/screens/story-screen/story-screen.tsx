@@ -42,9 +42,9 @@ const StoryScreen = () => {
     setIsArrowDisabled(true)
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = currentPaginationItem
-    if (direction === 'next' && currentPaginationItem == gameInfo.story.parts.length - 1) {
+    if (direction === 'next' && currentPaginationItem == gameInfo.parts.length - 1) {
       router.replace('/chat')
-    } else if (direction === 'next' && currentPaginationItem < gameInfo.story.parts.length - 1) {
+    } else if (direction === 'next' && currentPaginationItem < gameInfo.parts.length - 1) {
       newIndex++
     } else if (direction === 'prev' && currentPaginationItem > 0) {
       newIndex--
@@ -62,14 +62,14 @@ const StoryScreen = () => {
         <>
           <View style={styles.textContainer}>
             <GradientText style={styles.title} txStyle='IR24'>
-              {gameInfo.story.title}
+              {gameInfo.title}
             </GradientText>
           </View>
 
           <View style={globalStyles.spacer} />
 
           <StoryList
-            parts={gameInfo.story.parts}
+            parts={gameInfo.parts}
             ref={flatlistRef}
             onScrollEndCb={setCurrentPaginationItem}
           />
@@ -96,7 +96,7 @@ const StoryScreen = () => {
             </Touchable>
           </View>
 
-          <StoryPagination parts={gameInfo.story.parts.length} currentIdx={currentPaginationItem} />
+          <StoryPagination parts={gameInfo.parts.length} currentIdx={currentPaginationItem} />
         </>
       ) : (
         <BlurModal>

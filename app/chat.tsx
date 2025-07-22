@@ -12,7 +12,7 @@ export default function Chat() {
 
   return (
     <>
-      <BluredHeader title={gameData.story.title} />
+      <BluredHeader title={gameData.title} />
       <ScreenContainer type='fullscreen' background={Background}>
         <ChatScreen />
       </ScreenContainer>

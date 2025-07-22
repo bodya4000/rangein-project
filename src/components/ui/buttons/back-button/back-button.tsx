@@ -17,7 +17,7 @@ interface Props {
 }
 
 const width = 30
-const height = 30
+const height = 60
 
 export function BackButton({ onPress, containerStyle }: Props) {
   const router = useRouter()
@@ -31,6 +31,7 @@ export function BackButton({ onPress, containerStyle }: Props) {
     <Touchable
       style={[styles.container, { width, height }, containerStyle]}
       onPress={onButtonPress}
+      touchable={true}
     >
       <ArrowLeft />
     </Touchable>

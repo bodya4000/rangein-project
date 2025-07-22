@@ -2,13 +2,13 @@ import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
-import { globalStyles } from '@/constants'
+import { colors, globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
+import { getDeviceId } from '@/utils'
 
 import { styles } from './chat-messages.style'
 import { ReceivedMessage } from './received-message/received-message'
 import { SentMessage } from './sent-message/sent-message'
-import { getDeviceId } from '@/utils'
 
 const TYPING_ID = '-1'
 const loadingMessage: GameMessage = {
@@ -45,7 +45,6 @@ const ChatMessages = () => {
       setTimeout(() => {
         popNewMessages()
         setTyping(false)
-
         idx++
         handleMessage()
       }, 1000)
@@ -84,12 +83,12 @@ const ChatMessages = () => {
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
-            return <ReceivedMessage typing />
+            return <ReceivedMessage colors={colors.gradientMetal1} typing />
           }
           return item.sender == user?.username || item.sender === 'PLAYER' ? (
             <SentMessage text={item.message} />
           ) : (
-            <ReceivedMessage sender={item.sender} text={item.message} />
+            <ReceivedMessage colors={item.colors} sender={item.sender} text={item.message} />
           )
         }}
       />

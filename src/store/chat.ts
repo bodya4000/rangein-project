@@ -39,9 +39,9 @@ export const useChatStore = create<ChatStore>()(
       popNewMessages: () =>
         set(state => {
           if (state.newMessages.length > 0) {
-            const message = state.newMessages[state.newMessages.length - 1]
+            const message = state.newMessages[0]
             return {
-              newMessages: state.newMessages.slice(0, -1),
+              newMessages: state.newMessages.slice(1),
               messages: [message, ...state.messages],
             }
           }

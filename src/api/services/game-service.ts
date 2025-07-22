@@ -2,15 +2,11 @@ import { API_URL } from '@/constants/api'
 
 import { api } from './api'
 
-export type GameStory = {
-  title: string
-  parts: string[]
-}
-
 export type GameMessage = {
   messageId: string
   sender: string
   message: string
+  colors: string[]
 }
 
 export type MessageData = {
@@ -45,8 +41,10 @@ export type SendMessageRequest = {
 }
 
 export type SendMessageResponse = {
-  options: string[]
   messages: GameMessage[]
+  options: string[]
+  listOfDead: string[]
+  justBeenDead: string[]
   finished: boolean
   score: GameResult | null
   summary: string
@@ -54,7 +52,8 @@ export type SendMessageResponse = {
 
 export type GameSetupResponse = {
   gameId: string
-  story: GameStory
+  title: string
+  parts: string[]
   messageData: MessageData
   options: string[]
 }

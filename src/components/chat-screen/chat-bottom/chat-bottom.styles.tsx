@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   bottom: {
     paddingHorizontal: spacing.md,
-    marginTop: spacing.lg,
+    marginTop: spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,

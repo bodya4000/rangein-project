@@ -14,8 +14,10 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     textAlign: 'center',
+    padding: 10,
   },
   title: {
     textAlign: 'center',
+    minWidth: '75%',
   },
 })

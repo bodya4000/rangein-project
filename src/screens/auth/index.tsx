@@ -52,8 +52,7 @@ const Register = () => {
 
   const onSubmit = ({ age, sex, username }: RegisterForm) => {
     // if (age && sex && username) {
-    const avatarColors = generateRandomGradientColors()
-    register({ age, sex, username, deviceId: getDeviceId(), avatarColors })
+    register({ age, sex, username, deviceId: getDeviceId() })
     // }
   }
 

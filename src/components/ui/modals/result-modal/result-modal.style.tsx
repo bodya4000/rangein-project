@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { WINDOW_WIDTH } from '@/constants'
+import { spacing, WINDOW_WIDTH } from '@/constants'
 
 const MODAL_WIDTH = WINDOW_WIDTH * 1
 
@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
 
   text: {
     // maxWidth: '90%',
+    paddingHorizontal: spacing['2xl'],
     textAlign: 'center',
     fontSize: 18,
     // fontWeight: 300,
@@ -44,7 +45,6 @@ export const styles = StyleSheet.create({
 
   starsContainer: {
     flexDirection: 'row',
-    marginBottom: 16,
   },
 
   star_bottom: {

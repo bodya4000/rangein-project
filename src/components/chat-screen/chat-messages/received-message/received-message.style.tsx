@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
-import { spacing } from '@/constants/spacing'
 import { WINDOW_WIDTH } from '@/constants'
+import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
   row: {
@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     maxWidth: WINDOW_WIDTH * 0.65,
-    borderColor: '#24319E',
     borderWidth: 1,
   },
   avatar: {
@@ -25,9 +24,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     gap: spacing.sm,
   },
-  name: {
-    color: '#24319E',
-  },
+  name: {},
   text: {
     textAlign: 'left',
   },

@@ -14,7 +14,6 @@ export type GetUserResponse = {
   username: string
   sex: Sex
   age: number
-  avatarColors: string[]
 }
 
 export type UpdateUserResponse = GetUserResponse

@@ -61,11 +61,7 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
     </>
   )
 
-  const renderFooter = () => (
-    <View>
-      <SecondaryButton type={type} title='Continue' onPress={onClose} />
-    </View>
-  )
+  const renderFooter = () => <SecondaryButton type={type} title='Continue' onPress={onClose} />
 
   return (
     <GameModal

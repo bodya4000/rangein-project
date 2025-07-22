@@ -6,7 +6,7 @@ import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@
 import { Burger, Send } from '@/components/icons'
 import { ResultModal, Touchable } from '@/components/ui'
 import { DefaultInput } from '@/components/ui/inputs'
-import { globalStyles } from '@/constants'
+import { globalStyles, QUERIES, queryClient } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
@@ -91,6 +91,13 @@ const ChatBottom = () => {
     setShowOptions(true)
   }
 
+  const onFinishGame = () => {
+    queryClient.invalidateQueries({ queryKey: [QUERIES.GAME] })
+    queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
+    queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
+    router.replace('/')
+  }
+
   if (!typing)
     return (
       <>
@@ -121,7 +128,7 @@ const ChatBottom = () => {
             </Touchable>
           </View>
         )}
-        {gameResult && <ResultModal stars={gameResult.score} onClose={() => router.replace('/')} />}
+        {gameResult && <ResultModal stars={gameResult.score} onClose={onFinishGame} />}
         {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
       </>
     )

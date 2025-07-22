@@ -28,7 +28,11 @@ export const Touchable = ({
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ perspective: 800 }, { scale: scale.value }, { rotateY: `${rotate.value}deg` }],
+      transform: [
+        { perspective: 80000 },
+        { scale: scale.value },
+        { rotateY: `${rotate.value}deg` },
+      ],
     }
   })
 

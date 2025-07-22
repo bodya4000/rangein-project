@@ -11,9 +11,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    color: '#fff',
-    fontSize: 24,
-    fontFamily: 'Quintessential-Regular',
-  },
 })
