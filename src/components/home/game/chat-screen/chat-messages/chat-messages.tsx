@@ -15,6 +15,7 @@ const loadingMessage: GameMessage = {
   message: '',
   messageId: TYPING_ID,
   sender: '',
+  colors: colors.gradientMetal4,
 }
 
 const ChatMessages = () => {
@@ -79,11 +80,12 @@ const ChatMessages = () => {
         inverted
         data={messageList}
         bounces
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.messageListContainer}
         keyExtractor={item => item.messageId.toString()}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
-            return <ReceivedMessage colors={colors.gradientMetal1} typing />
+            return <ReceivedMessage colors={loadingMessage.colors} typing />
           }
           return item.sender == user?.username || item.sender === 'PLAYER' ? (
             <SentMessage text={item.message} />

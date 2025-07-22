@@ -25,7 +25,7 @@ const HomeScreen = () => {
           <Profile />
         </PrimaryButton>
         <PrimaryButton
-          onPress={() => router.push('/story')}
+          onPress={() => router.push('/home/game/story')}
           style={styles.button_top}
           sizeType='big'
         >
@@ -33,7 +33,7 @@ const HomeScreen = () => {
         </PrimaryButton>
         <PrimaryButton
           disabled={!userInfo || !userInfo.gameId}
-          onPress={() => router.push('/chat')}
+          onPress={() => router.push('/home/game/chat')}
         >
           <Continue />
         </PrimaryButton>

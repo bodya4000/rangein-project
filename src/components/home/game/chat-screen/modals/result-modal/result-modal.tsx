@@ -4,12 +4,10 @@ import { View } from 'react-native'
 import { GameResult } from '@/api'
 import { BronzeStar, GoldStar } from '@/components/icons'
 import { SilverStar } from '@/components/icons/silver-star'
+import { GameModal, GradientText, SecondaryButton } from '@/components/ui'
 import { colors } from '@/constants'
 
 import { styles } from './result-modal.style'
-import { SecondaryButton } from '../../buttons/secondary-button/secondary-button'
-import { GradientText } from '../../text/gradient-text'
-import GameModal from '../game-modal/game-modal'
 
 interface Props {
   stars?: 0 | 1 | 2 | 3
@@ -40,7 +38,10 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
     stars === 3 ? 'gold' : stars === 2 ? 'silver' : stars === 1 ? 'bronze' : 'metal'
 
   const renderHeader = () => (
-    <GradientText color={[...colors.gradientGold]} style={styles.title}>
+    <GradientText
+      color={[colors.gradientGold[0], colors.gradientGold[1], ...colors.gradientGold.slice(2)]}
+      style={styles.title}
+    >
       {stars === 3 ? 'Winner' : 'Loser'}
     </GradientText>
   )

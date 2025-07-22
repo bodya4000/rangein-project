@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Alert, FlatList, View } from 'react-native'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
-import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { StoryList, StoryPagination } from '@/components/home/game/story-screen'
+import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { BlurModal, GradientText, PrimaryLoader, SecondaryButton, Touchable } from '@/components/ui'
 import { globalStyles, QUERIES, queryClient } from '@/constants'
 import { getDeviceId, logJson } from '@/utils'
@@ -43,7 +43,7 @@ const StoryScreen = () => {
     setTimeout(() => setIsArrowDisabled(false), BUTTON_DELAY)
     let newIndex = currentPaginationItem
     if (direction === 'next' && currentPaginationItem == gameInfo.parts.length - 1) {
-      router.replace('/chat')
+      router.replace('/home/game/chat')
     } else if (direction === 'next' && currentPaginationItem < gameInfo.parts.length - 1) {
       newIndex++
     } else if (direction === 'prev' && currentPaginationItem > 0) {

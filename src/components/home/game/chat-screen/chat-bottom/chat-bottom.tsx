@@ -4,15 +4,17 @@ import { TextInput, View } from 'react-native'
 
 import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
 import { Burger, Send } from '@/components/icons'
-import { ResultModal, Touchable } from '@/components/ui'
+import { Touchable } from '@/components/ui/buttons'
 import { DefaultInput } from '@/components/ui/inputs'
 import { globalStyles, QUERIES, queryClient } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
-import ChatModal from './chat-modal/chat-modal'
 import ChatOptions from './chat-options/chat-options'
+import ChatModal from '../modals/chat-modal/chat-modal'
+import DeadInfoModal from '../modals/dead-info-modal/dead-info-modal'
+import ResultModal from '../modals/result-modal/result-modal'
 
 const ChatBottom = () => {
   const router = useRouter()
@@ -99,6 +101,10 @@ const ChatBottom = () => {
     router.replace('/')
   }
 
+  const onDeadInfoModalClose = () => {
+    setJustBeenDead(null)
+  }
+
   if (!typing)
     return (
       <>
@@ -130,6 +136,9 @@ const ChatBottom = () => {
           </View>
         )}
         {gameResult && <ResultModal stars={gameResult.score} onClose={onFinishGame} />}
+        {justBeenDead && (
+          <DeadInfoModal nameOfDeadCharacter={justBeenDead} onClose={onDeadInfoModalClose} />
+        )}
         {showMyOptionModal && <ChatModal onClose={() => setShowMyOptionModal(false)} />}
       </>
     )

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { StatusBar, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { colors, spacing } from '@/constants'
+import { IS_IOS, spacing } from '@/constants'
 import { TxKeyPath } from '@/i18n/react-i18next'
 
 import { styles } from './blured-header.style'
@@ -16,8 +16,8 @@ interface Props {
   title?: string
 }
 
-const BLUR_INTENSITY = 20
-const BLUR_TINT = 'dark'
+const BLUR_INTENSITY = IS_IOS ? 75 : 1000
+const BLUR_TINT = IS_IOS ? 'light' : 'dark'
 
 export default function BluredHeader({ txTitle, title }: Props) {
   const { t } = useTranslation()
