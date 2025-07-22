@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView } from 'react-native'
 
-import { ChatBottom, ChatMessages } from '@/components/chat-screen'
+import { ChatBottom, ChatMessages } from '@/components/home/game/chat-screen'
 import { IS_IOS } from '@/constants'
 
 import { styles } from './chat-screen.style'

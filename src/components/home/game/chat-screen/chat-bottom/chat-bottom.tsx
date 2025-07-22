@@ -24,6 +24,7 @@ const ChatBottom = () => {
   const [showOptions, setShowOptions] = useState(false)
   const [showMyOptionModal, setShowMyOptionModal] = useState(false)
   const [gameResult, setGameResult] = useState<{ message: string; score: GameResult } | null>(null)
+  const [justBeenDead, setJustBeenDead] = useState<string | null>(null)
 
   const user = useAuthStore(state => state.user)
   const typing = useChatStore(state => state.typing)

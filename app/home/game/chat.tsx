@@ -1,7 +1,7 @@
 import { useGameSetup } from '@/api/hooks'
 import { BluredHeader } from '@/components/ui'
 import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
-import ChatScreen from '@/screens/chat-screen/chat-screen'
+import ChatScreen from '@/screens/home/game/chat-screen/chat-screen'
 import { getDeviceId } from '@/utils'
 
 import Background from '@assets/images/screens/screen_chat.png'

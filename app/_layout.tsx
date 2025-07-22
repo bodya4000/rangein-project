@@ -20,10 +20,11 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen options={{ headerShown: false }} name='(auth)' />
             <Stack.Screen options={{ headerShown: false }} name='index' />
-            <Stack.Screen options={{ headerShown: false }} name='home' />
             <Stack.Screen options={{ headerShown: false }} name='profile' />
-            <Stack.Screen options={{ headerShown: false }} name='story' />
-            <Stack.Screen options={{ headerShown: false }} name='chat' />
+
+            <Stack.Screen options={{ headerShown: false }} name='home/index' />
+            <Stack.Screen options={{ headerShown: false }} name='home/game/story' />
+            <Stack.Screen options={{ headerShown: false }} name='home/game/chat' />
           </Stack>
         </SafeAreaProvider>
       </I18nextProvider>

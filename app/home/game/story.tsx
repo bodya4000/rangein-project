@@ -1,5 +1,5 @@
 import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
-import StoryScreen from '@/screens/story-screen/story-screen'
+import StoryScreen from '@/screens/home/game/story-screen/story-screen'
 
 import Background from '@assets/images/screens/screen_game.png'
 
