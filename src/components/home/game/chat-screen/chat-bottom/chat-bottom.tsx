@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
 
 import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@/api'
@@ -17,6 +18,7 @@ import DeadInfoModal from '../modals/dead-info-modal/dead-info-modal'
 import ResultModal from '../modals/result-modal/result-modal'
 
 const ChatBottom = () => {
+  const { t } = useTranslation()
   const router = useRouter()
   const deviceId = useMemo(getDeviceId, [])
   const { data: gameData } = useGameSetup({ userId: deviceId })
@@ -129,7 +131,7 @@ const ChatBottom = () => {
 
             <DefaultInput
               containerStyle={globalStyles.spacer}
-              placeholder='Type your message...'
+              placeholder={t('game.chat.typeYourMessage')}
               ref={inputRef}
               value={userTextInput}
               onChangeText={setUserTextInput}

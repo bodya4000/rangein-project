@@ -6,7 +6,7 @@ import { TxKeyPath } from '@/i18n/react-i18next'
 import { styles } from './smooth-button.style'
 import { Text } from '../../text'
 
-interface Props extends ButtonProps {
+interface Props extends Partial<ButtonProps> {
   txTitle: TxKeyPath
 }
 

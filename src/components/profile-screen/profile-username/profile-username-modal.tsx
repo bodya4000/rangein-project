@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
 
 import { Send } from '@/components/icons'
-import { GameModal, SmoothButton, Text, Touchable } from '@/components/ui'
+import { GameModal, Text, Touchable } from '@/components/ui'
 import { DefaultInput } from '@/components/ui/inputs'
 import { colors, spacing } from '@/constants'
 
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => {} }: Props) => {
+  const { t } = useTranslation()
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = () => {
@@ -21,19 +23,19 @@ export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => 
       onSubmit()
       onClose()
     } else {
-      setError('Max 20 and Min 3 symbols')
+      setError(t('auth.register.usernameRequired'))
     }
   }
   return (
     <GameModal
-      renderHeader={() => <Text>New Username</Text>}
+      renderHeader={() => <Text tx='profile.newUsername' />}
       renderBody={() => (
         <View style={styles.container}>
           <DefaultInput
             containerStyle={styles.inputContainer}
             value={text}
             onChangeText={setText}
-            placeholder='Write your new username'
+            placeholder={t('profile.writeNewUsername')}
           />
           <Touchable onPress={handleSubmit}>
             <Send />

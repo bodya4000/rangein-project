@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { GameResult } from '@/api'
@@ -21,9 +22,6 @@ interface StarProps {
   size?: number
 }
 
-const DEFAULT_RESULT_TEXT =
-  'Terrible result, you are such a bad detective. I think you need one more game to improve it'
-
 const Star = ({ stars, id, size = 100 }: StarProps) => {
   const filled = stars === 3 || (stars === 2 && id !== 2) || (stars === 1 && id === 0)
 
@@ -34,6 +32,7 @@ const Star = ({ stars, id, size = 100 }: StarProps) => {
 }
 
 export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
+  const { t } = useTranslation()
   const type: 'gold' | 'silver' | 'bronze' | 'metal' =
     stars === 3 ? 'gold' : stars === 2 ? 'silver' : stars === 1 ? 'bronze' : 'metal'
 
@@ -42,14 +41,15 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
       color={[colors.gradientGold[0], colors.gradientGold[1], ...colors.gradientGold.slice(2)]}
       style={styles.title}
     >
-      {stars === 3 ? 'Winner' : 'Loser'}
+      {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
     </GradientText>
   )
 
   const renderBody = () => (
     <>
       <GradientText quintessential={false} style={styles.text}>
-        {summary || DEFAULT_RESULT_TEXT}
+        {(summary && summary.length > 0) ||
+          (stars > 1 ? t('game.chat.winSummary') : t('game.chat.loseSummary'))}
       </GradientText>
 
       <View style={styles.starsContainer}>
@@ -62,7 +62,9 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
     </>
   )
 
-  const renderFooter = () => <SecondaryButton type={type} title='Continue' onPress={onClose} />
+  const renderFooter = () => (
+    <SecondaryButton type={type} txTitle='actions.continue' onPress={onClose} />
+  )
 
   return (
     <GameModal

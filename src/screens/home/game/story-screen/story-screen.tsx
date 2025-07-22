@@ -83,7 +83,7 @@ const StoryScreen = () => {
               <ArrowLeft width={36} height={36} />
             </Touchable>
             <SecondaryButton
-              title='Continue'
+              txTitle='actions.continue'
               onPress={() => onArrowClick('next')}
               disabled={isArrowDisabled}
             />
@@ -102,7 +102,7 @@ const StoryScreen = () => {
         <BlurModal>
           <View style={styles.aiContainer}>
             <PrimaryLoader />
-            <GradientText txStyle='IR16'>Generating game ...</GradientText>
+            <GradientText txStyle='IR16' tx='game.story.generatingGame' />
           </View>
         </BlurModal>
       )}

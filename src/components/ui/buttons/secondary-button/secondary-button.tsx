@@ -2,6 +2,7 @@ import React from 'react'
 import { View, ImageBackground, ViewStyle, GestureResponderEvent, TextStyle } from 'react-native'
 
 import { colors } from '@/constants'
+import { TxKeyPath } from '@/i18n/react-i18next'
 
 import { styles } from './secondary-button.style'
 import { GradientText, Text } from '../../text'
@@ -9,6 +10,7 @@ import { Touchable } from '../touchable/touchable'
 
 interface Props {
   title?: string
+  txTitle?: TxKeyPath
   onPress?: (_: GestureResponderEvent) => void
   width?: number
   height?: number
@@ -33,11 +35,12 @@ const buttonColors: { [key in NonNullable<Props['type']>]: [string, string, ...s
 
 export function SecondaryButton({
   title,
+  txTitle,
   onPress,
   width = 210,
   height = 80,
   containerStyle,
-  txStyle,
+  txStyle = {},
   disabled,
   type = 'metal',
 }: Props) {
@@ -46,7 +49,7 @@ export function SecondaryButton({
       <View style={[styles.container, { width, height }, containerStyle]}>
         <ImageBackground resizeMode='stretch' source={buttonImages[type]} style={styles.button}>
           <GradientText color={buttonColors[type]} style={[styles.title, txStyle]}>
-            {title}
+            {txTitle || title}
           </GradientText>
         </ImageBackground>
       </View>

@@ -1,0 +1,56 @@
+{
+  "nothing": "",
+  "home": {
+    "title": "暗影裁决"
+  },
+  "profile": {
+    "header": "个人资料",
+    "writeName": "输入姓名",
+    "writeNewUsername": "输入新用户名",
+    "newUsername": "新用户名",
+    "male": "男",
+    "female": "女",
+    "years": "岁",
+    "changeLanguage": "更改语言"
+  },
+  "auth": {
+    "enterUsername": "请输入用户名",
+    "invalidUsername": "用户名无效",
+    "invalidAge": "年龄无效",
+    "invalidSex": "请选择“男性”或“女性”",
+    "register": {
+      "title": "介绍一下你自己",
+      "next": "下一步",
+      "submit": "提交",
+      "usernameRequired": "3-20 个字符",
+      "sexRequired": "性别必须为 男性 或 女性",
+      "ageMustBeNumber": "年龄必须是数字",
+      "ageMustBeInteger": "年龄必须是整数",
+      "ageTooHigh": "年龄必须小于 100",
+      "ageTooLow": "年龄必须大于 0"
+    }
+  },
+  "game": {
+    "story": {
+      "generatingGame": "正在生成游戏..."
+    },
+    "chat": {
+      "typeYourMessage": "输入你的消息...",
+      "typeYourAnswer": "输入你的答案...",
+      "enterYourAnswer": "输入答案...",
+      "createOption": "创建选项",
+
+      "winner": "胜者",
+      "loser": "失败者",
+      "winSummary": "",
+      "loseSummary": "",
+      "deadInfoPart1": "不幸的是，",
+      "deadInfoPart2": " 受了重伤，被发现时已死亡..."
+    }
+  },
+  "actions": {
+    "continue": "继续",
+    "warning": "警告",
+    "gotIt": "明白了"
+  }
+}

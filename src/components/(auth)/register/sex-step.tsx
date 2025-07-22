@@ -1,4 +1,5 @@
 import { Control, Controller } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
 
 import { ProfileSex } from '@/components/profile-screen'
@@ -11,16 +12,11 @@ interface Props {
 }
 
 export const SexStep = ({ control }: Props) => {
+  const { t } = useTranslation()
   return (
     <Controller
       control={control}
       name='sex'
-      rules={{
-        required: {
-          value: true,
-          message: 'Please select your sex',
-        },
-      }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <View>
           <SexContainer
@@ -31,7 +27,7 @@ export const SexStep = ({ control }: Props) => {
             }}
           />
           <Text style={{ color: 'red', marginTop: 8 }}>
-            {error && (error.message || 'Invalid selection')}
+            {error && (error.message || t('auth.invalidSex'))}
           </Text>
         </View>
       )}

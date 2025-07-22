@@ -4,6 +4,7 @@ import { spacing } from '@/constants'
 
 export const styles = StyleSheet.create({
   body: {
+    flexDirection: 'row',
     paddingHorizontal: spacing.lg,
   },
 })

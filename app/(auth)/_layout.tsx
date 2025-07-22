@@ -1,6 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query'
-import { Stack, useRouter } from 'expo-router'
-import { useEffect } from 'react'
+import { Stack } from 'expo-router'
 import { I18nextProvider } from 'react-i18next'
 import { StatusBar } from 'react-native'
 

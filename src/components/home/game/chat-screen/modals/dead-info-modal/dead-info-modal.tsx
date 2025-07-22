@@ -13,13 +13,15 @@ interface Props {
 export default function DeadInfoModal({ onClose, nameOfDeadCharacter }: Props) {
   const renderHeader = () => (
     <>
-      <GradientText quintessential>Warning!</GradientText>
+      <GradientText tx='actions.warning' quintessential />
     </>
   )
 
   const renderBody = () => (
     <View style={styles.body}>
+      <Text tx='game.chat.deadInfoPart1' />
       <Text>Unfortunately {nameOfDeadCharacter} was badly wounded and was found dead</Text>
+      <Text tx='game.chat.deadInfoPart2' />
     </View>
   )
 

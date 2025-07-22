@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { View, TextInput } from 'react-native'
 
 import { Send } from '@/components/icons'
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const ChatModal = ({ handleSendMessage, onClose }: Props) => {
+  const { t } = useTranslation()
   const textRef = useRef<TextInput | null>(null)
   const [text, setText] = useState('')
 
@@ -39,13 +41,13 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
     <GameModal
       onClose={onClose}
       style={{ paddingHorizontal: spacing.lg }}
-      renderHeader={() => <GradientText>Enter your answer</GradientText>}
+      renderHeader={() => <GradientText tx='game.chat.enterYourAnswer' />}
       renderBody={() => (
         <View style={styles.view}>
           <DefaultInput
             ref={textRef}
             containerStyle={globalStyles.spacer}
-            placeholder='Type your answer...'
+            placeholder={t('game.chat.typeYourAnswer')}
             value={text}
             onChangeText={setText}
           />

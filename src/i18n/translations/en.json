@@ -1,17 +1,58 @@
 {
   "nothing": "",
   "home": {
-    "title": "Big Logo Beautiful"
+    "title": "Shadow Verdict"
   },
   "profile": {
     "header": "Profile",
     "writeName": "Write name",
+    "writeNewUsername": "Write your new username",
+    "newUsername": "New username",
     "male": "Male",
     "female": "Female",
     "years": "years",
     "changeLanguage": "Change language"
   },
-  "userDataQuestioner": {
-    "title": "Tell us a bit about yourself"
+  "auth": {
+    "enterUsername": "Enter username",
+    "invalidUsername": "Invalid username",
+    "invalidAge": "Invalid age",
+    "invalidSex": "Please choose \"MALE\" or \"FEMALE\"",
+    "register": {
+      "title": "Tell us a bit about yourself",
+      "next": "Next",
+      "submit": "Submit",
+      "usernameRequired": "Max 20 and Min 3 symbols",
+      "sexRequired": "Sex must be MALE or FEMALE",
+      "ageMustBeNumber": "Age must be a number",
+      "ageMustBeInteger": "Age must be an integer",
+      "ageTooHigh": "Age must be lower than 100",
+      "ageTooLow": "Age must be greater than 0"
+    }
+  },
+
+  "game": {
+    "story": {
+      "generatingGame": "Generating game ..."
+    },
+    "chat": {
+      "typeYourMessage": "Type your message ...",
+      "typeYourAnswer": "Type your answer ...",
+      "enterYourAnswer": "Enter your answer ...",
+      "createOption": "Create option",
+
+      "winner": "Winner",
+      "loser": "Loser",
+      "winSummary": "",
+      "loseSummary": "",
+      "deadInfoPart1": "Unfortunately ",
+      "deadInfoPart2": " was badly wounded and his body was found dead..."
+    }
+  },
+
+  "actions": {
+    "continue": "Continue",
+    "warning": "Warning",
+    "gotIt": "Got it"
   }
 }

@@ -31,7 +31,7 @@ interface Props extends TextProps {
   tx?: TxKeyPath
   txStyle?: GradientFontStyle
   color?: [string, string, ...string[]]
-  style?: TextStyle
+  style?: TextStyle | TextStyle[]
   containerStyle?: ViewStyle
   quintessential?: boolean
   width?: number
