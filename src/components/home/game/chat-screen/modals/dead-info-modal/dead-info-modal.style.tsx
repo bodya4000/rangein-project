@@ -5,6 +5,9 @@ import { spacing } from '@/constants'
 export const styles = StyleSheet.create({
   body: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     paddingHorizontal: spacing.lg,
+    marginVertical: spacing.lg,
   },
 })

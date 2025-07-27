@@ -17,7 +17,7 @@ interface Props {
 }
 
 const BLUR_INTENSITY = IS_IOS ? 75 : 1000
-const BLUR_TINT = IS_IOS ? 'light' : 'dark'
+const BLUR_TINT = IS_IOS ? 'systemChromeMaterial' : 'dark'
 
 export default function BluredHeader({ txTitle, title }: Props) {
   const { t } = useTranslation()

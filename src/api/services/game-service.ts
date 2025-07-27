@@ -44,7 +44,7 @@ export type SendMessageResponse = {
   messages: GameMessage[]
   options: string[]
   listOfDead: string[]
-  justBeenDead: string[]
+  justBeenDead: string
   finished: boolean
   score: GameResult | null
   summary: string

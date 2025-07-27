@@ -9,8 +9,9 @@ const ChatScreen = () => {
   return (
     <KeyboardAvoidingView
       behavior='padding'
-      keyboardVerticalOffset={IS_IOS ? 70 : 10}
+      keyboardVerticalOffset={IS_IOS ? 70 : 0}
       style={styles.container}
+      contentContainerStyle={styles.container}
     >
       <ChatMessages />
       <ChatBottom />

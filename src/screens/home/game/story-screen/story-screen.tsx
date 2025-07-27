@@ -7,7 +7,7 @@ import { StoryList, StoryPagination } from '@/components/home/game/story-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { BlurModal, GradientText, PrimaryLoader, SecondaryButton, Touchable } from '@/components/ui'
 import { globalStyles, QUERIES, queryClient } from '@/constants'
-import { getDeviceId, logJson } from '@/utils'
+import { getDeviceId } from '@/utils'
 
 import { styles } from './story-screen.style'
 
@@ -35,8 +35,6 @@ const StoryScreen = () => {
     }
   }, [isError, error])
 
-  logJson(gameInfo)
-
   const onArrowClick = (direction: 'prev' | 'next') => {
     if (!gameInfo) return
     setIsArrowDisabled(true)
@@ -48,6 +46,8 @@ const StoryScreen = () => {
       newIndex++
     } else if (direction === 'prev' && currentPaginationItem > 0) {
       newIndex--
+    } else if (direction === 'prev') {
+      router.back()
     }
     flatlistRef.current?.scrollToIndex({
       index: newIndex,

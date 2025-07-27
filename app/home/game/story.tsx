@@ -5,7 +5,7 @@ import Background from '@assets/images/screens/screen_game.png'
 
 export default function Story() {
   return (
-    <ScreenContainer background={Background}>
+    <ScreenContainer type='fullscreen' background={Background}>
       <StoryScreen />
     </ScreenContainer>
   )

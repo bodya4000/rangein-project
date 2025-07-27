@@ -42,8 +42,8 @@
 
       "winner": "胜者",
       "loser": "失败者",
-      "winSummary": "",
-      "loseSummary": "",
+      "winSummary": "你揭示了真相，让罪犯绳之以法。",
+      "loseSummary": "案件仍未侦破，真正的罪犯逍遥法外。",
       "deadInfoPart1": "不幸的是，",
       "deadInfoPart2": " 受了重伤，被发现时已死亡..."
     }

@@ -43,8 +43,8 @@
 
       "winner": "Winner",
       "loser": "Loser",
-      "winSummary": "",
-      "loseSummary": "",
+      "winSummary": "You uncovered the truth and brought the culprit to justice.",
+      "loseSummary": "The case remains unsolved. The real culprit walks free.",
       "deadInfoPart1": "Unfortunately ",
       "deadInfoPart2": " was badly wounded and his body was found dead..."
     }

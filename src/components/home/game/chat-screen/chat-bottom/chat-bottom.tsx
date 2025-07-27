@@ -74,6 +74,9 @@ const ChatBottom = () => {
               score: response.score ?? 0,
             })
           }
+          if (response.justBeenDead) {
+            setJustBeenDead(response.justBeenDead)
+          }
         },
         onError,
       },
@@ -102,7 +105,7 @@ const ChatBottom = () => {
   }
 
   const onFinishGame = () => {
-    queryClient.invalidateQueries({ queryKey: [QUERIES.GAME] })
+    queryClient.invalidateQueries({ queryKey: [QUERIES.GAME], refetchType: 'none' })
     queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
     queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
     router.replace('/')
@@ -142,7 +145,13 @@ const ChatBottom = () => {
             </Touchable>
           </View>
         )}
-        {gameResult && <ResultModal stars={gameResult.score} onClose={onFinishGame} />}
+        {gameResult && (
+          <ResultModal
+            summary={gameResult.message}
+            stars={gameResult.score}
+            onClose={onFinishGame}
+          />
+        )}
         {justBeenDead && (
           <DeadInfoModal nameOfDeadCharacter={justBeenDead} onClose={onDeadInfoModalClose} />
         )}

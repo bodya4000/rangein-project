@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { View, ImageBackground, ViewStyle, GestureResponderEvent, TextStyle } from 'react-native'
 
 import { colors } from '@/constants'
@@ -44,12 +45,13 @@ export function SecondaryButton({
   disabled,
   type = 'metal',
 }: Props) {
+  const { t } = useTranslation()
   return (
     <Touchable onPress={onPress} disabled={disabled}>
       <View style={[styles.container, { width, height }, containerStyle]}>
         <ImageBackground resizeMode='stretch' source={buttonImages[type]} style={styles.button}>
           <GradientText color={buttonColors[type]} style={[styles.title, txStyle]}>
-            {txTitle || title}
+            {txTitle ? t(txTitle) : title}
           </GradientText>
         </ImageBackground>
       </View>

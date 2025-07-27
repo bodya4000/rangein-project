@@ -22,6 +22,13 @@ interface StarProps {
   size?: number
 }
 
+const colorMap = {
+  3: colors.gradientGold,
+  2: colors.gradientMetal1,
+  1: colors.gradientBronze,
+  0: colors.gradientMetal2,
+}
+
 const Star = ({ stars, id, size = 100 }: StarProps) => {
   const filled = stars === 3 || (stars === 2 && id !== 2) || (stars === 1 && id === 0)
 
@@ -38,7 +45,7 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
 
   const renderHeader = () => (
     <GradientText
-      color={[colors.gradientGold[0], colors.gradientGold[1], ...colors.gradientGold.slice(2)]}
+      color={[colorMap[stars][0], colorMap[stars][1], ...colorMap[stars].slice(2)]}
       style={styles.title}
     >
       {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
@@ -48,8 +55,7 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
   const renderBody = () => (
     <>
       <GradientText quintessential={false} style={styles.text}>
-        {(summary && summary.length > 0) ||
-          (stars > 1 ? t('game.chat.winSummary') : t('game.chat.loseSummary'))}
+        {summary ? summary : stars > 1 ? t('game.chat.winSummary') : t('game.chat.loseSummary')}
       </GradientText>
 
       <View style={styles.starsContainer}>
