@@ -58,27 +58,35 @@ export default function ScreenContainer({
   useEffect(() => {
     if (!animated) return
 
-    const interval = setInterval(
-      () => {
-        Animated.timing(translateX, {
-          toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
-          duration: 1000,
-          useNativeDriver: true,
-        }).start(() => {
-          const isLast = currBannerIdx == BACKGROUND_IMAGES.length - 2
-          if (isLast) {
-            translateX.setValue(0)
-            setCurrBannerIdx(0)
-          } else {
-            setCurrBannerIdx(currBannerIdx + 1)
-          }
-        })
-      },
-      0.05 * 60 * 1000,
-    )
+    let isMounted = true
+    let isAnimating = false
 
-    return () => clearInterval(interval)
-  }, [currBannerIdx, translateX, animated])
+    const interval = setInterval(() => {
+      if (isAnimating || !isMounted) return
+
+      isAnimating = true
+      Animated.timing(translateX, {
+        toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start(() => {
+        if (!isMounted) return
+        const isLast = currBannerIdx === BACKGROUND_IMAGES.length - 2
+        if (isLast) {
+          translateX.setValue(0)
+          setCurrBannerIdx(0)
+        } else {
+          setCurrBannerIdx(prev => prev + 1)
+        }
+        isAnimating = false
+      })
+    }, 3000)
+
+    return () => {
+      isMounted = false
+      clearInterval(interval)
+    }
+  }, [animated, currBannerIdx, translateX])
 
   useFocusEffect(
     React.useCallback(() => {
@@ -124,7 +132,6 @@ export default function ScreenContainer({
               style,
               {
                 padding: PADDING_MAP[padding],
-                paddingTop,
               },
             ]}
           >

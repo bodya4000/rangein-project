@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
 import { authService, GetUserResponse, RegisterRequest } from '@/api'
 import { getDeviceId } from '@/utils'
@@ -33,7 +32,7 @@ export const useAuthStore = create<ChatStore>()(set => ({
       const status = err?.response?.status
       if (!status) {
         set({ authLoading: false, error: 'network' })
-      } else if (status === 400) {
+      } else if (status === 400 || status == 404) {
         set({ authLoading: false, error: 'bad' })
       } else {
         set({ authLoading: false, error: '500' })

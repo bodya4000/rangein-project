@@ -36,6 +36,7 @@ export default function Splash() {
       </ScreenContainer>
     )
   }
+
   return (
     <ScreenContainer>
       <GameModal
