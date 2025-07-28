@@ -10,10 +10,6 @@ export const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontSize: 24,
-    fontFamily: 'Quintessential-Regular',
+    backgroundColor: 'blue',
   },
 })

@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { View, ViewStyle, GestureResponderEvent, TextStyle } from 'react-native'
+import { GestureResponderEvent, TextStyle } from 'react-native'
 
 import { ArrowLeft } from '@/components/icons'
 
@@ -12,14 +12,13 @@ interface Props {
   onPress?: (_: GestureResponderEvent) => void
   width?: number
   height?: number
-  containerStyle?: ViewStyle
   txStyle?: TextStyle
 }
 
 const width = 30
-const height = 30
+const height = 60
 
-export function BackButton({ onPress, containerStyle }: Props) {
+export function BackButton({ onPress }: Props) {
   const router = useRouter()
 
   const onButtonPress = (e: GestureResponderEvent) => {
@@ -28,10 +27,16 @@ export function BackButton({ onPress, containerStyle }: Props) {
   }
 
   return (
-    <Touchable style={containerStyle} onPress={onButtonPress}>
-      <View style={[styles.container, { width, height }]}>
-        <ArrowLeft />
-      </View>
+    <Touchable
+      style={{
+        ...styles.container,
+        width,
+        height,
+      }}
+      onPress={onButtonPress}
+      touchable={true}
+    >
+      <ArrowLeft />
     </Touchable>
   )
 }

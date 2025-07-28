@@ -9,12 +9,13 @@ import { GradientText } from '../../text/gradient-text'
 
 interface Props {
   txTitle: TxKeyPath
+  back?: boolean
 }
 
-export default function Header({ txTitle }: Props) {
+export default function Header({ txTitle, back = true }: Props) {
   return (
     <View style={styles.container}>
-      <BackButton containerStyle={styles.back} />
+      <View style={styles.back}>{back && <BackButton />}</View>
       <GradientText txStyle='IR16' tx={txTitle} style={styles.title} />
     </View>
   )

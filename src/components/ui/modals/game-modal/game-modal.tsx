@@ -1,5 +1,5 @@
 import { BlurView } from 'expo-blur'
-import React, { JSX } from 'react'
+import React from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
 import { globalStyles } from '@/constants/global-styles'
@@ -44,7 +44,6 @@ export default function GameModal({
   return (
     <Modal
       transparent={true}
-      style={{ backgroundColor: 'red' }}
       visible={visible}
       animationType='fade'
       onRequestClose={onClose}
@@ -54,11 +53,11 @@ export default function GameModal({
         <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
-            <View style={styles.view}>
+            <Pressable style={styles.view}>
               {renderHeader && renderHeader?.()}
               {renderBody && renderBody?.()}
               {renderFooter && renderFooter?.()}
-            </View>
+            </Pressable>
           </View>
         </BlurView>
       </Pressable>

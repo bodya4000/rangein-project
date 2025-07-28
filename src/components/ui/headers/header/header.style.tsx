@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
+
+import { HEADER_HEIGHT } from '@/constants'
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,14 +8,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    height: 55,
+    minHeight: HEADER_HEIGHT,
   },
   back: {
     position: 'absolute',
     left: 0,
     textAlign: 'center',
+    padding: 10,
   },
   title: {
     textAlign: 'center',
+    minWidth: '75%',
   },
 })

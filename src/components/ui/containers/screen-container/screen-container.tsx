@@ -1,16 +1,18 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { useFocusEffect } from 'expo-router'
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
-  SafeAreaView,
   View,
   StyleSheet,
   Image,
   ImageBackground,
   ViewStyle,
+  StatusBar,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import SystemNavigationBar from 'react-native-system-navigation-bar'
 
-import { spacing } from '@/constants/spacing'
-import { WINDOW_WIDTH } from '@/utils'
+import { colors, WINDOW_WIDTH } from '@/constants'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 import Background1 from '@assets/images/screens/screen_1.png'
@@ -23,42 +25,118 @@ interface Props {
   background?: number
   animated?: boolean
   style?: ViewStyle
+  type?: 'fullscreen' | 'noTab' | 'noStatus' | 'default'
+  navBarColor?: string
+  padding?: 'sm' | 'md' | 'lg'
 }
 
-export default function ScreenContainer({ animated = false, background, children, style }: Props) {
+const PADDING_MAP = {
+  sm: 16,
+  md: 24,
+  lg: 36,
+}
+
+export default function ScreenContainer({
+  animated = false,
+  background,
+  children,
+  style,
+  navBarColor = colors.dark,
+  type = 'default',
+  padding = 'sm',
+}: Props) {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
+
+  const paddingTop = useMemo(() => {
+    if (type === 'fullscreen' || type === 'noStatus') {
+      return PADDING_MAP[padding] + (StatusBar.currentHeight ?? 0)
+    }
+    return PADDING_MAP[padding]
+  }, [type, padding])
 
   useEffect(() => {
     if (!animated) return
 
-    const interval = setInterval(
-      () => {
-        Animated.timing(translateX, {
-          toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
-          duration: 1000,
-          useNativeDriver: true,
-        }).start(() => {
-          const isLast = currBannerIdx == BACKGROUND_IMAGES.length - 2
-          if (isLast) {
-            translateX.setValue(0)
-            setCurrBannerIdx(0)
-          } else {
-            setCurrBannerIdx(currBannerIdx + 1)
-          }
-        })
-      },
-      0.05 * 60 * 1000,
-    )
+    let isMounted = true
+    let isAnimating = false
 
-    return () => clearInterval(interval)
-  }, [currBannerIdx, translateX, animated])
+    const interval = setInterval(() => {
+      if (isAnimating || !isMounted) return
 
+      isAnimating = true
+      Animated.timing(translateX, {
+        toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start(() => {
+        if (!isMounted) return
+        const isLast = currBannerIdx === BACKGROUND_IMAGES.length - 2
+        if (isLast) {
+          translateX.setValue(0)
+          setCurrBannerIdx(0)
+        } else {
+          setCurrBannerIdx(prev => prev + 1)
+        }
+        isAnimating = false
+      })
+    }, 3000)
+
+    return () => {
+      isMounted = false
+      clearInterval(interval)
+    }
+  }, [animated, currBannerIdx, translateX])
+
+  useFocusEffect(
+    React.useCallback(() => {
+      switch (type) {
+        case 'fullscreen': {
+          SystemNavigationBar.fullScreen()
+          StatusBar.setHidden(true)
+          break
+        }
+        case 'noStatus': {
+          SystemNavigationBar.navigationShow()
+          StatusBar.setHidden(true)
+          break
+        }
+        case 'noTab': {
+          SystemNavigationBar.navigationHide()
+          StatusBar.setHidden(false)
+          break
+        }
+        default: {
+          SystemNavigationBar.navigationShow()
+          StatusBar.setHidden(false)
+          break
+        }
+      }
+    }, [type]),
+  )
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SystemNavigationBar.setNavigationColor(navBarColor)
+    }, [navBarColor]),
+  )
+
+  // default
   if (!animated && !background) {
     return (
       <ImageBackground style={styles.bg} source={DefaultBackground}>
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, style]}>{children}</View>
+          <View
+            style={[
+              styles.content,
+              style,
+              {
+                padding: PADDING_MAP[padding],
+              },
+            ]}
+          >
+            {children}
+          </View>
         </SafeAreaView>
       </ImageBackground>
     )
@@ -69,7 +147,9 @@ export default function ScreenContainer({ animated = false, background, children
       <View style={styles.bgContainer}>
         <Image source={background} style={styles.bg} resizeMode='cover' />
         <SafeAreaView style={styles.safeArea}>
-          <View style={[styles.content, style]}>{children}</View>
+          <View style={[styles.content, { padding: PADDING_MAP[padding], paddingTop }, style]}>
+            {children}
+          </View>
         </SafeAreaView>
       </View>
     )
@@ -93,8 +173,10 @@ export default function ScreenContainer({ animated = false, background, children
         )}
       </Animated.View>
 
-      <SafeAreaView style={styles.safeArea}>
-        <View style={[styles.content, style]}>{children}</View>
+      <SafeAreaView style={styles.safeArea} edges={['bottom', 'left', 'right']}>
+        <View style={[styles.content, { padding: PADDING_MAP[padding], paddingTop }, style]}>
+          {children}
+        </View>
       </SafeAreaView>
     </View>
   )
@@ -127,6 +209,5 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: spacing.md,
   },
 })

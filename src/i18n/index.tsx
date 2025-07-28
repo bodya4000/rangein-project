@@ -1,5 +1,5 @@
 import i18n from 'i18next'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { initReactI18next } from 'react-i18next'
 
 import { STORAGE_KEYS } from '@/constants'
@@ -23,16 +23,28 @@ i18n.on('languageChanged', (lng: Language) => {
 })
 
 export const useSelectedLanguage = () => {
-  const currentLanguage = storage.getItem(STORAGE_KEYS.LANG) ?? 'en'
+  const [language, setLanguageState] = useState<Language>(() => {
+    return (storage.getItem(STORAGE_KEYS.LANG) as Language) || 'en'
+  })
 
   const setLanguage = useCallback(async (lang: Language) => {
     const storedLang = storage.getItem(STORAGE_KEYS.LANG)
+
     if (storedLang !== lang) {
       await i18n.changeLanguage(lang)
+      storage.setItem(STORAGE_KEYS.LANG, lang)
+      setLanguageState(lang)
     }
   }, [])
 
-  return { language: currentLanguage as Language, setLanguage }
+  useEffect(() => {
+    const stored = storage.getItem(STORAGE_KEYS.LANG)
+    if (stored && stored !== language) {
+      setLanguageState(stored as Language)
+    }
+  }, [])
+
+  return { language, setLanguage }
 }
 
 export default i18n

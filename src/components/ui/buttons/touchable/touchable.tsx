@@ -1,6 +1,13 @@
 import { Audio } from 'expo-av'
-import { ReactNode } from 'react'
-import { GestureResponderEvent, Pressable, PressableProps } from 'react-native'
+import { ReactNode, useEffect, useRef } from 'react'
+import {
+  GestureResponderEvent,
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 interface Props extends Partial<PressableProps> {
@@ -8,6 +15,8 @@ interface Props extends Partial<PressableProps> {
   onPress?: (_: GestureResponderEvent) => void
   touchable?: boolean
   soundable?: boolean
+  disabled?: boolean
+  style?: ViewStyle
 }
 
 const audioSource = require('@assets/sound/press.mp3')
@@ -17,37 +26,80 @@ export const Touchable = ({
   onPress,
   touchable = true,
   soundable = true,
+  disabled = false,
+  style,
   ...props
 }: Props) => {
   const scale = useSharedValue(1)
   const rotate = useSharedValue(0)
 
+  const soundRef = useRef<Audio.Sound | null>(null)
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ perspective: 800 }, { scale: scale.value }, { rotateY: `${rotate.value}deg` }],
+      transform: [
+        { perspective: 80000 },
+        { scale: scale.value },
+        { rotateY: `${rotate.value}deg` },
+      ],
     }
   })
 
+  // useEffect(() => {
+  //   let mounted = true
+
+  //   if (soundable) {
+  //     requestAnimationFrame(() => {
+  //       Audio.Sound.createAsync(audioSource).then(({ sound: s }) => {
+  //         if (mounted) soundRef.current = s
+  //       })
+  //     })
+  //   }
+
+  //   return () => {
+  //     mounted = false
+  //     if (soundRef.current) {
+  //       requestAnimationFrame(() => {
+  //         soundRef.current?.unloadAsync().catch(() => {})
+  //       })
+  //     }
+  //   }
+  // }, [soundable])
+
   const handlePressIn = async () => {
-    if (soundable) {
-      const { sound } = await Audio.Sound.createAsync(audioSource)
-      await sound.playAsync()
-    }
-    scale.value = withTiming(0.85, { duration: 70 })
-    rotate.value = withTiming(-7, { duration: 70 })
+    // if (soundable && soundRef.current) {
+    //   soundRef.current.replayAsync()
+    // }
+    scale.value = withTiming(0.85, { duration: 150 })
+    rotate.value = withTiming(-3, { duration: 150 })
   }
 
   const handlePressOut = () => {
-    scale.value = withTiming(1, { duration: 100 })
-    rotate.value = withTiming(0, { duration: 100 })
+    scale.value = withTiming(1, { duration: 150 })
+    rotate.value = withTiming(0, { duration: 150 })
   }
 
   if (touchable)
     return (
-      <Pressable {...props} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
+      <Pressable
+        {...props}
+        style={[disabled ? styles.disabled : {}, style]}
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={onPress}
+        {...props}
+      >
         <Animated.View style={animatedStyles}>{children}</Animated.View>
       </Pressable>
     )
 
-  return <>{children}</>
+  return <View style={disabled ? styles.disabled : {}}>{children}</View>
 }
+
+const styles = StyleSheet.create({
+  disabled: {
+    opacity: 0.5,
+    pointerEvents: 'none',
+  },
+})

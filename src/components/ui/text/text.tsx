@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text as NNText } from 'react-native'
 
 import { colors } from '@/constants/colors'
-import { TxKeyPath } from '@/i18n'
+import { TxKeyPath } from '@/i18n/react-i18next'
 import { scaleFont } from '@/utils'
 
 import type { TextProps } from 'react-native'

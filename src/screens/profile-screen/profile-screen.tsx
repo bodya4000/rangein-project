@@ -1,65 +1,52 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Text, View } from 'react-native'
+import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import { Alert, View } from 'react-native'
 
-import { ArrowRight, Minus, Plus } from '@/components/icons'
-import { ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile-screen'
-import { GradientText, ResultModal, Touchable, TouchableBlock } from '@/components/ui'
-import { useSelectedLanguage } from '@/i18n'
+import { UpdateUserData, useUpdateUser } from '@/api'
+import { ProfileAge, ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile-screen'
+import { LangContainer, SmoothButton } from '@/components/ui'
+import { globalStyles } from '@/constants'
+import { useAuthStore } from '@/store'
+import { getDeviceId } from '@/utils'
 
 import { styles } from './profile-screen.style'
 
 const ProfileScreen = () => {
-  const { t } = useTranslation()
-  const { language, setLanguage } = useSelectedLanguage()
-  const [age, setAge] = useState(20)
-  const [modal, setModal] = useState(false)
-  const increaseAge = () => {
-    setAge(age + 1)
-  }
-  const decreaseAge = () => {
-    if (age > 10) {
-      setAge(age - 1)
-    }
-  }
+  const user = useAuthStore(user => user.user)
+  const setUser = useAuthStore(user => user.setUser)
+  const defaultValues: UpdateUserData = useMemo(
+    () => ({
+      username: user?.username,
+      sex: user?.sex,
+      age: user?.age,
+    }),
+    [user],
+  )
+  const { control, watch, handleSubmit, trigger } = useForm<UpdateUserData>({ defaultValues })
+  const isChanged = JSON.stringify(watch()) !== JSON.stringify(defaultValues)
 
-  const onChangeLanguagePress = () => {
-    const newLang = language == 'en' ? 'ru' : 'en'
-    setLanguage(newLang)
+  const { mutate: updateUser } = useUpdateUser()
+
+  const onSubmit = (data: UpdateUserData) => {
+    updateUser(
+      { path: getDeviceId(), update: data },
+      {
+        onSuccess: user => {
+          setUser(user)
+          Alert.alert('User data updated successfully')
+        },
+      },
+    )
   }
   return (
     <View style={styles.screenContainer}>
       <ProfileLogo />
-      <ProfileUsername />
-      <ProfileSex />
-
-      <TouchableBlock touchable={false} style={styles.profileBlock}>
-        <Touchable onPress={decreaseAge}>
-          <View style={styles.touchable_icon}>
-            <Minus />
-          </View>
-        </Touchable>
-        <GradientText>
-          {age} {t('profile.years')}
-        </GradientText>
-        <Touchable onPress={increaseAge}>
-          <View style={styles.touchable_icon}>
-            <Plus />
-          </View>
-        </Touchable>
-      </TouchableBlock>
-
-      <TouchableBlock style={styles.profileBlock} onPress={onChangeLanguagePress}>
-        <GradientText tx='profile.changeLanguage' />
-        <ArrowRight />
-      </TouchableBlock>
-
-      <TouchableBlock style={styles.profileBlock} onPress={() => setModal(!modal)}>
-        <Text style={{ color: '#fff' }}>Modal</Text>
-        <ArrowRight />
-      </TouchableBlock>
-
-      {modal && <ResultModal stars={3} onClose={() => setModal(false)} />}
+      <ProfileUsername control={control} username={user?.username} trigger={trigger} />
+      <ProfileSex control={control} />
+      <ProfileAge control={control} />
+      <LangContainer />
+      <View style={globalStyles.spacer} />
+      {isChanged && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle='Update' />}
     </View>
   )
 }

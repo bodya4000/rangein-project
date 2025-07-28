@@ -4,6 +4,7 @@ import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
   screenContainer: {
+    flex: 1,
     gap: spacing.lg,
   },
   profileBlock: {
