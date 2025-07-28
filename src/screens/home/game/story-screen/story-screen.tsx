@@ -1,11 +1,11 @@
 import { useRouter } from 'expo-router'
 import React, { useEffect, useRef, useState } from 'react'
-import { Alert, FlatList, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
 import { StoryList, StoryPagination } from '@/components/home/game/story-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
-import { BlurModal, GradientText, PrimaryLoader, SecondaryButton, Touchable } from '@/components/ui'
+import { BlurModal, GradientText, SecondaryButton, Touchable } from '@/components/ui'
 import { globalStyles, QUERIES, queryClient } from '@/constants'
 import { getDeviceId } from '@/utils'
 
@@ -101,7 +101,7 @@ const StoryScreen = () => {
       ) : (
         <BlurModal>
           <View style={styles.aiContainer}>
-            <PrimaryLoader />
+            <ActivityIndicator />
             <GradientText txStyle='IR16' tx='game.story.generatingGame' />
           </View>
         </BlurModal>

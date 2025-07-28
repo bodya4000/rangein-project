@@ -1,7 +1,6 @@
 import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
-import { api } from './api'
 import { GetUserRequest, GetUserResponse } from './user-service'
 
 export type LoginRequest = GetUserRequest
@@ -17,11 +16,34 @@ export type RegisterRequest = {
 
 class AuthService {
   async login({ deviceId }: LoginRequest): Promise<LoginResponse> {
-    return (await api.post(`${API_URL}/auth/login/${deviceId}`)).data
+    const response = await fetch(`${API_URL}/auth/login/${deviceId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Login failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as LoginResponse
   }
 
   async register(data: RegisterRequest): Promise<LoginResponse> {
-    return (await api.post(`${API_URL}/auth/register`, data)).data
+    const response = await fetch(`${API_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Register failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as LoginResponse
   }
 }
 

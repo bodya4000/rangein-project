@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    height: 70,
+    width: '100%',
   },
   usernameContainer: {
     flexDirection: 'row',

@@ -1,8 +1,6 @@
 import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
-import { api } from './api'
-
 export type GetUserRequest = {
   deviceId: string
 }
@@ -31,11 +29,30 @@ export interface UpdateUserData {
 
 class UserService {
   async getUserInfo({ deviceId }: GetUserRequest): Promise<GetUserResponse> {
-    return (await api.post(`${API_URL}/users/${deviceId}`)).data
+    const response = await fetch(`${API_URL}/users/${deviceId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Get user info failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as GetUserResponse
   }
 
   async updateUser(request: UpdateUserRequest): Promise<UpdateUserResponse> {
-    return (await api.patch(`${API_URL}/users/${request.path}`, request.update)).data
+    const response = await fetch(`${API_URL}/users/${request.path}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request.update),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Update user failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as UpdateUserResponse
   }
 }
 

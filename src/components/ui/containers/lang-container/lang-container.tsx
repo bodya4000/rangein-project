@@ -32,7 +32,7 @@ export const LangContainer = () => {
 
   return (
     <TouchableBlock style={styles.profileBlock} onPress={onChangeLanguagePress}>
-      <GradientText tx='profile.changeLanguage' />
+      <GradientText style={{ minWidth: '80%' }} tx='profile.changeLanguage' />
       <ArrowRight />
     </TouchableBlock>
   )

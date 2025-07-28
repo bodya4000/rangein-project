@@ -1,7 +1,5 @@
 import { API_URL } from '@/constants/api'
 
-import { api } from './api'
-
 export type GameMessage = {
   messageId: string
   sender: string
@@ -63,16 +61,44 @@ export type GameResult = 0 | 1 | 2 | 3
 const BASE_URL = API_URL + '/games'
 
 class GameService {
-  async setupGameForUser({ userId }: GameSetupRequest) {
-    return (await api.post<GameSetupResponse>(`${BASE_URL}/users/${userId}`)).data
+  async setupGameForUser({ userId }: GameSetupRequest): Promise<GameSetupResponse> {
+    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Setup game failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as GameSetupResponse
   }
 
   async sendMessage({ gameId, message }: SendMessageRequest): Promise<SendMessageResponse> {
-    return (await api.post<SendMessageResponse>(`${BASE_URL}/messages`, { gameId, message })).data
+    const response = await fetch(`${BASE_URL}/messages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gameId, message }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Send message failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as SendMessageResponse
   }
 
   async fetchMessages({ gameId }: GameInfoRequest): Promise<MessageData> {
-    return (await api.get<MessageData>(`${BASE_URL}/messages/${gameId}`)).data
+    const response = await fetch(`${BASE_URL}/messages/${gameId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Fetch messages failed with status ${response.status}`)
+    }
+
+    return (await response.json()) as MessageData
   }
 }
 

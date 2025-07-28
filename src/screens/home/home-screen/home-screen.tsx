@@ -1,19 +1,17 @@
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
-import { useGetUser, useMessages } from '@/api/hooks'
+import { useGetUser } from '@/api/hooks'
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText, PrimaryButton } from '@/components/ui'
 import { globalStyles } from '@/constants'
-import { useBackgroundMusic } from '@/hooks/use-background-music'
-import { getDeviceId, logJson } from '@/utils'
+import { getDeviceId } from '@/utils'
 
 import { styles } from './home-screen.style'
 
 const HomeScreen = () => {
   const router = useRouter()
 
-  const {} = useBackgroundMusic()
   const deviceId = getDeviceId()
   const { data: userInfo } = useGetUser({ deviceId })
   return (

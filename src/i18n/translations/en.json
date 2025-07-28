@@ -19,7 +19,7 @@
     "invalidAge": "Invalid age",
     "invalidSex": "Please choose \"MALE\" or \"FEMALE\"",
     "register": {
-      "title": "Tell us a bit about yourself",
+      "title": "A little about you",
       "next": "Next",
       "submit": "Submit",
       "usernameRequired": "Max 20 and Min 3 symbols",

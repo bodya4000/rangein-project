@@ -19,9 +19,8 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: false,
-              animation: 'fade',
-              presentation: 'card',
-              gestureEnabled: true,
+              animation: 'none',
+              gestureEnabled: false,
             }}
           >
             <Stack.Screen name='(auth)' />
