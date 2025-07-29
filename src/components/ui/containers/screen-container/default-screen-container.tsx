@@ -1,17 +1,13 @@
 import React from 'react'
 import { ImageBackground, SafeAreaView, View, StyleSheet } from 'react-native'
 
+import { PADDING_MAP } from '@/constants'
+
 import DefaultBackground from '@assets/images/screens/default.png'
 
 interface Props {
   children: React.ReactNode
   padding?: 'sm' | 'md' | 'lg'
-}
-
-const PADDING_MAP = {
-  sm: 8,
-  md: 12,
-  lg: 16,
 }
 
 export const DefaultScreenContainer = ({ children, padding = 'md' }: Props) => {

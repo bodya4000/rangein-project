@@ -10,3 +10,9 @@ export const spacing = {
   '4xl': 48,
   '5xl': 64,
 }
+
+export const PADDING_MAP = {
+  sm: spacing.sm,
+  md: spacing.md,
+  lg: spacing.lg,
+}

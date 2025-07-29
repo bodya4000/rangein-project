@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Image, View, SafeAreaView, StyleSheet } from 'react-native'
 
-import { WINDOW_WIDTH } from '@/constants'
+import { PADDING_MAP, WINDOW_WIDTH } from '@/constants'
 
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
@@ -10,16 +10,10 @@ const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 
 interface Props {
   children: React.ReactNode
-  padding: 'sm' | 'md' | 'lg'
+  padding?: 'sm' | 'md' | 'lg'
 }
 
-const PADDING_MAP = {
-  sm: 8,
-  md: 12,
-  lg: 16,
-}
-
-export const AnimatedScreenContainer = ({ children, padding }: Props) => {
+export const AnimatedScreenContainer = ({ children, padding = 'md' }: Props) => {
   let translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
 

@@ -1,6 +1,6 @@
 import { useFocusEffect } from 'expo-router'
-import React, { useEffect, useRef, useState } from 'react'
-import { Keyboard, Animated, ScrollView } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { Keyboard, ScrollView, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { ChatBottom, ChatMessages } from '@/components/home/game/chat-screen'
@@ -37,12 +37,11 @@ const ChatScreen = () => {
     <>
       <KeyboardAwareScrollView
         ref={scrollRef}
-        bottomOffset={20}
         extraKeyboardSpace={0}
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1 }}
-        contentContainerStyle={{ flex: 1 }}
+        // contentContainerStyle={{ flex: 1 }}
       >
+        <View style={{ height: 200 }} />
         <ChatMessages />
         <ChatBottom />
       </KeyboardAwareScrollView>

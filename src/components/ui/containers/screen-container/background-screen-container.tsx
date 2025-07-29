@@ -2,18 +2,16 @@ import React from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { PADDING_MAP } from '@/constants'
+
 import DefaultBackground from '@assets/images/screens/default.png'
+
+import { ScreenLayoutContainer } from './screen-container'
 
 interface Props {
   children: React.ReactNode
   background?: number
   padding?: 'sm' | 'md' | 'lg'
-}
-
-const PADDING_MAP = {
-  sm: 8,
-  md: 12,
-  lg: 16,
 }
 
 export const ImageBackgroundScreenContainer = ({
@@ -22,11 +20,16 @@ export const ImageBackgroundScreenContainer = ({
   padding = 'sm',
 }: Props) => {
   return (
-    <ImageBackground source={background} style={styles.bg} resizeMode='cover'>
-      <SafeAreaView edges={['bottom']} style={[styles.content, { padding: PADDING_MAP[padding] }]}>
-        {children}
-      </SafeAreaView>
-    </ImageBackground>
+    <ScreenLayoutContainer type='fullscreen'>
+      <ImageBackground source={background} style={styles.bg} resizeMode='cover'>
+        <SafeAreaView
+          edges={['bottom']}
+          style={[styles.content, { padding: PADDING_MAP[padding] }]}
+        >
+          {children}
+        </SafeAreaView>
+      </ImageBackground>
+    </ScreenLayoutContainer>
   )
 }
 
