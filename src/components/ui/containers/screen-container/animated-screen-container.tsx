@@ -14,9 +14,9 @@ interface Props {
 }
 
 const PADDING_MAP = {
-  sm: 16,
-  md: 24,
-  lg: 36,
+  sm: 8,
+  md: 12,
+  lg: 16,
 }
 
 export const AnimatedScreenContainer = ({ children, padding }: Props) => {

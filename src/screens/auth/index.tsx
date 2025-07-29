@@ -2,7 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
+import { Keyboard, Pressable } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
@@ -64,7 +65,7 @@ const Register = () => {
 
   return (
     <Pressable onPress={Keyboard.dismiss} style={globalStyles.spacer}>
-      <KeyboardAvoidingView style={styles.screenContainer} behavior='padding'>
+      <KeyboardAvoidingView style={styles.screenContainer} behavior={undefined}>
         <Header back={false} txTitle={stepIndex > 0 ? 'auth.register.title' : 'nothing'} />
         <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
         {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'auth.register.next'} />}

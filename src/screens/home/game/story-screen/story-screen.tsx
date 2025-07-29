@@ -53,7 +53,7 @@ const StoryScreen = () => {
       index: newIndex,
       animated: true,
     })
-    setCurrentPaginationItem(newIndex)
+    // setCurrentPaginationItem(newIndex)
   }
 
   return (
@@ -69,8 +69,11 @@ const StoryScreen = () => {
           <View style={globalStyles.spacer} />
 
           <StoryList
+            index={currentPaginationItem}
             parts={gameInfo.parts}
             ref={flatlistRef}
+            onStartLimitTry={() => router.back()}
+            onEndLimitTry={() => router.replace('/home/game/chat')}
             onScrollEndCb={setCurrentPaginationItem}
           />
 

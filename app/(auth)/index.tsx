@@ -3,7 +3,7 @@ import Register from '@/screens/auth'
 
 export default function Auth() {
   return (
-    <DefaultScreenContainer padding='md'>
+    <DefaultScreenContainer padding='sm'>
       <Register />
     </DefaultScreenContainer>
   )

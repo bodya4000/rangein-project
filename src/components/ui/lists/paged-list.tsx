@@ -4,14 +4,16 @@ import {
   FlatListProps,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  View,
   ViewStyle,
 } from 'react-native'
 
 interface PagedListProps<ItemT> extends Partial<FlatListProps<ItemT>> {
   onPageChange?: (_: number) => void
+  onStartLimitTry?: () => void
+  onEndLimitTry?: () => void
   containerWidth: number
   contentStyle?: ViewStyle
+  index?: number
 }
 
 function PagedListInner<ItemT>(
@@ -20,8 +22,11 @@ function PagedListInner<ItemT>(
     renderItem,
     keyExtractor,
     onPageChange,
+    onEndLimitTry = () => {},
+    onStartLimitTry = () => {},
     containerWidth,
     contentStyle,
+    index,
     ...rest
   }: PagedListProps<ItemT>,
   ref: React.Ref<FlatList<ItemT>>,
@@ -30,6 +35,15 @@ function PagedListInner<ItemT>(
     const offsetX = e.nativeEvent.contentOffset.x
     const newIndex = Math.round(offsetX / containerWidth)
     onPageChange?.(newIndex)
+
+    if (data && index !== undefined) {
+      if (newIndex === 0 && index === 0) {
+        onStartLimitTry()
+      }
+      if (newIndex === data.length - 1 && index === data.length - 1) {
+        onEndLimitTry()
+      }
+    }
   }
 
   if (!data) return null

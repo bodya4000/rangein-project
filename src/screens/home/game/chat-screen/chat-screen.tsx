@@ -40,6 +40,8 @@ const ChatScreen = () => {
         bottomOffset={20}
         extraKeyboardSpace={0}
         showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flex: 1 }}
       >
         <ChatMessages />
         <ChatBottom />
