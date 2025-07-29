@@ -20,7 +20,7 @@ export const SentMessage = ({ text }: Props) => {
       <View style={globalStyles.spacer} />
       <View style={styles.container}>
         <BlurView style={styles.blur} intensity={BLUR_INTENSITY} tint={BLUR_TINT}>
-          <Text style={styles.text} txStyle='IR20'>
+          <Text style={styles.text} txStyle='IR18'>
             {text}
           </Text>
         </BlurView>

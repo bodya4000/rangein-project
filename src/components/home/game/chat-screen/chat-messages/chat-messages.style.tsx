@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
 
   messageListContainer: {
     paddingBottom: HEADER_HEIGHT + spacing['2xl'], // actually it's top padding, as flatlist is inverted
-    gap: spacing['2xl'],
+    gap: spacing.lg,
     justifyContent: 'flex-end',
   },
 })

@@ -1,17 +1,26 @@
-// import LottieView from 'lottie-react-native'
-import React from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Text } from 'react-native'
+
+import { colors } from '@/constants'
+
+const DOTS = ['.', '..', '...']
 
 export const ChatLoader = () => {
+  const [dotIndex, setDotIndex] = useState(0)
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDotIndex(prev => (prev + 1) % DOTS.length)
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <View style={{ transform: [{ scale: 5 }] }}>
-      {/* <LottieView
-        source={require('@assets/animations/chat-loader.json')}
-        autoPlay
-        loop
-        style={{ width: 40, height: 20 }}
-      /> */}
-      <ActivityIndicator />
-    </View>
+    <Text style={{ fontSize: 16, color: colors.gradientMetal4[0] }}>
+      {t('game.chat.typing')} {DOTS[dotIndex]}
+    </Text>
   )
 }

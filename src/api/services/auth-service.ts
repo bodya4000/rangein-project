@@ -2,6 +2,7 @@ import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
 import { GetUserRequest, GetUserResponse } from './user-service'
+import { ApiError } from '../types'
 
 export type LoginRequest = GetUserRequest
 export type LoginResponse = GetUserResponse
@@ -24,7 +25,7 @@ class AuthService {
     })
 
     if (!response.ok) {
-      throw new Error(`Login failed with status ${response.status}`)
+      throw new ApiError('Login failed', response.status)
     }
 
     return (await response.json()) as LoginResponse
@@ -40,7 +41,7 @@ class AuthService {
     })
 
     if (!response.ok) {
-      throw new Error(`Register failed with status ${response.status}`)
+      throw new ApiError('Register failed', response.status)
     }
 
     return (await response.json()) as LoginResponse

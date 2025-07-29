@@ -29,7 +29,7 @@ export const useAuthStore = create<ChatStore>()(set => ({
       const user = await authService.login({ deviceId: getDeviceId() })
       set({ user, authLoading: false, error: null })
     } catch (err: any) {
-      const status = err?.response?.status
+      const status = err?.status
       if (!status) {
         set({ authLoading: false, error: 'network' })
       } else if (status === 400 || status == 404) {
@@ -46,7 +46,7 @@ export const useAuthStore = create<ChatStore>()(set => ({
       const user = await authService.register(data)
       set({ user, authLoading: false, error: null })
     } catch (err: any) {
-      const status = err?.response?.status
+      const status = err?.status
       if (!status) {
         set({ authLoading: false, error: 'network' })
       } else if (status === 400) {

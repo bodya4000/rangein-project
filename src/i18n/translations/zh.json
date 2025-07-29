@@ -11,7 +11,8 @@
     "male": "男",
     "female": "女",
     "years": "岁",
-    "changeLanguage": "更改语言"
+    "changeLanguage": "更改语言",
+    "update": "更新"
   },
   "auth": {
     "enterUsername": "请输入用户名",
@@ -45,7 +46,8 @@
       "winSummary": "你揭示了真相，让罪犯绳之以法。",
       "loseSummary": "案件仍未侦破，真正的罪犯逍遥法外。",
       "deadInfoPart1": "不幸的是，",
-      "deadInfoPart2": " 受了重伤，被发现时已死亡..."
+      "deadInfoPart2": " 受了重伤，被发现时已死亡...",
+      "typing": "正在输入"
     }
   },
   "actions": {

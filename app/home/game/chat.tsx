@@ -1,6 +1,5 @@
 import { useGameSetup } from '@/api/hooks'
-import { BluredHeader } from '@/components/ui'
-import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
+import { BluredHeader, ImageBackgroundScreenContainer } from '@/components/ui'
 import ChatScreen from '@/screens/home/game/chat-screen/chat-screen'
 import { getDeviceId } from '@/utils'
 
@@ -13,9 +12,9 @@ export default function Chat() {
   return (
     <>
       <BluredHeader title={gameData.title} />
-      <ScreenContainer type='fullscreen' background={Background}>
+      <ImageBackgroundScreenContainer padding='md' background={Background}>
         <ChatScreen />
-      </ScreenContainer>
+      </ImageBackgroundScreenContainer>
     </>
   )
 }

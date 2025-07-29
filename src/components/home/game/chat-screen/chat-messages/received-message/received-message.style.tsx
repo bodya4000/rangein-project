@@ -16,13 +16,12 @@ export const styles = StyleSheet.create({
   },
   avatar: {
     alignSelf: 'flex-end',
-    height: 48,
-    width: 48,
+    height: 42,
+    width: 42,
   },
   blur: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    gap: spacing.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
   },
   name: {},
   text: {

@@ -1,5 +1,7 @@
 import { API_URL } from '@/constants/api'
 
+import { ApiError } from '../types'
+
 export type GameMessage = {
   messageId: string
   sender: string
@@ -68,7 +70,7 @@ class GameService {
     })
 
     if (!response.ok) {
-      throw new Error(`Setup game failed with status ${response.status}`)
+      throw new ApiError('Setup game failed', response.status)
     }
 
     return (await response.json()) as GameSetupResponse
@@ -82,7 +84,7 @@ class GameService {
     })
 
     if (!response.ok) {
-      throw new Error(`Send message failed with status ${response.status}`)
+      throw new ApiError('Send message failed', response.status)
     }
 
     return (await response.json()) as SendMessageResponse
@@ -95,7 +97,7 @@ class GameService {
     })
 
     if (!response.ok) {
-      throw new Error(`Fetch messages failed with status ${response.status}`)
+      throw new ApiError('Fetch message failed', response.status)
     }
 
     return (await response.json()) as MessageData

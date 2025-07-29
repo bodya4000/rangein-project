@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, TextInput } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
@@ -38,25 +39,27 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
     textRef.current?.focus()
   }, [])
   return (
-    <GameModal
-      onClose={onClose}
-      style={{ paddingHorizontal: spacing.lg }}
-      renderHeader={() => <GradientText tx='game.chat.enterYourAnswer' />}
-      renderBody={() => (
-        <View style={styles.view}>
-          <DefaultInput
-            ref={textRef}
-            containerStyle={globalStyles.spacer}
-            placeholder={t('game.chat.typeYourAnswer')}
-            value={text}
-            onChangeText={setText}
-          />
-          <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
-            <Send width={42} height={42} />
-          </Touchable>
-        </View>
-      )}
-    />
+    <KeyboardAwareScrollView>
+      <GameModal
+        onClose={onClose}
+        style={{ paddingHorizontal: spacing.lg }}
+        renderHeader={() => <GradientText tx='game.chat.enterYourAnswer' />}
+        renderBody={() => (
+          <View style={styles.view}>
+            <DefaultInput
+              ref={textRef}
+              containerStyle={globalStyles.spacer}
+              placeholder={t('game.chat.typeYourAnswer')}
+              value={text}
+              onChangeText={setText}
+            />
+            <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
+              <Send width={42} height={42} />
+            </Touchable>
+          </View>
+        )}
+      />
+    </KeyboardAwareScrollView>
   )
 }
 

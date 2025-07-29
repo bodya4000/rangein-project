@@ -2,8 +2,7 @@ import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { GameModal, GradientText, Text } from '@/components/ui'
-import ScreenContainer from '@/components/ui/containers/screen-container/screen-container'
+import { DefaultScreenContainer, GameModal, GradientText, Text } from '@/components/ui'
 import { spacing } from '@/constants'
 import { useAuthStore } from '@/store'
 
@@ -29,16 +28,16 @@ export default function Splash() {
 
   if (authLoading) {
     return (
-      <ScreenContainer style={styles.container}>
+      <DefaultScreenContainer>
         <ActivityIndicator size={'large'} style={styles.ai} />
         <Text>Loading...</Text>
         {/* <PrimaryLoader size='lg' /> */}
-      </ScreenContainer>
+      </DefaultScreenContainer>
     )
   }
 
   return (
-    <ScreenContainer>
+    <DefaultScreenContainer>
       <GameModal
         renderHeader={() => {
           if (error === 'network') return <GradientText>No internet</GradientText>
@@ -50,7 +49,7 @@ export default function Splash() {
           </View>
         )}
       />
-    </ScreenContainer>
+    </DefaultScreenContainer>
   )
 }
 

@@ -1,6 +1,8 @@
 import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
+import { ApiError } from '../types'
+
 export type GetUserRequest = {
   deviceId: string
 }
@@ -49,7 +51,7 @@ class UserService {
     })
 
     if (!response.ok) {
-      throw new Error(`Update user failed with status ${response.status}`)
+      throw new ApiError('Update user failed', response.status)
     }
 
     return (await response.json()) as UpdateUserResponse

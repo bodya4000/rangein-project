@@ -80,9 +80,10 @@ const ChatMessages = () => {
         inverted
         data={messageList}
         bounces
+        scrollEnabled={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.messageListContainer}
-        keyExtractor={item => item.messageId.toString()}
+        keyExtractor={item => item.messageId.toString() + new Date()}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
             return <ReceivedMessage colors={loadingMessage.colors} typing />

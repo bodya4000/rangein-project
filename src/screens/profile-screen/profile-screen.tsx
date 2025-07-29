@@ -46,7 +46,7 @@ const ProfileScreen = () => {
       <ProfileAge control={control} />
       <LangContainer />
       <View style={globalStyles.spacer} />
-      {isChanged && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle='Update' />}
+      {isChanged && <SmoothButton onPress={handleSubmit(onSubmit)} txTitle='profile.update' />}
     </View>
   )
 }

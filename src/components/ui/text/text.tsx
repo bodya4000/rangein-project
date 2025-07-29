@@ -15,6 +15,7 @@ interface Props extends TextProps {
     | 'IR12'
     | 'IR14'
     | 'IR16'
+    | 'IR18'
     | 'IR20'
     | 'IR24'
     | 'IR40'
@@ -76,6 +77,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontWeight: 400,
     fontSize: scaleFont(16),
+  },
+  IR18: {
+    fontFamily: 'Inter-Regular',
+    fontWeight: 400,
+    fontSize: scaleFont(18),
   },
   IR20: {
     fontFamily: 'Inter-Regular',

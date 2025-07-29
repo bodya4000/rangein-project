@@ -34,7 +34,7 @@ export const ReceivedMessage = ({
           {typing ? (
             <ChatLoader />
           ) : (
-            <Text style={styles.text} txStyle='IR20'>
+            <Text style={styles.text} txStyle='IR18'>
               {text}
             </Text>
           )}

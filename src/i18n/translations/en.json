@@ -11,7 +11,8 @@
     "male": "Male",
     "female": "Female",
     "years": "years",
-    "changeLanguage": "Change language"
+    "changeLanguage": "Change language",
+    "update": "Update"
   },
   "auth": {
     "enterUsername": "Enter username",
@@ -46,7 +47,8 @@
       "winSummary": "You uncovered the truth and brought the culprit to justice.",
       "loseSummary": "The case remains unsolved. The real culprit walks free.",
       "deadInfoPart1": "Unfortunately ",
-      "deadInfoPart2": " was badly wounded and his body was found dead..."
+      "deadInfoPart2": " was badly wounded and his body was found dead...",
+      "typing": "Typing"
     }
   },
 

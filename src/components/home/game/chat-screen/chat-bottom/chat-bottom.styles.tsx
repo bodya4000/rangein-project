@@ -5,8 +5,11 @@ import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
   optionsContainer: {
+    position: 'absolute',
+    width: '100%',
+    bottom: -50,
     gap: spacing.sm,
-    marginVertical: spacing.sm,
+    marginVertical: 50,
   },
   bottom: {
     paddingHorizontal: spacing.md,

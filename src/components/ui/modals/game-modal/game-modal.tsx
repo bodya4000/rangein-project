@@ -2,6 +2,7 @@ import { BlurView } from 'expo-blur'
 import React from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
+import { IS_IOS } from '@/constants'
 import { globalStyles } from '@/constants/global-styles'
 
 import BronzeModalPng from '@assets/images/modals/bronze.png'
@@ -11,7 +12,7 @@ import SilverModalPng from '@assets/images/modals/silver.png'
 
 import { styles } from './game-modal.style'
 
-const BLUR_INTENSITY = 50
+const BLUR_INTENSITY = IS_IOS ? 50 : 100
 const BLUR_TINT = 'dark'
 
 const MODAL_IMAGES = {
@@ -45,7 +46,7 @@ export default function GameModal({
     <Modal
       transparent={true}
       visible={visible}
-      animationType='fade'
+      animationType='none'
       onRequestClose={onClose}
       {...modalProps}
     >
