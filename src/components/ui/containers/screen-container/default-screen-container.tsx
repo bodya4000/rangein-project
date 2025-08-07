@@ -14,6 +14,7 @@ type Props = StatusBarContainerProps &
     style?: StyleProp<ViewStyle>
     edges?: Edges
     padding?: keyof typeof PADDING_MAP
+    background?: number
   }>
 
 export const DefaultScreenContainer = ({
@@ -22,6 +23,7 @@ export const DefaultScreenContainer = ({
   edges = ['left', 'right', 'bottom'],
   statusBarBackgroundColor,
   statusBarElementColor,
+  background,
   padding = 'md',
 }: Props) => {
   return (
@@ -30,7 +32,7 @@ export const DefaultScreenContainer = ({
         statusBarBackgroundColor={statusBarBackgroundColor}
         statusBarElementColor={statusBarElementColor}
       />
-      <ImageBackground source={DefaultBackground} style={styles.bg}>
+      <ImageBackground source={background ?? DefaultBackground} style={styles.bg}>
         <SafeAreaView
           edges={edges}
           style={[styles.container, { padding: PADDING_MAP[padding] }, style]}
@@ -44,7 +46,6 @@ export const DefaultScreenContainer = ({
 
 const styles = StyleSheet.create({
   bg: {
-    position: 'absolute',
     height: '100%',
     width: '100%',
   },

@@ -1,10 +1,7 @@
-import { t } from 'i18next'
 import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
-import { Skeleton } from '@/components/ui'
-import { DefaultInput } from '@/components/ui/inputs'
 import { colors, globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId } from '@/utils'
@@ -79,16 +76,18 @@ const ChatMessages = () => {
 
   return (
     <View style={styles.messagesContainer}>
-      <View style={globalStyles.spacer} />
+      <View style={{ flex: 1000 }} />
       <FlatList
         ref={flatlistRef}
-        data={messageList}
+        data={[...messageList]}
         bounces
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.messageListContainer}
         keyboardShouldPersistTaps='handled'
         keyExtractor={item => item.messageId.toString() + new Date()}
+        decelerationRate={0.5}
+        scrollEventThrottle={32}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
             return <ReceivedMessage colors={loadingMessage.colors} typing />
@@ -101,12 +100,12 @@ const ChatMessages = () => {
         }}
       />
 
-      {(gameDataLoading || messageDataLoading) && (
+      {/* {(gameDataLoading || messageDataLoading) && (
         <View style={styles.skeletonContainer}>
           <Skeleton width={42} height={42} style={styles.skeletonImage} />
           <Skeleton width={270} height={120} style={styles.skeletonMessage} />
         </View>
-      )}
+      )} */}
     </View>
   )
 }

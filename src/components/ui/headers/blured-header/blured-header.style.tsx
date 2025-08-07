@@ -2,30 +2,35 @@ import { StyleSheet } from 'react-native'
 
 import { WINDOW_WIDTH } from '@/constants'
 
+const HEADER_HEIGHT = 100
+
 export const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'absolute',
+  wrapper: {
+    height: HEADER_HEIGHT,
     width: WINDOW_WIDTH,
-    zIndex: 999999999,
-    borderBottomEndRadius: 15,
-    borderBottomStartRadius: 15,
-  },
-  header: {
-    position: 'relative',
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  back: {
     position: 'absolute',
-    left: 0,
-    padding: 16,
-    textAlign: 'center',
+    zIndex: 999,
   },
-  title: {
-    textAlign: 'center',
+  content: {
+    flex: 1,
+    paddingTop: 20,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+  },
+
+  left: {
+    flex: 1,
+    top: 10,
+  },
+
+  center: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  backButton: {
+    position: 'absolute',
+    left: 16,
   },
 })

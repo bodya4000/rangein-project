@@ -19,7 +19,7 @@ const StatusBarContainer = (props: StatusBarContainerProps) => {
       {ready && (
         <StatusBar
           barStyle={props.statusBarElementColor ?? 'light-content'}
-          backgroundColor={props.statusBarBackgroundColor ?? colors.light_dark[1]}
+          backgroundColor={props.statusBarBackgroundColor ?? colors.black}
         />
       )}
     </>

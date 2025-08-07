@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "start": "expo start",
-    "android": "expo run:android"
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo/config": "^11.0.10",

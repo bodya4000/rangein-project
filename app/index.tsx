@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 
 import { BlurModal, NetworkModal } from '@/components/ui'
 import { AnimatedScreenContainer } from '@/components/ui/containers/screen-container'
+import TransparentBlurHeader from '@/components/ui/headers/blured-header/blured-header'
 import HomeScreen from '@/screens/home/home-screen/home-screen'
 import { useAuthStore } from '@/store'
 
