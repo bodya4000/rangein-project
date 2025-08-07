@@ -47,7 +47,7 @@ export const SexContainer = ({ sex, setSex }: Props) => {
     >
       <GradientText
         tx={text}
-        txStyle='IR14'
+        txStyle='IR18'
         color={colors.gradientMetal2 as [string, string, ...string[]]}
       ></GradientText>
     </LinearGradient>
@@ -61,7 +61,7 @@ export const SexContainer = ({ sex, setSex }: Props) => {
       >
         <GradientText
           tx={text}
-          txStyle='IR14'
+          txStyle='IR18'
           color={colors.gradientMetal2 as [string, string, ...string[]]}
         ></GradientText>
       </TouchableBlock>

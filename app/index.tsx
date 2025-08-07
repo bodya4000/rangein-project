@@ -1,12 +1,13 @@
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-import { DefaultScreenContainer, GameModal, GradientText, Text } from '@/components/ui'
-import { spacing } from '@/constants'
+import { BlurModal, NetworkModal } from '@/components/ui'
+import { AnimatedScreenContainer } from '@/components/ui/containers/screen-container'
+import HomeScreen from '@/screens/home/home-screen/home-screen'
 import { useAuthStore } from '@/store'
 
-export default function Splash() {
+export default function Home() {
   const router = useRouter()
   const login = useAuthStore(state => state.login)
   const authLoading = useAuthStore(state => state.authLoading)
@@ -18,38 +19,29 @@ export default function Splash() {
   }, [])
 
   useEffect(() => {
-    if (user) {
-      router.replace('/home')
-    }
     if (error == 'bad') {
+      router.replace('/(auth)')
+    }
+    if (error == '500' || error == 'network') {
       router.replace('/(auth)')
     }
   }, [user, error])
 
-  if (authLoading) {
+  if (!user || authLoading) {
     return (
-      <DefaultScreenContainer>
-        <ActivityIndicator size={'large'} style={styles.ai} />
-        <Text>Loading...</Text>
-        {/* <PrimaryLoader size='lg' /> */}
-      </DefaultScreenContainer>
+      <AnimatedScreenContainer animated={false} padding='md'>
+        <BlurModal overlayStyle={styles.container}>
+          <></>
+        </BlurModal>
+      </AnimatedScreenContainer>
     )
   }
 
   return (
-    <DefaultScreenContainer>
-      <GameModal
-        renderHeader={() => {
-          if (error === 'network') return <GradientText>No internet</GradientText>
-          return <GradientText>Unexpected error</GradientText>
-        }}
-        renderBody={() => (
-          <View style={styles.body}>
-            <Text>Check your connection and try again.</Text>
-          </View>
-        )}
-      />
-    </DefaultScreenContainer>
+    <AnimatedScreenContainer animated={true} padding='md'>
+      {error && <NetworkModal error={'network'} />}
+      <HomeScreen />
+    </AnimatedScreenContainer>
   )
 }
 
@@ -59,20 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   ai: {
-    marginTop: spacing.lg,
-    marginBottom: spacing.lg,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 200,
-    borderRadius: spacing.md,
-    padding: spacing.md,
-    shadowOffset: { width: 0, height: 2 },
-  },
-
-  body: {
-    marginTop: spacing.lg,
+    transform: [{ scale: 2 }],
   },
 })

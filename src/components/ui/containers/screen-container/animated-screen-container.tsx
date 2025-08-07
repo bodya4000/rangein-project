@@ -1,57 +1,86 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Image, View, SafeAreaView, StyleSheet } from 'react-native'
+import { Animated, Image, View, StyleSheet } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { PADDING_MAP, WINDOW_WIDTH } from '@/constants'
 
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
 
+import StatusBarContainer, { StatusBarContainerProps } from './_status-bar-container'
+
 const BACKGROUND_IMAGES = [Background1, Background2, Background1]
 
-interface Props {
+interface Props extends StatusBarContainerProps {
   children: React.ReactNode
   padding?: 'sm' | 'md' | 'lg'
+  animated?: boolean
 }
 
-export const AnimatedScreenContainer = ({ children, padding = 'md' }: Props) => {
-  let translateX = useRef(new Animated.Value(0)).current
+export const AnimatedScreenContainer = ({
+  children,
+  padding = 'md',
+  animated = true,
+  statusBarBackgroundColor,
+  statusBarElementColor,
+}: Props) => {
+  const translateX = useRef(new Animated.Value(0)).current
   const [currBannerIdx, setCurrBannerIdx] = useState(0)
-
   const paddingValue = useMemo(() => PADDING_MAP[padding], [padding])
 
+  const isMountedRef = useRef(true)
+  const isAnimatingRef = useRef(false)
+
+  const animate = () => {
+    if (isAnimatingRef.current || !isMountedRef.current) return
+
+    isAnimatingRef.current = true
+    Animated.timing(translateX, {
+      toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start(() => {
+      if (!isMountedRef.current) return
+
+      const isLast = currBannerIdx === BACKGROUND_IMAGES.length - 2
+      if (isLast) {
+        translateX.setValue(0)
+        setCurrBannerIdx(0)
+      } else {
+        setCurrBannerIdx(prev => prev + 1)
+      }
+      isAnimatingRef.current = false
+    })
+  }
+
   useEffect(() => {
-    let isMounted = true
-    let isAnimating = false
+    if (!animated) return
 
+    isMountedRef.current = true
     const interval = setInterval(() => {
-      if (isAnimating || !isMounted) return
-
-      isAnimating = true
-      Animated.timing(translateX, {
-        toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start(() => {
-        if (!isMounted) return
-        const isLast = currBannerIdx === BACKGROUND_IMAGES.length - 2
-        if (isLast) {
-          translateX.setValue(0)
-          setCurrBannerIdx(0)
-        } else {
-          setCurrBannerIdx(prev => prev + 1)
-        }
-        isAnimating = false
-      })
+      animate()
     }, 3000)
 
     return () => {
-      isMounted = false
+      isMountedRef.current = false
       clearInterval(interval)
     }
-  }, [currBannerIdx, translateX])
+  }, [currBannerIdx, animated])
 
+  useEffect(() => {
+    if (animated) {
+      animate()
+    }
+  }, [animated])
+
+  const insets = useSafeAreaInsets()
   return (
-    <View style={styles.bgContainer}>
+    <SafeAreaView style={styles.bgContainer}>
+      <StatusBarContainer
+        statusBarBackgroundColor={statusBarBackgroundColor}
+        statusBarElementColor={statusBarElementColor}
+      />
+
       <Animated.View style={[styles.animatedContainer, { transform: [{ translateX }] }]}>
         {BACKGROUND_IMAGES.map((_, index) => (
           <Image
@@ -61,14 +90,13 @@ export const AnimatedScreenContainer = ({ children, padding = 'md' }: Props) => 
             resizeMode='cover'
           />
         ))}
-        {currBannerIdx === BACKGROUND_IMAGES.length - 1 && (
-          <Image source={BACKGROUND_IMAGES[0]} style={styles.animatedBg} resizeMode='cover' />
-        )}
       </Animated.View>
       <SafeAreaView style={styles.safeArea}>
-        <View style={[styles.content, { padding: paddingValue }]}>{children}</View>
+        <View style={[styles.content, { padding: paddingValue, paddingBottom: insets.bottom }]}>
+          {children}
+        </View>
       </SafeAreaView>
-    </View>
+    </SafeAreaView>
   )
 }
 

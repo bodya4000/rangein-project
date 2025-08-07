@@ -1,7 +1,10 @@
 {
   "nothing": "",
   "home": {
-    "title": "暗影裁决"
+    "title": "暗影裁决",
+    "noInternet": "无网络连接",
+    "unexpectedError": "意外错误",
+    "checkConnection": "请检查您的网络连接并重试。"
   },
   "profile": {
     "header": "个人资料",

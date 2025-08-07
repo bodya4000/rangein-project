@@ -1,14 +1,14 @@
 import React from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { PADDING_MAP } from '@/constants'
 
 import DefaultBackground from '@assets/images/screens/default.png'
 
-import { ScreenLayoutContainer } from './screen-container'
+import StatusBarContainer, { StatusBarContainerProps } from './_status-bar-container'
 
-interface Props {
+interface Props extends StatusBarContainerProps {
   children: React.ReactNode
   background?: number
   padding?: 'sm' | 'md' | 'lg'
@@ -18,23 +18,33 @@ export const ImageBackgroundScreenContainer = ({
   children,
   background = DefaultBackground,
   padding = 'sm',
+  statusBarBackgroundColor,
+  statusBarElementColor,
 }: Props) => {
+  const insets = useSafeAreaInsets()
   return (
-    <ScreenLayoutContainer type='fullscreen'>
+    <>
+      <StatusBarContainer
+        statusBarBackgroundColor={statusBarBackgroundColor}
+        statusBarElementColor={statusBarElementColor}
+      />
+
       <ImageBackground source={background} style={styles.bg} resizeMode='cover'>
         <SafeAreaView
-          edges={['bottom']}
-          style={[styles.content, { padding: PADDING_MAP[padding] }]}
+          style={[
+            styles.content,
+            { padding: PADDING_MAP[padding], paddingBottom: insets.bottom + PADDING_MAP[padding] },
+          ]}
         >
           {children}
         </SafeAreaView>
       </ImageBackground>
-    </ScreenLayoutContainer>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  bg: { position: 'absolute', height: '100%', width: '100%' },
-  safeArea: { flex: 1, backgroundColor: 'rgba(0,0,0,0.2)' },
-  content: { flex: 1 },
+  bg: { height: '100%', width: '100%' },
+  safeArea: { flex: 1, width: '100%' },
+  content: { flex: 1, width: '100%' },
 })

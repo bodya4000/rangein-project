@@ -1,4 +1,4 @@
-import { BlurView } from 'expo-blur'
+// import { BlurView } from 'expo-blur'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -19,11 +19,11 @@ export const SentMessage = ({ text }: Props) => {
     <View style={styles.row}>
       <View style={globalStyles.spacer} />
       <View style={styles.container}>
-        <BlurView style={styles.blur} intensity={BLUR_INTENSITY} tint={BLUR_TINT}>
+        <View style={styles.blur}>
           <Text style={styles.text} txStyle='IR18'>
             {text}
           </Text>
-        </BlurView>
+        </View>
       </View>
     </View>
   )

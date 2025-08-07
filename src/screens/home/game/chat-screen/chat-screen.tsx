@@ -1,51 +1,32 @@
 import { useFocusEffect } from 'expo-router'
-import React, { useEffect, useRef } from 'react'
-import { Keyboard, ScrollView, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import React, { useRef } from 'react'
+import { ScrollView, View } from 'react-native'
 
 import { ChatBottom, ChatMessages } from '@/components/home/game/chat-screen'
+import { WINDOW_HEIGHT } from '@/constants'
 
 const ChatScreen = () => {
   const scrollRef = useRef<ScrollView | null>(null)
 
-  const scrollToEnd = () => {
-    const timer = setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollToEnd({ animated: true })
-      }
-      clearTimeout(timer)
-    }, 200)
-  }
-
-  useFocusEffect(
-    React.useCallback(() => {
-      scrollToEnd()
-    }, []),
-  )
-
-  useEffect(() => {
-    const keyboardDidShow = Keyboard.addListener('keyboardDidShow', () => {
-      // scrollToEnd()
-    })
-
-    return () => {
-      keyboardDidShow.remove()
-    }
-  }, [])
-
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     if (scrollRef.current) {
+  //       scrollRef.current.scrollToEnd({ animated: false })
+  //     }
+  //   }, []),
+  // )
   return (
-    <>
-      <KeyboardAwareScrollView
+    <View style={{ flex: 1 }}>
+      {/* <KeyboardAwareScrollView
         ref={scrollRef}
         extraKeyboardSpace={0}
         showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ flex: 1 }}
-      >
-        <View style={{ height: 200 }} />
-        <ChatMessages />
-        <ChatBottom />
-      </KeyboardAwareScrollView>
-    </>
+        contentContainerStyle={{ minHeight: WINDOW_HEIGHT }}
+      > */}
+      <ChatMessages />
+      <ChatBottom />
+      {/* </KeyboardAwareScrollView> */}
+    </View>
   )
 }
 

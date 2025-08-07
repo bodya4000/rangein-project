@@ -16,7 +16,7 @@ const HomeScreen = () => {
   const { data: userInfo } = useGetUser({ deviceId })
   return (
     <>
-      <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />
+      <GradientText txStyle='IR80' tx={'home.title'} style={styles.title} />
       <View style={globalStyles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>
@@ -31,7 +31,7 @@ const HomeScreen = () => {
         </PrimaryButton>
         <PrimaryButton
           disabled={!userInfo || !userInfo.gameId}
-          onPress={() => router.push('/home/game/chat')}
+          onPress={() => router.push('/home/game/chat', {})}
         >
           <Continue />
         </PrimaryButton>

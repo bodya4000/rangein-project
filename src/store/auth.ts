@@ -1,3 +1,6 @@
+import { log } from 'console'
+
+import { use } from 'react'
 import { create } from 'zustand'
 
 import { authService, GetUserResponse, RegisterRequest } from '@/api'
@@ -29,6 +32,7 @@ export const useAuthStore = create<ChatStore>()(set => ({
       const user = await authService.login({ deviceId: getDeviceId() })
       set({ user, authLoading: false, error: null })
     } catch (err: any) {
+      console.log(err)
       const status = err?.status
       if (!status) {
         set({ authLoading: false, error: 'network' })
@@ -43,7 +47,10 @@ export const useAuthStore = create<ChatStore>()(set => ({
   register: async data => {
     set({ authLoading: true })
     try {
+      console.log(data)
       const user = await authService.register(data)
+      console.log(user)
+
       set({ user, authLoading: false, error: null })
     } catch (err: any) {
       const status = err?.status

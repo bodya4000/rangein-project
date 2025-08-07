@@ -1,63 +1,35 @@
 import MaskedView from '@react-native-masked-view/masked-view'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { ReactNode, useCallback, useEffect, useMemo, useState, memo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  LayoutChangeEvent,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from 'react-native'
 
 import { colors } from '@/constants/colors'
-import { TxKeyPath } from '@/i18n/react-i18next'
-import { scaleFont } from '@/utils'
 
-export type GradientFontStyle =
-  | 'IR10'
-  | 'IR12'
-  | 'IR14'
-  | 'IR16'
-  | 'IR20'
-  | 'IR24'
-  | 'IR40'
-  | 'IR80'
+import { AppTextProps, RegularFontStyle, Text } from './text'
 
-interface Props extends TextProps {
-  children?: ReactNode
-  tx?: TxKeyPath
-  txStyle?: GradientFontStyle
+type Props = Omit<AppTextProps, 'color'> & {
   color?: [string, string, ...string[]]
-  style?: TextStyle | TextStyle[]
+  txStyle?: RegularFontStyle
   containerStyle?: ViewStyle
-  quintessential?: boolean
-  width?: number
-  numberOfLines?: number
+  width?: number | 'auto'
 }
 
 export const GradientText = memo(function GradientText({
   children,
   tx,
-  txStyle = 'IR10',
+  txStyle = 'IR18',
   color = [colors.gradientMetal2[0], colors.gradientMetal2[1], ...colors.gradientMetal2.slice(2)],
   style,
   containerStyle,
   width,
   quintessential = true,
-  numberOfLines,
   ...textProps
 }: Props) {
   const { t, i18n } = useTranslation()
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 })
 
   const content = useMemo(() => (tx ? t(tx) : children), [tx, t, children])
-  const baseStyle = useMemo(
-    () => createGradientTextStyle(txStyle, quintessential),
-    [txStyle, quintessential],
-  )
 
   const isReady = dimensions.width > 0 && dimensions.height > 0
 
@@ -78,10 +50,11 @@ export const GradientText = memo(function GradientText({
   if (!isReady) {
     return (
       <Text
-        numberOfLines={numberOfLines}
-        onLayout={handleLayout}
-        style={[styles.text, baseStyle, style, { color: colors.white }]}
         {...textProps}
+        onLayout={handleLayout}
+        style={[styles.text, style, { color: colors.white }]}
+        quintessential={quintessential}
+        txStyle={txStyle}
       >
         {content}
       </Text>
@@ -99,11 +72,7 @@ export const GradientText = memo(function GradientText({
               width: width ?? dimensions.width,
             }}
           >
-            <Text
-              {...textProps}
-              numberOfLines={numberOfLines}
-              style={[styles.text, baseStyle, style]}
-            >
+            <Text {...textProps} quintessential={quintessential} txStyle={txStyle} style={[style]}>
               {content}
             </Text>
           </View>
@@ -122,15 +91,6 @@ export const GradientText = memo(function GradientText({
     </View>
   )
 })
-
-function createGradientTextStyle(font: GradientFontStyle, quintessential = true): TextStyle {
-  const size = Number(font.replace('IR', ''))
-  const scaled = scaleFont(size * 2)
-  return {
-    fontFamily: quintessential ? 'Quintessential-Regular' : 'Inter-Regular',
-    fontSize: scaled,
-  }
-}
 
 const styles = StyleSheet.create({
   container: {

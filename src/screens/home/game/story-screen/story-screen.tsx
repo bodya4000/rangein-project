@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router'
 import React, { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
 import { StoryList, StoryPagination } from '@/components/home/game/story-screen'
@@ -61,7 +62,7 @@ const StoryScreen = () => {
       {gameInfo ? (
         <>
           <View style={styles.textContainer}>
-            <GradientText style={styles.title} txStyle='IR24'>
+            <GradientText style={styles.title} txStyle='IR40'>
               {gameInfo.title}
             </GradientText>
           </View>

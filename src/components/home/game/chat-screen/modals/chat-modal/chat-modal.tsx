@@ -41,6 +41,7 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
   return (
     <KeyboardAwareScrollView>
       <GameModal
+        gap={null}
         onClose={onClose}
         style={{ paddingHorizontal: spacing.lg }}
         renderHeader={() => <GradientText tx='game.chat.enterYourAnswer' />}
@@ -54,7 +55,7 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
               onChangeText={setText}
             />
             <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
-              <Send width={42} height={42} />
+              <Send />
             </Touchable>
           </View>
         )}

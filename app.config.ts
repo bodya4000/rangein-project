@@ -15,33 +15,18 @@ const config: ExpoConfig = {
   orientation: 'portrait',
   icon: './assets/images/icon.png',
   scheme: 'rangeinproject',
-  userInterfaceStyle: 'automatic',
   jsEngine: 'hermes',
   newArchEnabled: true,
-  ios: {
-    supportsTablet: true,
-    bundleIdentifier: 'com.bodya4000.rangein-project',
-  },
   android: {
+    package: 'com.bodya4000.rangeinproject',
+    edgeToEdgeEnabled: false,
+    softwareKeyboardLayoutMode: 'resize',
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#000000',
     },
-    edgeToEdgeEnabled: true,
-    package: 'com.bodya4000.rangeinproject',
-  },
-  web: {
-    bundler: 'metro',
-    output: 'static',
-    favicon: './assets/images/favicon.png',
   },
   plugins: [
-    [
-      'expo-image-picker',
-      {
-        photosPermission: 'The app accesses your photos to let you share them with your friends.',
-      },
-    ],
     'expo-router',
     [
       'expo-splash-screen',
@@ -49,7 +34,7 @@ const config: ExpoConfig = {
         image: './assets/images/splash-icon.png',
         imageWidth: 200,
         resizeMode: 'contain',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#000',
       },
     ],
     [
@@ -61,6 +46,7 @@ const config: ExpoConfig = {
   ],
   experiments: {
     typedRoutes: true,
+    turboModules: true,
   },
 }
 

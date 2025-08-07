@@ -20,8 +20,10 @@ export const styles = StyleSheet.create({
     width: 42,
   },
   blur: {
-    paddingVertical: spacing.sm,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.md,
     paddingHorizontal: spacing.md,
+    gap: 4,
   },
   name: {},
   text: {

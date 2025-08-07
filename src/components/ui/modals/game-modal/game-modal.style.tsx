@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     backgroundColor: colors.overlay,
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: spacing.lg,
   },
 
   container: {
@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
 
   view: {
     alignItems: 'center',
-    gap: spacing.md,
-    padding: spacing.lg,
+    paddingVertical: spacing.lg,
   },
 })

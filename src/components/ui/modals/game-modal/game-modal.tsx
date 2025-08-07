@@ -1,8 +1,8 @@
-import { BlurView } from 'expo-blur'
+// import { BlurView } from 'expo-blur'
 import React from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
-import { IS_IOS } from '@/constants'
+import { IS_IOS, spacing } from '@/constants'
 import { globalStyles } from '@/constants/global-styles'
 
 import BronzeModalPng from '@assets/images/modals/bronze.png'
@@ -31,6 +31,7 @@ interface Props extends Partial<ModalProps> {
   renderHeader?: () => React.ReactNode
   renderBody?: () => React.ReactNode
   renderFooter?: () => React.ReactNode
+  gap?: keyof typeof spacing | null
 }
 
 export default function GameModal({
@@ -40,6 +41,7 @@ export default function GameModal({
   renderHeader,
   renderBody,
   renderFooter,
+  gap = 'md',
   ...modalProps
 }: Props) {
   return (
@@ -51,16 +53,16 @@ export default function GameModal({
       {...modalProps}
     >
       <Pressable style={globalStyles.spacer} onPress={onClose}>
-        <BlurView intensity={BLUR_INTENSITY} tint={BLUR_TINT} style={styles.overlay}>
+        <View style={styles.overlay}>
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />
-            <Pressable style={styles.view}>
+            <Pressable style={[styles.view, { gap: gap ? spacing[gap] : 0 }]}>
               {renderHeader && renderHeader?.()}
               {renderBody && renderBody?.()}
               {renderFooter && renderFooter?.()}
             </Pressable>
           </View>
-        </BlurView>
+        </View>
       </Pressable>
     </Modal>
   )

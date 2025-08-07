@@ -1,4 +1,4 @@
-import { BlurView } from 'expo-blur'
+// import { BlurView } from 'expo-blur'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StatusBar, View } from 'react-native'
@@ -26,9 +26,9 @@ export default function BluredHeader({ txTitle, title }: Props) {
   const titleText = txTitle ? t(txTitle) : title
   if (!titleText) return null
   return (
-    <BlurView
-      intensity={BLUR_INTENSITY}
-      tint={BLUR_TINT}
+    <View
+      // intensity={BLUR_INTENSITY}
+      // tint={BLUR_TINT}
       style={[
         styles.container,
         {
@@ -39,12 +39,12 @@ export default function BluredHeader({ txTitle, title }: Props) {
     >
       <View style={[styles.header]}>
         <View style={styles.back}>
-          <BackButton containerStyle={styles.back} />
+          <BackButton />
         </View>
-        <GradientText txStyle={titleText.length > 4 ? 'IR14' : 'IR16'} style={styles.title}>
+        <GradientText txStyle={titleText.length > 4 ? 'IR24' : 'IR20'} style={styles.title}>
           {titleText}
         </GradientText>
       </View>
-    </BlurView>
+    </View>
   )
 }

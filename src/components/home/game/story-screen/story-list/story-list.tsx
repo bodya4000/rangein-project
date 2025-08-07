@@ -38,7 +38,7 @@ const StoryList = React.forwardRef<any, Props>(
           <View style={[{ maxWidth: CONTAINER_WIDTH }]}>
             <GradientText
               numberOfLines={20}
-              txStyle='IR12'
+              txStyle='IR18'
               ellipsizeMode='clip'
               quintessential={false}
               width={CONTAINER_WIDTH}

@@ -1,5 +1,6 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { TxKeyPath } from '@/i18n/react-i18next'
 
@@ -13,10 +14,13 @@ interface Props {
 }
 
 export default function Header({ txTitle, back = true }: Props) {
+  const { top } = useSafeAreaInsets()
   return (
-    <View style={styles.container}>
-      <View style={styles.back}>{back && <BackButton />}</View>
-      <GradientText txStyle='IR16' tx={txTitle} style={styles.title} />
+    <View style={[styles.container, { paddingTop: top || StatusBar.currentHeight }]}>
+      <View style={[styles.back, { paddingTop: top || StatusBar.currentHeight }]}>
+        {back && <BackButton />}
+      </View>
+      <GradientText txStyle='IR24' tx={txTitle} style={styles.title} />
     </View>
   )
 }

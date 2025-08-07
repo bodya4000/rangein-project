@@ -1,6 +1,5 @@
-import { BlurView } from 'expo-blur'
 import React, { ReactNode } from 'react'
-import { Modal, ModalProps, StyleProp, ViewStyle } from 'react-native'
+import { Modal, ModalProps, Pressable, StyleProp, ViewStyle } from 'react-native'
 
 import { styles } from './blur-modal.style'
 
@@ -13,17 +12,29 @@ interface DarkModalProps extends Partial<ModalProps> {
 
 export const BlurModal = ({
   children,
-  blurIntensity = 50,
+  blurIntensity = 500,
   blurTint = 'dark',
   overlayStyle,
   onRequestClose,
   ...rest
 }: DarkModalProps) => {
+  // useEffect(() => {
+  //   SystemNavigationBar.fullScreen()
+  //   StatusBar.setHidden(true)
+  // }, [])
   return (
-    <Modal transparent onRequestClose={onRequestClose} animationType='fade' {...rest}>
-      <BlurView intensity={blurIntensity} tint={blurTint} style={[styles.overlay, overlayStyle]}>
+    <Modal
+      transparent={true}
+      visible={true}
+      animationType='none'
+      onRequestClose={onRequestClose}
+      style={{ backgroundColor: 'red' }}
+      {...rest}
+    >
+      <Pressable style={styles.overlay} onPress={onRequestClose}>
         {children}
-      </BlurView>
+        {/* <BlurView intensity={blurIntensity} tint={blurTint} style={[styles.overlay, overlayStyle]}> */}
+      </Pressable>
     </Modal>
   )
 }

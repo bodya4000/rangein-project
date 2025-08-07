@@ -1,7 +1,6 @@
 import { useFonts } from 'expo-font'
 import { useEffect, useState } from 'react'
 import DeviceInfo from 'react-native-device-info'
-import SystemNavigationBar from 'react-native-system-navigation-bar'
 
 import { colors, STORAGE_KEYS } from '@/constants'
 import { storage } from '@/store'
@@ -16,12 +15,6 @@ export const useSetup = () => {
   })
 
   useEffect(() => {
-    SystemNavigationBar.setNavigationColor(colors.black).finally(() => {
-      setNavReady(true)
-    })
-  }, [])
-
-  useEffect(() => {
     const initDeviceId = async () => {
       let deviceId = storage.getItem(STORAGE_KEYS.DEVICE_ID)
       if (!deviceId) {
@@ -34,10 +27,22 @@ export const useSetup = () => {
   }, [])
 
   useEffect(() => {
-    if (fontsLoaded) {
-      setFontsReady(true)
+    if (!fontsLoaded) return
+
+    const initNavigationBar = async () => {
+      try {
+        setNavReady(true)
+      } catch (e) {
+        console.warn('Navigation bar setup failed', e)
+        setNavReady(true)
+      }
     }
+
+    initNavigationBar()
+    setFontsReady(true)
   }, [fontsLoaded])
 
-  return { ready: navReady && deviceIdReady && fontsReady }
+  return {
+    ready: navReady && deviceIdReady && fontsReady,
+  }
 }

@@ -1,7 +1,10 @@
 {
   "nothing": "",
   "home": {
-    "title": "Shadow Verdict"
+    "title": "Shadow Verdict",
+    "noInternet": "No internet",
+    "unexpectedError": "Unexpected error",
+    "checkConnection": "Check your connection and try again."
   },
   "profile": {
     "header": "Profile",

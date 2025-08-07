@@ -1,7 +1,10 @@
+import { t } from 'i18next'
 import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
+import { Skeleton } from '@/components/ui'
+import { DefaultInput } from '@/components/ui/inputs'
 import { colors, globalStyles } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId } from '@/utils'
@@ -26,8 +29,10 @@ const ChatMessages = () => {
   const setMessages = useChatStore(state => state.setMessages)
   const setTyping = useChatStore(state => state.setTyping)
   const popNewMessages = useChatStore(state => state.popNewMessages)
-  const { data: gameData } = useGameSetup({ userId: getDeviceId() })
-  const { data: messageData } = useMessages({ gameId: gameData?.gameId ?? '' })
+  const { data: gameData, isPending: gameDataLoading } = useGameSetup({ userId: getDeviceId() })
+  const { data: messageData, isPending: messageDataLoading } = useMessages({
+    gameId: gameData?.gameId ?? '',
+  })
   const messageList = useMemo(
     () => (typing ? [loadingMessage, ...messages] : messages),
     [messages, typing],
@@ -77,12 +82,12 @@ const ChatMessages = () => {
       <View style={globalStyles.spacer} />
       <FlatList
         ref={flatlistRef}
-        inverted
         data={messageList}
         bounces
-        scrollEnabled={false}
+        scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.messageListContainer}
+        keyboardShouldPersistTaps='handled'
         keyExtractor={item => item.messageId.toString() + new Date()}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
@@ -95,6 +100,13 @@ const ChatMessages = () => {
           )
         }}
       />
+
+      {(gameDataLoading || messageDataLoading) && (
+        <View style={styles.skeletonContainer}>
+          <Skeleton width={42} height={42} style={styles.skeletonImage} />
+          <Skeleton width={270} height={120} style={styles.skeletonMessage} />
+        </View>
+      )}
     </View>
   )
 }
