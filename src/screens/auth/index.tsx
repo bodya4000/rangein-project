@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Keyboard, Pressable, View } from 'react-native'
-import { KeyboardAvoidingView, KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
 import { Header, SmoothButton } from '@/components/ui'
@@ -66,20 +65,20 @@ const Register = () => {
   return (
     // {/* <KeyboardAvoidingView style={styles.screenContainer} behavior={undefined}> */}
     // {/* <Header back={false} txTitle={stepIndex > 0 ? 'auth.register.title' : 'nothing'} /> */}
-    <KeyboardAwareScrollView
-      keyboardShouldPersistTaps='handled'
-      bounces
-      contentContainerStyle={{ height: WINDOW_HEIGHT }}
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={styles.screenContainer}>
-        <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
-        {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'auth.register.next'} />}
-        {stepIndex == 3 && (
-          <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'auth.register.submit'} />
-        )}
-      </View>
-    </KeyboardAwareScrollView>
+    // <KeyboardAwareScrollView
+    //   keyboardShouldPersistTaps='handled'
+    //   bounces
+    //   contentContainerStyle={{ height: WINDOW_HEIGHT }}
+    //   showsVerticalScrollIndicator={false}
+    // >
+    <View style={styles.screenContainer}>
+      <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
+      {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'auth.register.next'} />}
+      {stepIndex == 3 && (
+        <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'auth.register.submit'} />
+      )}
+    </View>
+    // </KeyboardAwareScrollView>
 
     // {/* </KeyboardAvoidingView> */}
   )

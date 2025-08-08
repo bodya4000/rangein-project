@@ -1,7 +1,7 @@
 import { Canvas, Blur, Rect, LinearGradient, vec, Group, rect } from '@shopify/react-native-skia'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import { globalStyles, WINDOW_WIDTH } from '@/constants'
 import { TxKeyPath } from '@/i18n/react-i18next'
@@ -41,9 +41,9 @@ export const BluredHeader = ({ txTitle, title }: Props) => {
 
       <View style={styles.content}>
         <View style={styles.left}>
-          <View style={styles.backButton}>
+          <TouchableOpacity style={styles.backButton}>
             <BackButton />
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.center}>

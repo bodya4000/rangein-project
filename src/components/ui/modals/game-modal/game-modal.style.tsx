@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, spacing, WINDOW_WIDTH } from '@/constants'
+import { colors, spacing, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
 const MODAL_WIDTH = WINDOW_WIDTH * 1
 
 export const styles = StyleSheet.create({
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    height: WINDOW_HEIGHT,
     justifyContent: 'center',
     backgroundColor: colors.overlay,
     paddingHorizontal: spacing.lg,

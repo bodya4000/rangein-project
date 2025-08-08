@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { StyleProp, StyleSheet, ViewStyle, ImageBackground } from 'react-native'
-import { Edges, SafeAreaView } from 'react-native-safe-area-context'
+import { Edges, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { PADDING_MAP } from '@/constants'
 

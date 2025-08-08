@@ -19,13 +19,9 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <I18nextProvider i18n={i18n}>
         <SafeAreaProvider>
-          <KeyboardProvider enabled={false}>
+          <KeyboardProvider>
             <StatusBar barStyle={'light-content'} />
-            <Stack
-              screenOptions={{
-                headerShown: false,
-              }}
-            >
+            <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name='(auth)' />
               <Stack.Screen name='index' />
               <Stack.Screen options={{ animation: 'fade_from_bottom' }} name='home/game/story' />

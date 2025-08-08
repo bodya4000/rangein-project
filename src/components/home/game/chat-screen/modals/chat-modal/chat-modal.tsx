@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, TextInput } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
@@ -39,7 +38,7 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
     textRef.current?.focus()
   }, [])
   return (
-    <KeyboardAwareScrollView>
+    <>
       <GameModal
         gap={null}
         onClose={onClose}
@@ -60,7 +59,7 @@ const ChatModal = ({ handleSendMessage, onClose }: Props) => {
           </View>
         )}
       />
-    </KeyboardAwareScrollView>
+    </>
   )
 }
 

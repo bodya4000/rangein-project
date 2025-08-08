@@ -66,8 +66,8 @@ importers:
         specifier: ~2.24.0
         version: 2.24.0(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-keyboard-controller:
-        specifier: ^1.18.2
-        version: 1.18.2(react-native-reanimated@3.17.5(@babel/core@7.27.1)(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+        specifier: ^1.18.3
+        version: 1.18.3(react-native-reanimated@3.17.5(@babel/core@7.27.1)(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-mmkv:
         specifier: ^3.2.0
         version: 3.2.0(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -3693,8 +3693,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-keyboard-controller@1.18.2:
-    resolution: {integrity: sha512-Cvg46QjKiI+xxeu8mZrNwAkcyvbT7ZCttp2ePW4O/V7jgvTkRfvz4Pm5sRK1C4yozgpwQRKCCIAW/oOErH1qrA==}
+  react-native-keyboard-controller@1.18.3:
+    resolution: {integrity: sha512-Wea4Cq7Cns0kwFVvmW0BosI+j0sXUbRif29M9XkUjOjiJidti9i++80pQvna9wAi+hI0w3SJCrHveeVoY4zNOg==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -8953,7 +8953,7 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0)
 
-  react-native-keyboard-controller@1.18.2(react-native-reanimated@3.17.5(@babel/core@7.27.1)(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+  react-native-keyboard-controller@1.18.3(react-native-reanimated@3.17.5(@babel/core@7.27.1)(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.1)(@react-native-community/cli@18.0.0(typescript@5.8.3))(@types/react@19.0.14)(react@19.0.0)

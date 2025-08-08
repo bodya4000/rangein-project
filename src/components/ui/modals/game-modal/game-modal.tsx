@@ -2,7 +2,7 @@
 import React from 'react'
 import { View, Modal, ModalProps, Image, Pressable } from 'react-native'
 
-import { IS_IOS, spacing } from '@/constants'
+import { IS_IOS, spacing, WINDOW_HEIGHT } from '@/constants'
 import { globalStyles } from '@/constants/global-styles'
 
 import BronzeModalPng from '@assets/images/modals/bronze.png'
@@ -52,7 +52,7 @@ export default function GameModal({
       onRequestClose={onClose}
       {...modalProps}
     >
-      <Pressable style={globalStyles.spacer} onPress={onClose}>
+      <Pressable style={{ height: WINDOW_HEIGHT }} onPress={onClose}>
         <View style={styles.overlay}>
           <View style={styles.container}>
             <Image source={MODAL_IMAGES[type]} style={styles.background} resizeMode='stretch' />

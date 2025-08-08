@@ -1,3 +1,5 @@
+import { View } from 'react-native'
+
 import { useGameSetup } from '@/api/hooks'
 import { DefaultScreenContainer } from '@/components/ui'
 import { BluredHeader } from '@/components/ui/headers/blured-header/blured-header'

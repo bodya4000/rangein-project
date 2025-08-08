@@ -17,10 +17,14 @@ const config: ExpoConfig = {
   scheme: 'rangeinproject',
   jsEngine: 'hermes',
   newArchEnabled: true,
+  androidStatusBar: {
+    translucent: true,
+    barStyle: 'light-content',
+  },
   android: {
     package: 'com.bodya4000.rangeinproject',
-    edgeToEdgeEnabled: false,
-    softwareKeyboardLayoutMode: 'resize',
+    edgeToEdgeEnabled: true,
+    softwareKeyboardLayoutMode: 'pan',
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#000000',

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Image, View, StyleSheet } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { PADDING_MAP, WINDOW_WIDTH } from '@/constants'
+import { PADDING_MAP, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     width: WINDOW_WIDTH * 3,
-    height: '100%',
+    height: WINDOW_HEIGHT,
   },
   animatedBg: { width: WINDOW_WIDTH, height: '100%' },
-  safeArea: { flex: 1, backgroundColor: 'rgba(0,0,0,0.2)' },
+  safeArea: { flex: 1 },
   content: { flex: 1 },
 })
