@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StatusBar, StatusBarStyle } from 'react-native'
 
-import { colors } from '@/constants'
 
 export type StatusBarContainerProps = {
   statusBarBackgroundColor?: string

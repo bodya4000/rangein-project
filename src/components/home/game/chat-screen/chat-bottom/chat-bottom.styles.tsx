@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     bottom: -50,
     gap: spacing.sm,
     marginVertical: 50,
+    zIndex: 1000,
   },
   bottom: {
     paddingHorizontal: spacing.md,

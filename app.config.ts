@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 
 import 'dotenv/config'
 
+const withAdjustNothing = require(path.resolve(__dirname, 'plugins/soft-input-adjust-nothing.js'))
+
 const envFile = process.env.NODE_ENV ? `env/.env.${process.env.NODE_ENV}` : `env/.env`
 dotenv.config({ path: path.join(__dirname, envFile) })
 
@@ -17,14 +19,15 @@ const config: ExpoConfig = {
   scheme: 'rangeinproject',
   jsEngine: 'hermes',
   newArchEnabled: true,
-  androidStatusBar: {
-    translucent: true,
-    barStyle: 'light-content',
+  androidNavigationBar: {
+    backgroundColor: '#000000',
+    barStyle: 'dark-content',
   },
   android: {
     package: 'com.bodya4000.rangeinproject',
     edgeToEdgeEnabled: true,
-    softwareKeyboardLayoutMode: 'pan',
+    backgroundColor: '#000000',
+    softwareKeyboardLayoutMode: undefined,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#000000',
@@ -32,6 +35,7 @@ const config: ExpoConfig = {
   },
   plugins: [
     'expo-router',
+    withAdjustNothing,
     [
       'expo-splash-screen',
       {

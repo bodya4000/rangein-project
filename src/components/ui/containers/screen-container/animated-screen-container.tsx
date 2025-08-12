@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Image, View, StyleSheet } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { PADDING_MAP, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
+import { PADDING_MAP, spacing, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
 import Background1 from '@assets/images/screens/screen_1.png'
 import Background2 from '@assets/images/screens/screen_2.png'
@@ -73,7 +73,6 @@ export const AnimatedScreenContainer = ({
     }
   }, [animated])
 
-  const insets = useSafeAreaInsets()
   return (
     <SafeAreaView style={styles.bgContainer}>
       <StatusBarContainer
@@ -91,24 +90,24 @@ export const AnimatedScreenContainer = ({
           />
         ))}
       </Animated.View>
-      <SafeAreaView style={styles.safeArea}>
-        <View style={[styles.content, { padding: paddingValue, paddingBottom: insets.bottom }]}>
+      <View style={styles.safeArea}>
+        <View style={[styles.content, { padding: paddingValue, paddingBottom: spacing.sm }]}>
           {children}
         </View>
-      </SafeAreaView>
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  bgContainer: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
+  bgContainer: { flex: 1 },
   animatedContainer: {
     position: 'absolute',
     flexDirection: 'row',
     width: WINDOW_WIDTH * 3,
     height: WINDOW_HEIGHT,
   },
-  animatedBg: { width: WINDOW_WIDTH, height: '100%' },
+  animatedBg: { width: WINDOW_WIDTH, height: '110%' },
   safeArea: { flex: 1 },
   content: { flex: 1 },
 })

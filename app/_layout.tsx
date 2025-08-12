@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { queryClient } from '@/constants'
+import { colors, queryClient } from '@/constants'
 import i18n from '@/i18n'
 
 export default function RootLayout() {
@@ -21,17 +21,18 @@ export default function RootLayout() {
         <SafeAreaProvider>
           <KeyboardProvider>
             <StatusBar barStyle={'light-content'} />
-            <Stack screenOptions={{ headerShown: false }}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: colors.black },
+              }}
+            >
               <Stack.Screen name='(auth)' />
               <Stack.Screen name='index' />
               <Stack.Screen options={{ animation: 'fade_from_bottom' }} name='home/game/story' />
               <Stack.Screen
-                options={{
-                  animation: 'slide_from_right',
-                  gestureEnabled: true,
-                  gestureDirection: 'horizontal',
-                }}
-                name='home/game/chat'
+                options={{ animation: 'slide_from_right', freezeOnBlur: true }}
+                name='home/game/chat/index'
               />
               <Stack.Screen options={{ animation: 'slide_from_left' }} name='profile/index' />
             </Stack>

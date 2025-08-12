@@ -1,6 +1,5 @@
 import { useFonts } from 'expo-font'
 import { useEffect, useState } from 'react'
-import DeviceInfo from 'react-native-device-info'
 
 import { colors, STORAGE_KEYS } from '@/constants'
 import { storage } from '@/store'
@@ -14,17 +13,6 @@ export const useSetup = () => {
     'Quintessential-Regular': require('@assets/fonts/Quintessential-Regular.ttf'),
   })
 
-  useEffect(() => {
-    const initDeviceId = async () => {
-      let deviceId = storage.getItem(STORAGE_KEYS.DEVICE_ID)
-      if (!deviceId) {
-        deviceId = await DeviceInfo.getUniqueId()
-        storage.setItem(STORAGE_KEYS.DEVICE_ID, deviceId)
-      }
-      setDeviceIdReady(true)
-    }
-    initDeviceId()
-  }, [])
 
   useEffect(() => {
     if (!fontsLoaded) return

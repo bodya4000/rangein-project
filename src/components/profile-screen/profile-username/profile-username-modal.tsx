@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { Send } from '@/components/icons'
 import { GameModal, Text, Touchable } from '@/components/ui'
@@ -27,50 +27,33 @@ export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => 
     }
   }
 
-  const [keyboardHeight, setKeyboardHeight] = useState(0)
-
-  useEffect(() => {
-    const onShow = Keyboard.addListener('keyboardDidShow', e => {
-      setKeyboardHeight(e.endCoordinates.height)
-    })
-    const onHide = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardHeight(0)
-    })
-
-    return () => {
-      onShow.remove()
-      onHide.remove()
-    }
-  }, [])
-
   return (
-    <GameModal
-      gap={null}
-      renderHeader={() => <Text quintessential tx='profile.newUsername' />}
-      renderBody={() => (
-        <View style={[styles.container]}>
-          <Text txStyle='IB12' style={styles.error} color={colors.red}>
-            {error && error}
-          </Text>
-          <View style={styles.body}>
-            <DefaultInput
-              containerStyle={styles.inputContainer}
-              value={text}
-              onChangeText={setText}
-              placeholder={t('profile.writeNewUsername')}
-            />
-            <Touchable onPress={handleSubmit}>
-              <Send />
-            </Touchable>
-          </View>
+    <GameModal onClose={onClose}>
+      <Text style={styles.title} quintessential tx='profile.newUsername' />
+      <View style={[styles.container]}>
+        <Text txStyle='IB10' style={styles.error} color={colors.red}>
+          {error && error}
+        </Text>
+        <View style={styles.body}>
+          <DefaultInput
+            containerStyle={styles.inputContainer}
+            value={text}
+            onChangeText={setText}
+            placeholder={t('profile.writeNewUsername')}
+          />
+          <Touchable onPress={handleSubmit}>
+            <Send />
+          </Touchable>
         </View>
-      )}
-      onClose={onClose}
-    />
+      </View>
+    </GameModal>
   )
 }
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+  },
   container: {
     width: '100%',
     padding: spacing.md,
@@ -85,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   error: {
-    padding: spacing.sm,
+    paddingHorizontal: spacing.sm,
     alignSelf: 'flex-start',
   },
 })

@@ -16,6 +16,7 @@ const DefaultInput = forwardRef<TextInput, Props>(({ containerStyle, style, ...p
       <TextInput
         selectionColor={colors.white}
         cursorColor={colors.white}
+        placeholder={colors.grey}
         ref={ref}
         style={[styles.input, style]}
         {...props}

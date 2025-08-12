@@ -7,13 +7,13 @@ import { GameResult, SendMessageResponse, useGameSetup, useSendMessage } from '@
 import { Burger, Send } from '@/components/icons'
 import { Touchable } from '@/components/ui/buttons'
 import { DefaultInput } from '@/components/ui/inputs'
-import { globalStyles, QUERIES, queryClient } from '@/constants'
+import { colors, globalStyles, QUERIES, queryClient } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId, isStringEmpty, newUserMessage } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 import ChatOptions from './chat-options/chat-options'
-import ChatModal from '../modals/chat-modal/chat-modal'
+import { ChatModal } from '../modals/chat-modal/chat-modal'
 import DeadInfoModal from '../modals/dead-info-modal/dead-info-modal'
 import ResultModal from '../modals/result-modal/result-modal'
 
@@ -95,7 +95,6 @@ const ChatBottom = () => {
   }
 
   const onMyOptionClick = () => {
-    setShowOptions(false)
     setShowMyOptionModal(true)
   }
 
@@ -118,7 +117,7 @@ const ChatBottom = () => {
   if (!typing)
     return (
       <>
-        {showOptions ? (
+        {showOptions && (
           <View style={styles.optionsContainer}>
             <ChatOptions
               onAnyOptionClick={onAnyOptionClick}
@@ -126,25 +125,26 @@ const ChatBottom = () => {
               onMyOptionClick={onMyOptionClick}
             />
           </View>
-        ) : (
-          <View style={styles.bottom}>
-            <Touchable onPress={onBurgerPress}>
-              <Burger />
-            </Touchable>
-
-            <DefaultInput
-              containerStyle={globalStyles.spacer}
-              placeholder={t('game.chat.typeYourMessage')}
-              ref={inputRef}
-              value={userTextInput}
-              onChangeText={setUserTextInput}
-            />
-
-            <Touchable onPress={onMessageSend} disabled={isStringEmpty(userTextInput)}>
-              <Send />
-            </Touchable>
-          </View>
         )}
+        <View style={styles.bottom}>
+          <Touchable onPress={onBurgerPress}>
+            <Burger />
+          </Touchable>
+
+          <DefaultInput
+            containerStyle={globalStyles.spacer}
+            placeholder={t('game.chat.typeYourMessage')}
+            placeholderTextColor={colors.grey}
+            ref={inputRef}
+            value={userTextInput}
+            onChangeText={setUserTextInput}
+          />
+
+          <Touchable onPress={onMessageSend} disabled={isStringEmpty(userTextInput)}>
+            <Send />
+          </Touchable>
+        </View>
+
         {gameResult && (
           <ResultModal
             summary={gameResult.message}

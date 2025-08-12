@@ -43,17 +43,15 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
   const type: 'gold' | 'silver' | 'bronze' | 'metal' =
     stars === 3 ? 'gold' : stars === 2 ? 'silver' : stars === 1 ? 'bronze' : 'metal'
 
-  const renderHeader = () => (
-    <GradientText
-      color={[colorMap[stars][0], colorMap[stars][1], ...colorMap[stars].slice(2)]}
-      style={styles.title}
-    >
-      {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
-    </GradientText>
-  )
+  return (
+    <GameModal onClose={onClose}>
+      <GradientText
+        color={[colorMap[stars][0], colorMap[stars][1], ...colorMap[stars].slice(2)]}
+        style={styles.title}
+      >
+        {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
+      </GradientText>
 
-  const renderBody = () => (
-    <>
       <GradientText quintessential={false} style={styles.text}>
         {summary ? summary : stars > 1 ? t('game.chat.winSummary') : t('game.chat.loseSummary')}
       </GradientText>
@@ -65,20 +63,8 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
           </View>
         ))}
       </View>
-    </>
-  )
 
-  const renderFooter = () => (
-    <SecondaryButton type={type} txTitle='actions.continue' onPress={onClose} />
-  )
-
-  return (
-    <GameModal
-      type={type}
-      onClose={onClose}
-      renderHeader={renderHeader}
-      renderBody={renderBody}
-      renderFooter={renderFooter}
-    />
+      <SecondaryButton type={type} txTitle='actions.continue' onPress={onClose} />
+    </GameModal>
   )
 }

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
-import { StyleProp, StyleSheet, ViewStyle, ImageBackground } from 'react-native'
-import { Edges, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { StyleProp, StyleSheet, ViewStyle, Image } from 'react-native'
+import { Edges, SafeAreaView } from 'react-native-safe-area-context'
 
 import { PADDING_MAP } from '@/constants'
 
@@ -32,20 +32,20 @@ export const DefaultScreenContainer = ({
         statusBarBackgroundColor={statusBarBackgroundColor}
         statusBarElementColor={statusBarElementColor}
       />
-      <ImageBackground source={background ?? DefaultBackground} style={styles.bg}>
-        <SafeAreaView
-          edges={edges}
-          style={[styles.container, { padding: PADDING_MAP[padding] }, style]}
-        >
-          {children}
-        </SafeAreaView>
-      </ImageBackground>
+      <Image source={background ?? DefaultBackground} style={styles.bg} />
+      <SafeAreaView
+        edges={edges}
+        style={[styles.container, { padding: PADDING_MAP[padding] }, style]}
+      >
+        {children}
+      </SafeAreaView>
     </>
   )
 }
 
 const styles = StyleSheet.create({
   bg: {
+    position: 'absolute',
     height: '100%',
     width: '100%',
   },

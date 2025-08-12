@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    minHeight: HEADER_HEIGHT,
+    boxSizing: 'content-box',
+    height: HEADER_HEIGHT,
   },
   back: {
     position: 'absolute',

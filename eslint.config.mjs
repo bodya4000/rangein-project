@@ -7,7 +7,14 @@ import pluginImport from 'eslint-plugin-import'
 
 export default defineFlatConfig([
   {
-    ignores: ['**/*.d.ts', '**/vite.config.ts', '**/eslint.config.*', '**/tsconfig.*', '**/*.svg'],
+    ignores: [
+      '**/*.d.ts',
+      '**/vite.config.ts',
+      '**/eslint.config.*',
+      '**/tsconfig.*',
+      '**/*.svg',
+      "plugins/**/*.js"
+    ],
     files: ['**/*.{js,ts,jsx,tsx}'],
     languageOptions: {
       parser: tseslint.parser,

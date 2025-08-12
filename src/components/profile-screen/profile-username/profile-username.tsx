@@ -1,6 +1,5 @@
 import React, { useState, memo, useCallback } from 'react'
 import { Controller, Control, UseFormTrigger } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { TouchableOpacity, View } from 'react-native'
 
 import { UpdateUserData } from '@/api'
@@ -17,7 +16,6 @@ interface Props {
 }
 
 function ProfileUsernameComponent({ control, username }: Props) {
-  const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
   const [text, setText] = useState(username)
 

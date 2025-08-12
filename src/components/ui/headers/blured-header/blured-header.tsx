@@ -1,7 +1,8 @@
 import { Canvas, Blur, Rect, LinearGradient, vec, Group, rect } from '@shopify/react-native-skia'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { globalStyles, WINDOW_WIDTH } from '@/constants'
 import { TxKeyPath } from '@/i18n/react-i18next'
@@ -19,6 +20,7 @@ interface Props {
 
 export const BluredHeader = ({ txTitle, title }: Props) => {
   const { t } = useTranslation()
+  const { top } = useSafeAreaInsets()
   return (
     <View style={styles.wrapper}>
       <Canvas style={StyleSheet.absoluteFill}>
@@ -39,9 +41,9 @@ export const BluredHeader = ({ txTitle, title }: Props) => {
         </Group>
       </Canvas>
 
-      <View style={styles.content}>
+      <View style={[styles.content, { paddingTop: top || StatusBar.currentHeight }]}>
         <View style={styles.left}>
-          <TouchableOpacity style={styles.backButton}>
+          <TouchableOpacity style={[styles.backButton]}>
             <BackButton />
           </TouchableOpacity>
         </View>

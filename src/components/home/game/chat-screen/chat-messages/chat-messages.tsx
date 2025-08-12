@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { GameMessage, useGameSetup, useMessages } from '@/api'
-import { colors, globalStyles } from '@/constants'
+import { colors, globalStyles, HEADER_HEIGHT, spacing } from '@/constants'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId } from '@/utils'
 
@@ -81,6 +81,7 @@ const ChatMessages = () => {
         ref={flatlistRef}
         data={[...messageList]}
         bounces
+        inverted
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.messageListContainer}
@@ -88,6 +89,7 @@ const ChatMessages = () => {
         keyExtractor={item => item.messageId.toString() + new Date()}
         decelerationRate={0.5}
         scrollEventThrottle={32}
+        ListFooterComponent={() => <View style={{ height: HEADER_HEIGHT + spacing.lg }} />}
         renderItem={({ item }) => {
           if (item.messageId === TYPING_ID) {
             return <ReceivedMessage colors={loadingMessage.colors} typing />
