@@ -1,9 +1,7 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import React, { useState } from 'react'
-import { ColorValue, Image, TouchableOpacity } from 'react-native'
+import { Image, TouchableOpacity } from 'react-native'
 
-import { Text } from '@/components/ui'
-import { useGalleryPhoto } from '@/hooks/use-gallery-photo'
+import { LinearGradientContainer, Text } from '@/components/ui'
 import { useAuthStore } from '@/store'
 
 // import ProfileLogoPng from '@assets/images/profile-logo.png'
@@ -26,16 +24,16 @@ export default function ProfileLogo() {
     <TouchableOpacity style={styles.container} onPress={onBigImagePress}>
       {imageUri && <Image style={styles.logo} resizeMode='cover' source={{ uri: imageUri }} />}
       {!imageUri && user?.avatarColors && (
-        <LinearGradient
+        <LinearGradientContainer
           style={styles.logo}
-          colors={user?.avatarColors as [ColorValue, ColorValue, ...ColorValue[]]}
+          colors={user?.avatarColors}
           start={[0, 0]}
           end={[1, 1]}
         >
           <Text txStyle='IR80' style={styles.logoText}>
             {user.username[0].toUpperCase()}
           </Text>
-        </LinearGradient>
+        </LinearGradientContainer>
       )}
     </TouchableOpacity>
   )

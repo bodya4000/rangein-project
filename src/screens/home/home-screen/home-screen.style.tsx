@@ -5,9 +5,9 @@ import { scaleFont } from '@/utils'
 
 export const styles = StyleSheet.create({
   title: {
-    textAlign: 'center',
     lineHeight: scaleFont(70),
-    paddingTop: 50,
+    paddingTop: spacing['2xl'],
+    alignItems: 'center',
   },
 
   buttons_container: {

@@ -24,7 +24,7 @@ export function TouchableBlock({
       <View style={[styles.container, containerStyle]}>
         <Image
           resizeMode='stretch'
-          source={require('@assets/images/buttons/block.png')}
+          source={require('@assets/images/buttons/block.webp')}
           style={[styles.button]}
         />
         <View style={[styles.content, style]}>{children}</View>

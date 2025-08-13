@@ -2,9 +2,9 @@ import React, { PropsWithChildren } from 'react'
 import { StyleProp, StyleSheet, ViewStyle, Image } from 'react-native'
 import { Edges, SafeAreaView } from 'react-native-safe-area-context'
 
-import { PADDING_MAP } from '@/constants'
+import { PADDING_MAP, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
-import DefaultBackground from '@assets/images/screens/default.png'
+import DefaultBackground from '@assets/images/screens/default.webp'
 
 import StatusBarContainer, { StatusBarContainerProps } from './_status-bar-container'
 
@@ -46,8 +46,8 @@ export const DefaultScreenContainer = ({
 const styles = StyleSheet.create({
   bg: {
     position: 'absolute',
-    height: '100%',
-    width: '100%',
+    height: WINDOW_HEIGHT,
+    width: WINDOW_WIDTH,
   },
   container: {
     flex: 1,

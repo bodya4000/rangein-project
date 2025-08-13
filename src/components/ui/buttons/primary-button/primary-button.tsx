@@ -24,7 +24,7 @@ export function PrimaryButton({ children, style, sizeType = 'default', ...props 
     <Touchable {...props}>
       <View style={[styles.container, style, { width: buttonSize, height: buttonSize }]}>
         <ImageBackground
-          source={require('@assets/images/buttons/primary.png')}
+          source={require('@assets/images/buttons/primary.webp')}
           resizeMode='cover'
           style={[styles.button, { width: buttonSize, height: buttonSize }]}
         >

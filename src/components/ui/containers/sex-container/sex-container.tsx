@@ -1,4 +1,3 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import React, { useState } from 'react'
 import { LayoutChangeEvent, View } from 'react-native'
 
@@ -9,6 +8,7 @@ import { Sex } from '@/types'
 import { styles } from './sex-container.style'
 import { TouchableBlock } from '../../buttons'
 import { GradientText } from '../../text'
+import { LinearGradientContainer } from '../linear-gradient-container'
 
 interface Dimensions {
   width: number | 'auto'
@@ -39,10 +39,10 @@ export const SexContainer = ({ sex, setSex }: Props) => {
   const sideGap = typeof dimensions.width === 'number' ? dimensions.width / 1.7 / 6 : 50
 
   const renderGradientButton = (text: TxKeyPath) => (
-    <LinearGradient
-      colors={colors.light_dark as [string, string, ...string[]]}
-      start={{ x: 1, y: 1 }}
-      end={{ x: 0, y: 0 }}
+    <LinearGradientContainer
+      colors={colors.light_dark}
+      start={[1, 1]}
+      end={[0, 0]}
       style={[styles.sexButton, computedButtonStyle]}
     >
       <GradientText
@@ -50,7 +50,7 @@ export const SexContainer = ({ sex, setSex }: Props) => {
         txStyle='IR18'
         color={colors.gradientMetal2 as [string, string, ...string[]]}
       ></GradientText>
-    </LinearGradient>
+    </LinearGradientContainer>
   )
 
   const renderTouchableButton = (text: TxKeyPath, sex: Sex, styleOverrides?: object) => (

@@ -6,20 +6,21 @@ const HEADER_HEIGHT = 100
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: HEADER_HEIGHT,
-    width: WINDOW_WIDTH,
     position: 'absolute',
     zIndex: 999,
   },
   content: {
+    height: HEADER_HEIGHT,
+    width: WINDOW_WIDTH,
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 30,
     paddingHorizontal: 16,
     flexDirection: 'row',
   },
 
   left: {
     flex: 1,
+    top: 10,
   },
 
   center: {

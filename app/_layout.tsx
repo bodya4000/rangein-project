@@ -28,10 +28,10 @@ export default function RootLayout() {
               }}
             >
               <Stack.Screen name='(auth)' />
-              <Stack.Screen name='index' />
+              <Stack.Screen name='index' options={{ freezeOnBlur: true }} />
               <Stack.Screen options={{ animation: 'fade_from_bottom' }} name='home/game/story' />
               <Stack.Screen
-                options={{ animation: 'slide_from_right', freezeOnBlur: true }}
+                options={{ animation: 'slide_from_right' }}
                 name='home/game/chat/index'
               />
               <Stack.Screen options={{ animation: 'slide_from_left' }} name='profile/index' />

@@ -4,10 +4,10 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 
 import { globalStyles, spacing, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
-import BronzeModalPng from '@assets/images/modals/bronze.png'
-import GoldModalPng from '@assets/images/modals/gold.png'
-import MetalModalPng from '@assets/images/modals/metal.png'
-import SilverModalPng from '@assets/images/modals/silver.png'
+import BronzeModalPng from '@assets/images/modals/bronze.webp'
+import GoldModalPng from '@assets/images/modals/gold.webp'
+import MetalModalPng from '@assets/images/modals/metal.webp'
+import SilverModalPng from '@assets/images/modals/silver.webp'
 
 const MODAL_IMAGES = {
   gold: GoldModalPng,

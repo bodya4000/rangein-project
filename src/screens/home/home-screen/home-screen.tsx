@@ -14,9 +14,10 @@ const HomeScreen = () => {
 
   const deviceId = getDeviceId()
   const { data: userInfo } = useGetUser({ deviceId })
+
   return (
     <>
-      <GradientText txStyle='IR80' tx={'home.title'} style={styles.title} />
+      <GradientText txStyle='IR40' tx={'home.title'} containerStyle={styles.title} />
       <View style={globalStyles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>

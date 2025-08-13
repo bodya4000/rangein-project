@@ -1,61 +1,41 @@
-import { Canvas, Blur, Rect, LinearGradient, vec, Group, rect } from '@shopify/react-native-skia'
+// BluredHeader.tsx
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { globalStyles, WINDOW_WIDTH } from '@/constants'
+import { globalStyles, HEADER_HEIGHT } from '@/constants'
 import { TxKeyPath } from '@/i18n/react-i18next'
 
 import { styles } from './blured-header.style'
 import { BackButton } from '../../buttons'
+import { BlurContainer } from '../../containers/blur-container'
 import { GradientText } from '../../text'
 
-const HEADER_HEIGHT = 100
-
-interface Props {
-  txTitle?: TxKeyPath
-  title?: string
-}
-
-export const BluredHeader = ({ txTitle, title }: Props) => {
+export const BluredHeader = ({ txTitle, title }: { txTitle?: TxKeyPath; title?: string }) => {
   const { t } = useTranslation()
-  const { top } = useSafeAreaInsets()
+
   return (
-    <View style={styles.wrapper}>
-      <Canvas style={StyleSheet.absoluteFill}>
-        <Group clip={rect(0, 0, WINDOW_WIDTH, HEADER_HEIGHT)}>
-          <Rect
-            x={-WINDOW_WIDTH / 2}
-            y={-HEADER_HEIGHT}
-            width={WINDOW_WIDTH * 2}
-            height={HEADER_HEIGHT * 4}
-          >
-            <LinearGradient
-              start={vec(0, 0)}
-              end={vec(0, 0)}
-              colors={['#000', 'rgba(0, 0, 0, 0.83)']}
-            />
-          </Rect>
-          <Blur blur={70} />
-        </Group>
-      </Canvas>
-
-      <View style={[styles.content, { paddingTop: top || StatusBar.currentHeight }]}>
-        <View style={styles.left}>
-          <TouchableOpacity style={[styles.backButton]}>
-            <BackButton />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.center}>
-          <GradientText txStyle='IR24' quintessential>
-            {txTitle ? t(txTitle) : title}
-          </GradientText>
-        </View>
-
-        <View style={globalStyles.spacer} />
+    <BlurContainer
+      height={HEADER_HEIGHT}
+      style={styles.wrapper}
+      contentStyle={[styles.content, {}]}
+      blur={70}
+      colors={['#000000', 'rgba(0,0,0,0.83)']}
+      start={[0, 0]}
+      end={[0, 1]}
+    >
+      <View style={styles.left}>
+        <BackButton />
       </View>
-    </View>
+
+      <View style={styles.center}>
+        <GradientText txStyle='IR24' quintessential>
+          {txTitle ? t(txTitle) : title}
+        </GradientText>
+      </View>
+
+      <View style={globalStyles.spacer} />
+    </BlurContainer>
   )
 }

@@ -1,11 +1,18 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Image, View, StyleSheet } from 'react-native'
+import { useFocusEffect } from 'expo-router'
+import React from 'react'
+import { View, StyleSheet, Image } from 'react-native'
+import Animated, {
+  cancelAnimation,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { PADDING_MAP, spacing, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 
-import Background1 from '@assets/images/screens/screen_1.png'
-import Background2 from '@assets/images/screens/screen_2.png'
+import Background1 from '@assets/images/screens/screen_1.webp'
+import Background2 from '@assets/images/screens/screen_2.webp'
 
 import StatusBarContainer, { StatusBarContainerProps } from './_status-bar-container'
 
@@ -17,6 +24,9 @@ interface Props extends StatusBarContainerProps {
   animated?: boolean
 }
 
+const SLIDE_INTERVAL = 3000
+const ANIMATION_DURATION = 1000
+
 export const AnimatedScreenContainer = ({
   children,
   padding = 'md',
@@ -24,54 +34,37 @@ export const AnimatedScreenContainer = ({
   statusBarBackgroundColor,
   statusBarElementColor,
 }: Props) => {
-  const translateX = useRef(new Animated.Value(0)).current
-  const [currBannerIdx, setCurrBannerIdx] = useState(0)
-  const paddingValue = useMemo(() => PADDING_MAP[padding], [padding])
-
-  const isMountedRef = useRef(true)
-  const isAnimatingRef = useRef(false)
+  const intervalRef = React.useRef<number | null>(null)
+  const translateX = useSharedValue(0)
+  const currBannerIdx = useSharedValue(0)
+  const paddingValue = PADDING_MAP[padding]
 
   const animate = () => {
-    if (isAnimatingRef.current || !isMountedRef.current) return
+    const lastIndex = BACKGROUND_IMAGES.length - 2
+    const nextIdx = currBannerIdx.value === lastIndex ? 0 : currBannerIdx.value + 1
+    const translateXValue = -nextIdx * WINDOW_WIDTH
 
-    isAnimatingRef.current = true
-    Animated.timing(translateX, {
-      toValue: -(currBannerIdx + 1) * WINDOW_WIDTH,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start(() => {
-      if (!isMountedRef.current) return
-
-      const isLast = currBannerIdx === BACKGROUND_IMAGES.length - 2
-      if (isLast) {
-        translateX.setValue(0)
-        setCurrBannerIdx(0)
-      } else {
-        setCurrBannerIdx(prev => prev + 1)
-      }
-      isAnimatingRef.current = false
+    translateX.value = withTiming(translateXValue, { duration: ANIMATION_DURATION }, () => {
+      currBannerIdx.value = nextIdx
     })
   }
 
-  useEffect(() => {
-    if (!animated) return
-
-    isMountedRef.current = true
-    const interval = setInterval(() => {
+  useFocusEffect(
+    React.useCallback(() => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      if (!animated) return
       animate()
-    }, 3000)
+      intervalRef.current = setInterval(animate, SLIDE_INTERVAL)
+      return () => {
+        cancelAnimation(translateX)
+        if (intervalRef.current) clearInterval(intervalRef.current)
+      }
+    }, [animated]),
+  )
 
-    return () => {
-      isMountedRef.current = false
-      clearInterval(interval)
-    }
-  }, [currBannerIdx, animated])
-
-  useEffect(() => {
-    if (animated) {
-      animate()
-    }
-  }, [animated])
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+  }))
 
   return (
     <SafeAreaView style={styles.bgContainer}>
@@ -79,15 +72,9 @@ export const AnimatedScreenContainer = ({
         statusBarBackgroundColor={statusBarBackgroundColor}
         statusBarElementColor={statusBarElementColor}
       />
-
-      <Animated.View style={[styles.animatedContainer, { transform: [{ translateX }] }]}>
-        {BACKGROUND_IMAGES.map((_, index) => (
-          <Image
-            key={index}
-            source={BACKGROUND_IMAGES[index]}
-            style={styles.animatedBg}
-            resizeMode='cover'
-          />
+      <Animated.View style={[styles.animatedContainer, animatedStyles]}>
+        {BACKGROUND_IMAGES.map((src, index) => (
+          <Image key={index} source={src} style={styles.animatedBg} resizeMode={'cover'} />
         ))}
       </Animated.View>
       <View style={styles.safeArea}>
@@ -107,7 +94,7 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH * 3,
     height: WINDOW_HEIGHT,
   },
-  animatedBg: { width: WINDOW_WIDTH, height: '110%' },
+  animatedBg: { width: WINDOW_WIDTH, height: WINDOW_HEIGHT * 1.1 },
   safeArea: { flex: 1 },
   content: { flex: 1 },
 })

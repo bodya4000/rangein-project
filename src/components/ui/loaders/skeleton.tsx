@@ -1,11 +1,12 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Animated, View, StyleSheet, DimensionValue, StyleProp, ViewStyle } from 'react-native'
 
-import { colors, WINDOW_WIDTH } from '@/constants'
+import { colors } from '@/constants'
 
-const AnimatedGradient = Animated.createAnimatedComponent(LinearGradient)
+import { LinearGradientContainer } from '../containers'
+
+const AnimatedGradient = Animated.createAnimatedComponent(LinearGradientContainer)
 
 type SkeletonProps = {
   width?: DimensionValue
@@ -40,8 +41,8 @@ export const Skeleton = ({ width = '100%', height = 20, style }: SkeletonProps) 
       {containerWidth && (
         <AnimatedGradient
           colors={['transparent', 'rgba(255,255,255,0.4)', 'transparent']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
+          start={[0, 0]}
+          end={[1, 0]}
           style={[
             styles.shimmer,
             {

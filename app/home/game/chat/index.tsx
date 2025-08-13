@@ -5,7 +5,7 @@ import { colors } from '@/constants'
 import ChatScreen from '@/screens/home/game/chat/chat-screen'
 import { getDeviceId } from '@/utils'
 
-import Background from '@assets/images/screens/screen_chat.png'
+import Background from '@assets/images/screens/screen_chat.webp'
 
 export default function Chat() {
   const { data: gameData } = useGameSetup({ userId: getDeviceId() })

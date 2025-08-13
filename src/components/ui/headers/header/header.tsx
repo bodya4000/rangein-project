@@ -14,12 +14,9 @@ interface Props {
 }
 
 export default function Header({ txTitle, back = true }: Props) {
-  const { top } = useSafeAreaInsets()
   return (
-    <View style={[styles.container, { paddingTop: top || StatusBar.currentHeight }]}>
-      <View style={[styles.back, { paddingTop: top || StatusBar.currentHeight }]}>
-        {back && <BackButton />}
-      </View>
+    <View style={[styles.container]}>
+      <View style={[styles.back]}>{back && <BackButton />}</View>
       <GradientText txStyle='IR24' tx={txTitle} style={styles.title} />
     </View>
   )
