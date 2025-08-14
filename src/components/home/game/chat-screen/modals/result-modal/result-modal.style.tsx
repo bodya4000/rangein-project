@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
 
   title: {
     fontSize: 48,
+    textAlign: 'center',
   },
 
   text: {
@@ -45,6 +46,11 @@ export const styles = StyleSheet.create({
 
   starsContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
+  continue: {
+    alignSelf: 'center',
   },
 
   star_bottom: {

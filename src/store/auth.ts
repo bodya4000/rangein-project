@@ -1,6 +1,3 @@
-import { log } from 'console'
-
-import { use } from 'react'
 import { create } from 'zustand'
 
 import { authService, GetUserResponse, RegisterRequest } from '@/api'

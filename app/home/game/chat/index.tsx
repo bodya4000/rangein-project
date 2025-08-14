@@ -9,11 +9,9 @@ import Background from '@assets/images/screens/screen_chat.webp'
 
 export default function Chat() {
   const { data: gameData } = useGameSetup({ userId: getDeviceId() })
-  if (!gameData) return null
-
   return (
     <>
-      <BluredHeader title={gameData.title} />
+      <BluredHeader title={gameData?.title ?? ''} />
       <DefaultScreenContainer
         padding='md'
         background={Background}

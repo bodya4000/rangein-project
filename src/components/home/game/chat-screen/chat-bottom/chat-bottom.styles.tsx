@@ -4,14 +4,7 @@ import { colors } from '@/constants/colors'
 import { spacing } from '@/constants/spacing'
 
 export const styles = StyleSheet.create({
-  optionsContainer: {
-    position: 'absolute',
-    width: '100%',
-    bottom: -50,
-    gap: spacing.sm,
-    marginVertical: 50,
-    zIndex: 1000,
-  },
+
   bottom: {
     paddingHorizontal: spacing.md,
     marginTop: spacing.sm,

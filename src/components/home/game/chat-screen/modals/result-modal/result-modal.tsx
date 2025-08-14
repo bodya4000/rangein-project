@@ -1,4 +1,5 @@
-import React from 'react'
+import { useRouter } from 'expo-router'
+import React, { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
@@ -6,14 +7,14 @@ import { GameResult } from '@/api'
 import { BronzeStar, GoldStar } from '@/components/icons'
 import { SilverStar } from '@/components/icons/silver-star'
 import { GameModal, GradientText, SecondaryButton } from '@/components/ui'
-import { colors } from '@/constants'
+import { colors, QUERIES, queryClient } from '@/constants'
+import { useChatStore } from '@/store'
 
 import { styles } from './result-modal.style'
 
 interface Props {
   stars?: 0 | 1 | 2 | 3
   summary?: string
-  onClose: () => void
 }
 
 interface StarProps {
@@ -22,14 +23,7 @@ interface StarProps {
   size?: number
 }
 
-const colorMap = {
-  3: colors.gradientGold,
-  2: colors.gradientMetal1,
-  1: colors.gradientBronze,
-  0: colors.gradientMetal2,
-}
-
-const Star = ({ stars, id, size = 100 }: StarProps) => {
+const Star = function Star({ stars, id, size = 100 }: StarProps) {
   const filled = stars === 3 || (stars === 2 && id !== 2) || (stars === 1 && id === 0)
 
   if (stars === 3) return <GoldStar width={size} height={size} filled />
@@ -38,17 +32,36 @@ const Star = ({ stars, id, size = 100 }: StarProps) => {
   return <SilverStar width={size} height={size} filled={false} />
 }
 
-export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
+const ResultModalInner = ({ summary, stars = 0 }: Props) => {
   const { t } = useTranslation()
+  const router = useRouter()
+
+  const reset = useChatStore(state => state.reset)
+
+  const handleClose = () => {
+    reset()
+    queryClient.invalidateQueries({ queryKey: [QUERIES.GAME], refetchType: 'none' })
+    queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
+    queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
+    router.replace('/')
+  }
+
   const type: 'gold' | 'silver' | 'bronze' | 'metal' =
     stars === 3 ? 'gold' : stars === 2 ? 'silver' : stars === 1 ? 'bronze' : 'metal'
 
+  const gradient = useMemo(() => {
+    const map = {
+      3: colors.gradientGold,
+      2: colors.gradientMetal1,
+      1: colors.gradientBronze,
+      0: colors.gradientMetal2,
+    } as const
+    return map[stars]
+  }, [stars])
+
   return (
-    <GameModal onClose={onClose}>
-      <GradientText
-        color={[colorMap[stars][0], colorMap[stars][1], ...colorMap[stars].slice(2)]}
-        style={styles.title}
-      >
+    <GameModal type={type}>
+      <GradientText color={[gradient[0], gradient[1], ...gradient.slice(2)]} style={styles.title}>
         {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
       </GradientText>
 
@@ -64,7 +77,18 @@ export default function ResultModal({ onClose, summary, stars = 0 }: Props) {
         ))}
       </View>
 
-      <SecondaryButton type={type} txTitle='actions.continue' onPress={onClose} />
+      <SecondaryButton
+        containerStyle={styles.continue}
+        type={type}
+        txTitle='actions.continue'
+        onPress={handleClose}
+      />
     </GameModal>
   )
 }
+
+const ResultModal = memo(ResultModalInner)
+
+ResultModal.displayName = 'ResultModal'
+
+export default ResultModal

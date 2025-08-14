@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     lineHeight: scaleFont(70),
     paddingTop: spacing['2xl'],
     alignItems: 'center',
+    textAlign: 'center',
   },
 
   buttons_container: {

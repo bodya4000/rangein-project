@@ -7,6 +7,7 @@ import { StoryList, StoryPagination } from '@/components/home/game/story-screen'
 import { ArrowLeft, ArrowRight } from '@/components/icons'
 import { BlurModal, GradientText, SecondaryButton, Touchable } from '@/components/ui'
 import { globalStyles, QUERIES, queryClient } from '@/constants'
+import { useChatStore } from '@/store'
 import { getDeviceId } from '@/utils'
 
 import { styles } from './story-screen.style'
@@ -18,8 +19,16 @@ const StoryScreen = () => {
   const flatlistRef = useRef<FlatList>(null)
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
+  const initGame = useChatStore(state => state.initGame)
 
   const { data: gameInfo, isError, error, isSuccess } = useGameSetup({ userId: getDeviceId() })
+
+  useEffect(() => {
+    if (gameInfo && gameInfo.options && gameInfo.gameId) {
+      initGame(gameInfo.gameId, gameInfo.options)
+    }
+  }, [gameInfo])
+
   useEffect(() => {
     if (isSuccess) {
       queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })

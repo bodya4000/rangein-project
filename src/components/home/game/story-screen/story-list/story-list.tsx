@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { View } from 'react-native'
 
 import { GradientText, PagedList } from '@/components/ui'
 import { colors, spacing, WINDOW_WIDTH } from '@/constants'

@@ -1,23 +1,20 @@
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
-import { useGetUser } from '@/api/hooks'
 import { Continue, Play, Profile } from '@/components/icons'
 import { GradientText, PrimaryButton } from '@/components/ui'
 import { globalStyles } from '@/constants'
-import { getDeviceId } from '@/utils'
+import { useChatStore } from '@/store'
 
 import { styles } from './home-screen.style'
 
 const HomeScreen = () => {
   const router = useRouter()
-
-  const deviceId = getDeviceId()
-  const { data: userInfo } = useGetUser({ deviceId })
+  const gameId = useChatStore(state => state.gameId)
 
   return (
     <>
-      <GradientText txStyle='IR40' tx={'home.title'} containerStyle={styles.title} />
+      <GradientText txStyle='IR40' tx={'home.title'} style={styles.title} />
       <View style={globalStyles.spacer} />
       <View style={styles.buttons_container}>
         <PrimaryButton onPress={() => router.push('/profile')}>
@@ -30,10 +27,7 @@ const HomeScreen = () => {
         >
           <Play />
         </PrimaryButton>
-        <PrimaryButton
-          disabled={!userInfo || !userInfo.gameId}
-          onPress={() => router.push('/home/game/chat', {})}
-        >
+        <PrimaryButton disabled={false} onPress={() => router.push('/home/game/chat', {})}>
           <Continue />
         </PrimaryButton>
       </View>

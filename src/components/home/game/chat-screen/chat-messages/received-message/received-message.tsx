@@ -9,8 +9,6 @@ import Avatar from '@assets/images/icons/avatar.png'
 
 import { styles } from './received-message.style'
 
-const BLUR_INTENSITY = 70
-
 interface Props {
   text?: string
   sender?: string
@@ -18,7 +16,7 @@ interface Props {
   colors: string[]
 }
 
-export const ReceivedMessage = ({
+const ReceivedMessageComponent = ({
   text,
   sender,
   typing,
@@ -45,3 +43,6 @@ export const ReceivedMessage = ({
     </View>
   )
 }
+
+export const ReceivedMessage = React.memo(ReceivedMessageComponent)
+ReceivedMessage.displayName = 'ReceivedMessage'

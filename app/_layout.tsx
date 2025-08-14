@@ -34,6 +34,13 @@ export default function RootLayout() {
                 options={{ animation: 'slide_from_right' }}
                 name='home/game/chat/index'
               />
+              <Stack.Screen
+                options={{
+                  presentation: 'transparentModal',
+                  contentStyle: { backgroundColor: 'transparent' },
+                }}
+                name='home/game/chat/option-modal'
+              />
               <Stack.Screen options={{ animation: 'slide_from_left' }} name='profile/index' />
             </Stack>
           </KeyboardProvider>

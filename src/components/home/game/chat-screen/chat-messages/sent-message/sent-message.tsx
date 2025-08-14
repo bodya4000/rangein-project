@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { View } from 'react-native'
 
 import { BlurContainer, Text } from '@/components/ui'
@@ -11,12 +11,12 @@ interface Props {
   text: string
 }
 
-export const SentMessage = ({ text }: Props) => {
+const SentMessageBase = ({ text }: Props) => {
   return (
     <View style={styles.row}>
       <View style={globalStyles.spacer} />
       <View style={styles.container}>
-        <BlurContainer colors={colors.gradientMetal4}>
+        <BlurContainer colors={colors.gradientMetal1}>
           <View style={styles.blur}>
             <Text style={styles.text} txStyle='IR18'>
               {text}
@@ -27,3 +27,6 @@ export const SentMessage = ({ text }: Props) => {
     </View>
   )
 }
+
+export const SentMessage = React.memo(SentMessageBase)
+SentMessage.displayName = 'SentMessage'

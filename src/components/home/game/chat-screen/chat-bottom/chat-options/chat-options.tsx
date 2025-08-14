@@ -1,23 +1,25 @@
+import { useRouter } from 'expo-router'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 
 import { Cross } from '@/components/icons'
 import { GradientText, Touchable, TouchableBlock } from '@/components/ui'
+import { useSendMessageFlow } from '@/hooks/home/game/chat/use-send-message-flow'
 import { useChatStore } from '@/store'
 
 import { styles } from './chat-options.style'
 
-interface Props {
-  onCrossPress: () => void
-  onAnyOptionClick: (_: string) => void
-  onMyOptionClick: () => void
-}
-
-const ChatOptions = ({ onCrossPress, onMyOptionClick, onAnyOptionClick }: Props) => {
+const ChatOptions = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+
   const options = useChatStore(state => state.options)
   const userOption = useChatStore(state => state.userOption)
+  const showOptions = useChatStore(state => state.showOptions)
+  const gameId = useChatStore(state => state.gameId)
+  const setShowOptions = useChatStore(state => state.setShowOptions)
+
   const extendedOptions: string[] = useMemo(() => {
     if (!options && !userOption) return [t('game.chat.createOption')]
     if (!options && userOption) return [userOption, t('game.chat.createOption')]
@@ -26,32 +28,44 @@ const ChatOptions = ({ onCrossPress, onMyOptionClick, onAnyOptionClick }: Props)
     )
   }, [options, userOption])
 
+  const { handleSendMessage } = useSendMessageFlow()
+
+  if (!showOptions) return
+
+  const onCrossPress = () => setShowOptions(false)
+  const onAnyOptionClick = (option: string) => {
+    if (gameId) handleSendMessage({ message: option })
+  }
+
   const onBlockPress = (option: string) => {
     if (option.toLocaleLowerCase() == t('game.chat.createOption').toLocaleLowerCase()) {
-      onMyOptionClick()
+      setShowOptions(false)
+      router.push('/home/game/chat/option-modal')
     } else {
       onAnyOptionClick(option)
     }
   }
   return (
-    <View style={styles.optionsContainer}>
-      <Touchable onPress={onCrossPress}>
-        <Cross style={styles.cross} />
-      </Touchable>
-      <FlatList
-        data={extendedOptions}
-        keyExtractor={item => item}
-        scrollEnabled={false}
-        renderItem={({ item }) => {
-          return (
-            <TouchableBlock onPress={() => onBlockPress(item)} style={styles.option}>
-              <View>
-                <GradientText>{item}</GradientText>
-              </View>
-            </TouchableBlock>
-          )
-        }}
-      />
+    <View style={styles.optionsWrapper}>
+      <View style={styles.optionsContainer}>
+        <Touchable onPress={onCrossPress}>
+          <Cross style={styles.cross} />
+        </Touchable>
+        <FlatList
+          data={extendedOptions}
+          keyExtractor={item => item}
+          scrollEnabled={false}
+          renderItem={({ item }) => {
+            return (
+              <TouchableBlock onPress={() => onBlockPress(item)} style={styles.option}>
+                <View>
+                  <GradientText>{item}</GradientText>
+                </View>
+              </TouchableBlock>
+            )
+          }}
+        />
+      </View>
     </View>
   )
 }

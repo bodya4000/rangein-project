@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { ArrowRight } from '@/components/icons'
 import { useSelectedLanguage } from '@/i18n'
 import { Language } from '@/i18n/resources'
 
 import { styles } from './lang-container.style'
-import { TouchableBlock } from '../../buttons'
+import { TouchableBlock } from '../../buttons/touchable-block/touchable-block'
 import { GradientText } from '../../text'
 
 export const LangContainer = () => {

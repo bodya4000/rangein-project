@@ -1,39 +1,47 @@
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { AvoidSoftInput } from 'react-native-avoid-softinput'
 
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { DefaultInput } from '@/components/ui/inputs'
-import { colors, IS_ANDROID, spacing, WINDOW_WIDTH } from '@/constants'
+import { GameModalRef } from '@/components/ui/modals/game-modal'
+import { colors, globalStyles, IS_ANDROID, spacing, WINDOW_WIDTH } from '@/constants'
+import { useSendMessageFlow } from '@/hooks/home/game/chat/use-send-message-flow'
+import { useChatStore } from '@/store'
 
 interface Props {
-  handleSendMessage: (_: string) => void
-  onClose: () => void
+  onClose?: () => void
 }
 
-export const ChatModal = ({ handleSendMessage, onClose }: Props) => {
+export const ChatModal = forwardRef<GameModalRef, Props>(({ onClose = () => {} }, ref) => {
   const { t } = useTranslation()
+
   const [textValue, setTextValue] = useState('')
 
+  const setShowMyOptionModal = useChatStore(state => state.setShowMyOptionModal)
+  const setUserOption = useChatStore(state => state.setUserOption)
+
+  const { handleSendMessage } = useSendMessageFlow()
+
   const onSend = () => {
-    handleSendMessage(textValue)
+    setUserOption(textValue)
+    handleSendMessage({ message: textValue })
   }
 
-  useEffect(() => {
-    if (IS_ANDROID) {
-      AvoidSoftInput.setAdjustNothing()
-    }
-    return () => {
-      if (IS_ANDROID) {
-        AvoidSoftInput.setAdjustPan()
-      }
-    }
-  }, [])
+  const handleClose = () => {
+    onClose()
+    setShowMyOptionModal(false)
+  }
+
+  // useEffect(() => {
+  //   if (IS_ANDROID) {
+  //     // AvoidSoftInput.setAdjustNothing()
+  //   }
+  // }, [])
 
   return (
-    <GameModal onClose={onClose}>
+    <GameModal ref={ref} onClose={handleClose}>
       <View style={styles.body}>
         <GradientText style={styles.title} tx='game.chat.enterYourAnswer' />
         <View style={styles.inputContainer}>
@@ -42,8 +50,8 @@ export const ChatModal = ({ handleSendMessage, onClose }: Props) => {
             placeholderTextColor={colors.grey}
             value={textValue}
             onChangeText={setTextValue}
-            style={{ flex: 1 }}
-            containerStyle={{ flex: 1 }}
+            style={globalStyles.spacer}
+            containerStyle={globalStyles.spacer}
           />
           <Touchable onPress={onSend}>
             <Send />
@@ -52,7 +60,9 @@ export const ChatModal = ({ handleSendMessage, onClose }: Props) => {
       </View>
     </GameModal>
   )
-}
+})
+
+ChatModal.displayName = 'ChatModal'
 
 const styles = StyleSheet.create({
   modal: {
@@ -88,66 +98,3 @@ const styles = StyleSheet.create({
     height: 40,
   },
 })
-
-// import { useEffect, useRef, useState } from 'react'
-// import { useTranslation } from 'react-i18next'
-// import { View, TextInput } from 'react-native'
-
-// import { Send } from '@/components/icons'
-// import { GameModal, GradientText, Touchable } from '@/components/ui'
-// import { DefaultInput } from '@/components/ui/inputs'
-// import { globalStyles, IS_ANDROID, spacing } from '@/constants'
-// import { useChatStore } from '@/store'
-// import { isStringEmpty } from '@/utils'
-
-// import { styles } from './chat-modal.style'
-// import { AvoidSoftInput } from 'react-native-avoid-softinput'
-
-// interface Props {
-//   handleSendMessage: (_: string, __?: { onSuccess?: () => void; onError?: () => void }) => void
-//   onClose: () => void
-// }
-
-// const ChatModal = ({ handleSendMessage, onClose }: Props) => {
-//   const { t } = useTranslation()
-//   const textRef = useRef<TextInput | null>(null)
-//   const [text, setText] = useState('')
-
-//   const setUserOption = useChatStore(state => state.setUserOption)
-
-//   const onMyOptionSend = () => {
-//     const msg = text
-//     handleSendMessage(msg, {
-//       onSuccess: () => {
-//         setUserOption(msg)
-//         onClose()
-//       },
-//       onError: onClose,
-//     })
-//   }
-
-//   useEffect(() => {
-//     textRef.current?.focus()
-//   }, [])
-
-//   return (
-//     <>
-//       <GameModal>
-//         <View style={styles.view}>
-//           <DefaultInput
-//             ref={textRef}
-//             containerStyle={globalStyles.spacer}
-//             placeholder={t('game.chat.typeYourAnswer')}
-//             value={text}
-//             onChangeText={setText}
-//           />
-//           <Touchable onPress={onMyOptionSend} disabled={isStringEmpty(text)}>
-//             <Send />
-//           </Touchable>
-//         </View>
-//       </GameModal>
-//     </>
-//   )
-// }
-
-// export default ChatModal

@@ -9,6 +9,7 @@ import { useAuthStore } from '@/store'
 
 export default function Home() {
   const router = useRouter()
+
   const login = useAuthStore(state => state.login)
   const authLoading = useAuthStore(state => state.authLoading)
   const user = useAuthStore(state => state.user)

@@ -46,7 +46,7 @@ export const DefaultScreenContainer = ({
 const styles = StyleSheet.create({
   bg: {
     position: 'absolute',
-    height: WINDOW_HEIGHT,
+    height: WINDOW_HEIGHT * 1.1,
     width: WINDOW_WIDTH,
   },
   container: {
