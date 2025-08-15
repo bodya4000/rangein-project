@@ -27,7 +27,7 @@ const HomeScreen = () => {
         >
           <Play />
         </PrimaryButton>
-        <PrimaryButton disabled={false} onPress={() => router.push('/home/game/chat', {})}>
+        <PrimaryButton disabled={!gameId} onPress={() => router.push('/home/game/chat', {})}>
           <Continue />
         </PrimaryButton>
       </View>

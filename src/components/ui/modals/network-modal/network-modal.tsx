@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Modal, View } from 'react-native'
+import { View } from 'react-native'
 
 import { styles } from './network-modal.style'
 import { GradientText } from '../../text'

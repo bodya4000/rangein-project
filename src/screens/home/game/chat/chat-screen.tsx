@@ -1,42 +1,45 @@
 import { useFocusEffect } from 'expo-router'
 import React from 'react'
-import { useKeyboardHandler } from 'react-native-keyboard-controller'
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
+import { AndroidSoftInputModes, KeyboardController } from 'react-native-keyboard-controller'
+import Animated, {
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { ChatBottom, ChatMessages } from '@/components/home/game/chat-screen'
 
 const ChatScreen = () => {
   const insets = useSafeAreaInsets()
-  const isFocusedSV = useSharedValue(false)
-  const translateY = useSharedValue(0)
+  const { height: keyboardHeight } = useAnimatedKeyboard()
 
-  useFocusEffect(() => {
-    isFocusedSV.value = true
-    return () => {
-      isFocusedSV.value = false
+  const targetHeight = useSharedValue(0)
+
+  useDerivedValue(() => {
+    if (Math.abs(targetHeight.value - keyboardHeight.value) > 10) {
+      targetHeight.value = keyboardHeight.value > 0 ? Math.max(keyboardHeight.value, 0) + 10 : 0
     }
-  })
+  }, [keyboardHeight])
 
   const animatedSpacerTranslateY = useAnimatedStyle(() => ({
     flex: 1,
-    transform: [{ translateY: -translateY.value }],
+    transform: [
+      {
+        translateY: withSpring(-Math.max(targetHeight.value - insets.bottom, 0), {
+          damping: 15,
+          stiffness: 200,
+          mass: 0.8,
+          overshootClamping: true,
+        }),
+      },
+    ],
   }))
 
-  useKeyboardHandler({
-    onMove: e => {
-      'worklet'
-      if (!isFocusedSV.value) return
-
-      const target = e.height > 0 ? Math.max(e.height - insets.bottom, 0) : 0
-
-      if (Math.abs(target - translateY.value) < 2) return
-
-      translateY.value = withSpring(target, {
-        damping: 50,
-        stiffness: 500,
-      })
-    },
+  useFocusEffect(() => {
+    KeyboardController.setInputMode(AndroidSoftInputModes.SOFT_INPUT_ADJUST_NOTHING)
   })
   return (
     <>

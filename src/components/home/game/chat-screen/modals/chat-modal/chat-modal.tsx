@@ -1,44 +1,39 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { memo, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import { Keyboard, StyleSheet, View } from 'react-native'
 
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
 import { DefaultInput } from '@/components/ui/inputs'
 import { GameModalRef } from '@/components/ui/modals/game-modal'
-import { colors, globalStyles, IS_ANDROID, spacing, WINDOW_WIDTH } from '@/constants'
-import { useSendMessageFlow } from '@/hooks/home/game/chat/use-send-message-flow'
+import { colors, globalStyles, spacing, WINDOW_WIDTH } from '@/constants'
+import { SendMessageFlowFuncProps } from '@/hooks/home/game/chat/use-send-message-flow'
 import { useChatStore } from '@/store'
 
 interface Props {
+  handleSendMessage?: (_: SendMessageFlowFuncProps) => void
   onClose?: () => void
 }
 
-export const ChatModal = forwardRef<GameModalRef, Props>(({ onClose = () => {} }, ref) => {
+const ChatModalComponent = ({ handleSendMessage, onClose }: Props) => {
   const { t } = useTranslation()
+  const ref = useRef<GameModalRef>(null)
 
   const [textValue, setTextValue] = useState('')
-
-  const setShowMyOptionModal = useChatStore(state => state.setShowMyOptionModal)
   const setUserOption = useChatStore(state => state.setUserOption)
+  const setShowMyOptionModal = useChatStore(state => state.setShowMyOptionModal)
 
-  const { handleSendMessage } = useSendMessageFlow()
-
-  const onSend = () => {
+  const onSend = useCallback(() => {
+    Keyboard.dismiss()
     setUserOption(textValue)
-    handleSendMessage({ message: textValue })
-  }
+    handleSendMessage?.({ message: textValue })
+    handleClose()
+  }, [textValue, setUserOption, handleSendMessage])
 
-  const handleClose = () => {
-    onClose()
+  const handleClose = useCallback(() => {
+    onClose?.()
     setShowMyOptionModal(false)
-  }
-
-  // useEffect(() => {
-  //   if (IS_ANDROID) {
-  //     // AvoidSoftInput.setAdjustNothing()
-  //   }
-  // }, [])
+  }, [])
 
   return (
     <GameModal ref={ref} onClose={handleClose}>
@@ -60,9 +55,9 @@ export const ChatModal = forwardRef<GameModalRef, Props>(({ onClose = () => {} }
       </View>
     </GameModal>
   )
-})
+}
 
-ChatModal.displayName = 'ChatModal'
+export const ChatModal = ChatModalComponent
 
 const styles = StyleSheet.create({
   modal: {
@@ -80,16 +75,13 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: spacing['xl'],
   },
-
   body: {
     paddingVertical: spacing.lg,
     gap: spacing.lg,
   },
-
   title: {
     textAlign: 'center',
   },
-
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

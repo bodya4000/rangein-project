@@ -22,6 +22,7 @@ export const UsernameStep = ({ control }: Props) => {
             <DefaultInput
               value={value || ''}
               placeholder={t('auth.enterUsername')}
+              placeholderTextColor={colors.grey}
               cursorColor={colors.white}
               onChangeText={onChange}
               onBlur={onBlur}

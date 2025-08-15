@@ -63,6 +63,18 @@ export type GameResult = 0 | 1 | 2 | 3
 const BASE_URL = API_URL + '/games'
 
 class GameService {
+  async getGameForUser({ userId }: GameSetupRequest): Promise<GameSetupResponse> {
+    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+      method: 'GET',
+    })
+
+    if (!response.ok) {
+      throw new ApiError('Game not found', response.status)
+    }
+
+    return (await response.json()) as GameSetupResponse
+  }
+
   async setupGameForUser({ userId }: GameSetupRequest): Promise<GameSetupResponse> {
     const response = await fetch(`${BASE_URL}/users/${userId}`, {
       method: 'POST',

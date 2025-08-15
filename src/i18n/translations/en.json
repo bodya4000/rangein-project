@@ -58,6 +58,22 @@
   "actions": {
     "continue": "Continue",
     "warning": "Warning",
-    "gotIt": "Got it"
+    "gotIt": "Got it",
+    "success": "Success",
+    "saved": "Saved",
+    "confirmed": "Confirmed",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "retry": "Retry",
+    "submit": "Submit",
+    "next": "Next",
+    "previous": "Previous",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

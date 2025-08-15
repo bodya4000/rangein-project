@@ -12,18 +12,4 @@ export const styles = StyleSheet.create({
     gap: spacing.lg,
   },
 
-  skeletonContainer: {
-    flexDirection: 'row',
-    gap: 8,
-    alignItems: 'center',
-  },
-
-  skeletonImage: {
-    borderRadius: 42,
-    alignSelf: 'flex-end',
-  },
-
-  skeletonMessage: {
-    borderRadius: 16,
-  },
 })

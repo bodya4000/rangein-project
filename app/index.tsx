@@ -2,10 +2,12 @@ import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 
+import { useGetGame } from '@/api'
 import { BlurModal, NetworkModal } from '@/components/ui'
 import { AnimatedScreenContainer } from '@/components/ui/containers/screen-container'
 import HomeScreen from '@/screens/home/home-screen/home-screen'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useChatStore } from '@/store'
+import { getDeviceId } from '@/utils'
 
 export default function Home() {
   const router = useRouter()
@@ -14,21 +16,29 @@ export default function Home() {
   const authLoading = useAuthStore(state => state.authLoading)
   const user = useAuthStore(state => state.user)
   const error = useAuthStore(state => state.error)
+  const initGame = useChatStore(state => state.initGame)
+
+  const { data: gameData, isLoading: gameDataLoading } = useGetGame({ userId: getDeviceId() })
 
   useEffect(() => {
-    login()
-  }, [])
+    if (gameData && gameData.gameId && gameData.options) {
+      initGame(gameData.gameId, gameData.options)
+    }
+  }, [gameData])
+
+  useEffect(() => {
+    if (!user) {
+      login()
+    }
+  }, [user])
 
   useEffect(() => {
     if (error == 'bad') {
-      router.replace('/(auth)')
+      router.push('/(auth)')
     }
-    if (error == '500' || error == 'network') {
-      router.replace('/(auth)')
-    }
-  }, [user, error])
+  }, [error])
 
-  if (!user || authLoading) {
+  if (!user || authLoading || gameDataLoading) {
     return (
       <AnimatedScreenContainer animated={false} padding='md'>
         <BlurModal overlayStyle={styles.container}>

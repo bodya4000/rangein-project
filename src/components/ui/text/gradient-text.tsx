@@ -1,4 +1,5 @@
 import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient'
 import React, { useEffect, useMemo, useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, ViewStyle } from 'react-native'
@@ -37,49 +38,47 @@ export const GradientText = memo(function GradientText({
     setDimensions({ height: 0, width: 0 })
   }, [content])
 
-  if (!isReady) {
-    return (
-      <Text
-        {...textProps}
-        style={[styles.text, style, { color: colors.white }]}
-        quintessential={quintessential}
-        txStyle={txStyle}
-      >
-        {content}
-      </Text>
-    )
-  }
-
+  // if (!isReady) {
   return (
-    <View style={containerStyle}>
-      <MaskedView
-        style={[styles.container, { width: width ?? dimensions.width }]}
-        maskElement={
-          <View
-            style={{
-              width: width ?? dimensions.width,
-            }}
-          >
-            <Text {...textProps} quintessential={quintessential} txStyle={txStyle} style={[style]}>
-              {content}
-            </Text>
-          </View>
-        }
-      >
-        <LinearGradientContainer
-          width={width && width != 'auto' ? width : dimensions.width}
-          height={dimensions.height + 1}
-          colors={color}
-          start={[0, 0]}
-          end={[1, 0]}
-          style={{
-            height: dimensions.height + 1,
-            width: width ?? dimensions.width,
-          }}
-        />
-      </MaskedView>
-    </View>
+    <Text
+      {...textProps}
+      style={[styles.text, style, { color: colors.white }]}
+      quintessential={quintessential}
+      txStyle={txStyle}
+    >
+      {content}
+    </Text>
   )
+  // }
+
+  // return (
+  //   <View style={containerStyle}>
+  //     <MaskedView
+  //       style={[styles.container, { width: width ?? dimensions.width }]}
+  //       maskElement={
+  //         <View
+  //           style={{
+  //             width: width ?? dimensions.width,
+  //           }}
+  //         >
+  //           <Text {...textProps} quintessential={quintessential} txStyle={txStyle} style={[style]}>
+  //             {content}
+  //           </Text>
+  //         </View>
+  //       }
+  //     >
+  //       <LinearGradient
+  //         colors={color}
+  //         start={{ x: 0, y: 0 }}
+  //         end={{ x: 1, y: 0 }}
+  //         style={{
+  //           height: dimensions.height,
+  //           width: width ?? dimensions.width,
+  //         }}
+  //       />
+  //     </MaskedView>
+  //   </View>
+  // )
 })
 
 const styles = StyleSheet.create({

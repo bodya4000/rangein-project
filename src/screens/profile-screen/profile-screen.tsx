@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
-import { Alert, View } from 'react-native'
+import { View } from 'react-native'
 
 import { UpdateUserData, useUpdateUser } from '@/api'
 import { ProfileAge, ProfileLogo, ProfileSex, ProfileUsername } from '@/components/profile-screen'
@@ -8,6 +8,7 @@ import { LangContainer, SmoothButton } from '@/components/ui'
 import { globalStyles } from '@/constants'
 import { useAuthStore } from '@/store'
 import { getDeviceId } from '@/utils'
+import { successToast } from '@/utils/toast'
 
 import { styles } from './profile-screen.style'
 
@@ -33,7 +34,7 @@ const ProfileScreen = () => {
       {
         onSuccess: user => {
           setUser(user)
-          Alert.alert('User data updated successfully')
+          successToast('actions.success')
         },
       },
     )

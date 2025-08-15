@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { useState } from 'react'
-import { Animated, View, StyleSheet, DimensionValue, StyleProp, ViewStyle } from 'react-native'
+import { View, StyleSheet, DimensionValue, StyleProp, ViewStyle } from 'react-native'
 
 import { colors } from '@/constants'
 
-import { LinearGradientContainer } from '../containers'
-
-const AnimatedGradient = Animated.createAnimatedComponent(LinearGradientContainer)
+// const AnimatedGradient = Animated.createAnimatedComponent(LinearGradientContainer)
 
 type SkeletonProps = {
   width?: DimensionValue
@@ -16,22 +14,24 @@ type SkeletonProps = {
 
 export const Skeleton = ({ width = '100%', height = 20, style }: SkeletonProps) => {
   const [containerWidth, setContainerWidth] = useState<number | null>(null)
-  const shimmerWidth = containerWidth ? containerWidth / 2 : 100 // fallback
+  // const translateX = useRef(new Animated.Value(0)).current
 
-  const translateX = useRef(new Animated.Value(-shimmerWidth)).current
+  const shimmerWidth = containerWidth ? containerWidth / 2 : 100
 
-  useEffect(() => {
-    if (containerWidth) {
-      translateX.setValue(-shimmerWidth) // reset start point
-      Animated.loop(
-        Animated.timing(translateX, {
-          toValue: containerWidth,
-          duration: 1200,
-          useNativeDriver: true,
-        }),
-      ).start()
-    }
-  }, [containerWidth])
+  // useEffect(() => {
+  //   if (containerWidth) {
+  //     translateX.setValue(-shimmerWidth)
+  //     const animation = Animated.loop(
+  //       Animated.timing(translateX, {
+  //         toValue: containerWidth,
+  //         duration: 1200,
+  //         useNativeDriver: true,
+  //       }),
+  //     )
+  //     animation.start()
+  //     return () => animation.stop()
+  //   }
+  // }, [containerWidth, shimmerWidth])
 
   return (
     <View
@@ -39,19 +39,28 @@ export const Skeleton = ({ width = '100%', height = 20, style }: SkeletonProps) 
       onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
     >
       {containerWidth && (
-        <AnimatedGradient
-          colors={['transparent', 'rgba(255,255,255,0.4)', 'transparent']}
-          start={[0, 0]}
-          end={[1, 0]}
+        <View
           style={[
             styles.shimmer,
             {
-              transform: [{ translateX }],
               height,
               width: shimmerWidth,
             },
           ]}
-        />
+        ></View>
+        // <AnimatedGradient
+        //   colors={['transparent', 'rgba(255,255,255,0.4)', 'transparent']}
+        //   start={[0, 0]}
+        //   end={[1, 0]}
+        // style={[
+        //   styles.shimmer,
+        //   {
+        //     transform: [{ translateX }],
+        //     height,
+        //     width: shimmerWidth,
+        //   },
+        // ]}
+        // />
       )}
     </View>
   )

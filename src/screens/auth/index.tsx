@@ -1,16 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'expo-router'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Keyboard, Pressable, View } from 'react-native'
+import { View } from 'react-native'
 
 import { RegisterStepper, RegisterStepperRef } from '@/components/(auth)/register'
-import { Header, SmoothButton } from '@/components/ui'
-import { globalStyles, WINDOW_HEIGHT } from '@/constants'
+import { SmoothButton } from '@/components/ui'
 import { registerFormSchema } from '@/schemas/register-schema'
 import { useAuthStore } from '@/store'
 import { Sex } from '@/types'
 import { getDeviceId } from '@/utils'
+import { successToast } from '@/utils/toast'
 
 import { styles } from './index.style'
 
@@ -34,7 +34,6 @@ const Register = () => {
   })
 
   const register = useAuthStore(state => state.register)
-  const user = useAuthStore(state => state.user)
 
   const onNext = async () => {
     let valid = true
@@ -51,26 +50,18 @@ const Register = () => {
   }
 
   const onSubmit = ({ age, sex, username }: RegisterForm) => {
-    // if (age && sex && username) {
-    register({ age, sex, username, deviceId: getDeviceId() })
-    // }
+    register(
+      { age, sex, username, deviceId: getDeviceId() },
+      {
+        onSuccess: () => {
+          successToast('actions.success')
+          router.back()
+        },
+      },
+    )
   }
 
-  useEffect(() => {
-    if (user) {
-      router.replace('/')
-    }
-  }, [user])
-
   return (
-    // {/* <KeyboardAvoidingView style={styles.screenContainer} behavior={undefined}> */}
-    // {/* <Header back={false} txTitle={stepIndex > 0 ? 'auth.register.title' : 'nothing'} /> */}
-    // <KeyboardAwareScrollView
-    //   keyboardShouldPersistTaps='handled'
-    //   bounces
-    //   contentContainerStyle={{ height: WINDOW_HEIGHT }}
-    //   showsVerticalScrollIndicator={false}
-    // >
     <View style={styles.screenContainer}>
       <RegisterStepper onNextStep={setStepIndex} control={control} ref={stepperRef} />
       {stepIndex <= 2 && <SmoothButton onPress={onNext} txTitle={'auth.register.next'} />}
@@ -78,9 +69,6 @@ const Register = () => {
         <SmoothButton onPress={handleSubmit(onSubmit)} txTitle={'auth.register.submit'} />
       )}
     </View>
-    // </KeyboardAwareScrollView>
-
-    // {/* </KeyboardAvoidingView> */}
   )
 }
 

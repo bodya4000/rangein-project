@@ -9,7 +9,7 @@ interface ChatStore {
   user: GetUserResponse | null
   setUser: (_: GetUserResponse) => void
   login: () => void
-  register: (_: RegisterRequest) => void
+  register: (_: RegisterRequest, __?: { onSuccess?: () => void }) => void
   error: Error
 
   authLoading: boolean
@@ -41,14 +41,14 @@ export const useAuthStore = create<ChatStore>()(set => ({
     }
   },
 
-  register: async data => {
+  register: async (data, triggers) => {
     set({ authLoading: true })
     try {
       console.log(data)
       const user = await authService.register(data)
       console.log(user)
-
       set({ user, authLoading: false, error: null })
+      triggers?.onSuccess?.()
     } catch (err: any) {
       const status = err?.status
       if (!status) {
