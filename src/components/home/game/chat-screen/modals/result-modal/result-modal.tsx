@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import React, { memo, useMemo } from 'react'
+import React, { memo, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
@@ -7,6 +7,7 @@ import { GameResult } from '@/api'
 import { BronzeStar, GoldStar } from '@/components/icons'
 import { SilverStar } from '@/components/icons/silver-star'
 import { GameModal, GradientText, SecondaryButton } from '@/components/ui'
+import { GameModalRef } from '@/components/ui/modals/game-modal'
 import { colors, QUERIES, queryClient } from '@/constants'
 import { useChatStore } from '@/store'
 
@@ -35,14 +36,16 @@ const Star = function Star({ stars, id, size = 100 }: StarProps) {
 const ResultModalInner = ({ summary, stars = 0 }: Props) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const ref = useRef<GameModalRef>(null)
 
   const reset = useChatStore(state => state.reset)
 
-  const handleClose = () => {
+  const handleClose = async () => {
+    ref.current?.handleClose()
     reset()
-    queryClient.invalidateQueries({ queryKey: [QUERIES.GAME], refetchType: 'none' })
-    queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
-    queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
+    await queryClient.invalidateQueries({ queryKey: [QUERIES.GAME] })
+    await queryClient.invalidateQueries({ queryKey: [QUERIES.MESSAGES] })
+    await queryClient.invalidateQueries({ queryKey: [QUERIES.USER] })
     router.replace('/')
   }
 
@@ -60,7 +63,7 @@ const ResultModalInner = ({ summary, stars = 0 }: Props) => {
   }, [stars])
 
   return (
-    <GameModal type={type}>
+    <GameModal ref={ref} type={type}>
       <GradientText color={[gradient[0], gradient[1], ...gradient.slice(2)]} style={styles.title}>
         {stars === 3 ? t('game.chat.winner') : t('game.chat.loser')}
       </GradientText>

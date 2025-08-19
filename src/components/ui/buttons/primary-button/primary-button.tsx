@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { View, ViewStyle, ImageBackground, ButtonProps } from 'react-native'
+import { View, ViewStyle, ImageBackground, ButtonProps, StyleProp } from 'react-native'
 
 import { styles } from './primary-button.style'
 import { Touchable } from '../touchable/touchable'
@@ -13,7 +13,7 @@ const SIZE_MAP = {
 
 interface Props extends Partial<ButtonProps> {
   children?: ReactNode
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   sizeType?: ButtonSizeType
 }
 

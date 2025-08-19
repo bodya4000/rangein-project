@@ -9,15 +9,12 @@ export const styles = StyleSheet.create({
     paddingTop: spacing['2xl'],
     alignItems: 'center',
     textAlign: 'center',
+    flex: 1,
   },
 
   buttons_container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: spacing.md,
-  },
-
-  button_top: {
-    marginTop: -spacing['5xl'],
   },
 })
