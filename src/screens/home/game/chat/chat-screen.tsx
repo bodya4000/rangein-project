@@ -1,45 +1,50 @@
 import { useFocusEffect } from 'expo-router'
 import React from 'react'
-import { AndroidSoftInputModes, KeyboardController } from 'react-native-keyboard-controller'
-import Animated, {
-  useAnimatedKeyboard,
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated'
+import {
+  AndroidSoftInputModes,
+  KeyboardController,
+  useKeyboardHandler,
+} from 'react-native-keyboard-controller'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { ChatBottom, ChatMessages } from '@/components/home/game/chat-screen'
 
 const ChatScreen = () => {
   const insets = useSafeAreaInsets()
-  const { height: keyboardHeight } = useAnimatedKeyboard()
+  const isFocusedReanimated = useSharedValue(true)
 
-  const targetHeight = useSharedValue(0)
+  const translateY = useSharedValue(0)
 
-  useDerivedValue(() => {
-    if (Math.abs(targetHeight.value - keyboardHeight.value) > 10) {
-      targetHeight.value = keyboardHeight.value > 0 ? Math.max(keyboardHeight.value, 0) + 10 : 0
-    }
-  }, [keyboardHeight])
+  useKeyboardHandler(
+    {
+      onStart: e => {
+        'worklet'
+        if (isFocusedReanimated) {
+          const target = Math.max(e.height - insets.bottom, 0)
+          translateY.value = withTiming(target, { duration: 300 })
+        }
+      },
+    },
+    [insets.bottom],
+  )
 
   const animatedSpacerTranslateY = useAnimatedStyle(() => ({
     flex: 1,
     transform: [
       {
-        translateY: withSpring(-Math.max(targetHeight.value - insets.bottom, 0), {
-          damping: 15,
-          stiffness: 200,
-          mass: 0.8,
-          overshootClamping: true,
-        }),
+        translateY: isFocusedReanimated.value ? -translateY.value : 0,
       },
     ],
   }))
 
   useFocusEffect(() => {
     KeyboardController.setInputMode(AndroidSoftInputModes.SOFT_INPUT_ADJUST_NOTHING)
+    translateY.value = 0
+    isFocusedReanimated.value = true
+    return () => {
+      isFocusedReanimated.value = false
+    }
   })
   return (
     <>

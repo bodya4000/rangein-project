@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: spacing.lg,
+    height: 70,
   },
 
   touchable_icon: {

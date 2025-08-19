@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo } from 'react'
-import { View, Image, Pressable, StyleSheet, Modal } from 'react-native'
+import { View, Image, Pressable, StyleSheet, Modal, Keyboard } from 'react-native'
 import Animated, {
   Easing,
   runOnJS,
@@ -13,7 +13,7 @@ import { spacing, WINDOW_HEIGHT, WINDOW_WIDTH } from '@/constants'
 export interface GameModalRef {
   handleClose: () => void
 }
-const DURATION = 500
+const DURATION = 350
 const VISIBLE_LEVEL = 0
 const HIDDEN_LEVEL = WINDOW_HEIGHT
 
@@ -43,6 +43,7 @@ const GameModal = forwardRef<GameModalRef, Props>(({ children, onClose, type = '
   }, [])
 
   const handleClose = () => {
+    if (Keyboard.isVisible()) Keyboard.dismiss()
     if (onClose) {
       backdropOpacity.value = withTiming(0, { duration: DURATION / 2 })
       top.value = withTiming(
@@ -73,7 +74,13 @@ const GameModal = forwardRef<GameModalRef, Props>(({ children, onClose, type = '
   }, [type])
 
   return (
-    <Modal onRequestClose={handleClose} style={styles.wrapper} transparent statusBarTranslucent>
+    <Modal
+      onRequestClose={handleClose}
+      style={styles.wrapper}
+      transparent
+      statusBarTranslucent
+      navigationBarTranslucent
+    >
       <Animated.View style={[styles.backdrop, backdropStyle]}>
         <Pressable onPress={handleClose} style={StyleSheet.absoluteFill} />
       </Animated.View>

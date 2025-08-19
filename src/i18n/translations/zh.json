@@ -50,7 +50,8 @@
       "loseSummary": "案件仍未侦破，真正的罪犯逍遥法外。",
       "deadInfoPart1": "不幸的是，",
       "deadInfoPart2": " 受了重伤，被发现时已死亡...",
-      "typing": "正在输入"
+      "typing": "正在输入",
+			"serviceIsNotAvailable":"服务暂时不可用。"
     }
   },
   "actions": {

@@ -6,11 +6,13 @@ import { ChatModal } from './chat-modal/chat-modal'
 
 const ResultModal = lazy(() => import('./result-modal/result-modal'))
 const DeadInfoModal = lazy(() => import('./dead-info-modal/dead-info-modal'))
+const Modal429 = lazy(() => import('../../modals/429-modal/429-modal'))
 
 export const ChatModals = memo(() => {
   const gameResult = useChatStore(state => state.gameResult)
   const justBeenDead = useChatStore(state => state.justBeenDead)
   const showMyOptionModal = useChatStore(state => state.showMyOptionModal)
+  const show429Modal = useChatStore(state => state.show429Modal)
 
   return (
     <>
@@ -21,6 +23,10 @@ export const ChatModals = memo(() => {
         {/* If game is over */}
         {/* If dead char is set to null just not to show 2 modals at the same time */}
         {gameResult && <ResultModal summary={gameResult.message} stars={gameResult.score} />}
+
+        {/* If game is over */}
+        {/* If dead char is set to null just not to show 2 modals at the same time */}
+        {show429Modal && <Modal429 />}
       </Suspense>
 
       {showMyOptionModal && <ChatModal />}

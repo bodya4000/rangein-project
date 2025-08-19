@@ -45,6 +45,11 @@ const ChatOptions = () => {
       onAnyOptionClick(option)
     }
   }
+
+  const isMyOption = (option: string) => {
+    return option.toLocaleLowerCase() === t('game.chat.createOption').toLocaleLowerCase()
+  }
+
   return (
     <View style={styles.optionsWrapper}>
       <View style={styles.optionsContainer}>
@@ -57,10 +62,13 @@ const ChatOptions = () => {
           scrollEnabled={false}
           renderItem={({ item }) => {
             return (
-              <TouchableBlock onPress={() => onBlockPress(item)} style={styles.option}>
-                <View>
-                  <GradientText>{item}</GradientText>
-                </View>
+              <TouchableBlock
+                onPress={() => onBlockPress(item)}
+                style={[styles.option, isMyOption(item) && styles.myOption]}
+              >
+                <GradientText>
+                  {isMyOption(item) ? t('game.chat.createOption') : `"${item}"`}
+                </GradientText>
               </TouchableBlock>
             )
           }}

@@ -51,7 +51,8 @@
       "loseSummary": "The case remains unsolved. The real culprit walks free.",
       "deadInfoPart1": "Unfortunately ",
       "deadInfoPart2": " was badly wounded and his body was found dead...",
-      "typing": "Typing"
+      "typing": "Typing",
+			"serviceIsNotAvailable":"The service is temporarily unavailable."
     }
   },
 

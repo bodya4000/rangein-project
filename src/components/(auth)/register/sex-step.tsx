@@ -19,13 +19,7 @@ export const SexStep = ({ control }: Props) => {
       name='sex'
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <View>
-          <SexContainer
-            sex={value}
-            setSex={sex => {
-              console.log(sex)
-              onChange(sex)
-            }}
-          />
+          <SexContainer sex={value} setSex={onChange} />
           <Text style={{ color: 'red', marginTop: 8 }}>
             {error && (error.message || t('auth.invalidSex'))}
           </Text>

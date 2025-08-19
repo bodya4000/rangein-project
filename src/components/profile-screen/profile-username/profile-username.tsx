@@ -1,23 +1,20 @@
 import React, { useState, memo, useCallback } from 'react'
-import { Controller, Control, UseFormTrigger } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { TouchableOpacity, View } from 'react-native'
 
-import { UpdateUserData } from '@/api'
 import { Edit } from '@/components/icons'
 import { GradientText } from '@/components/ui'
+import { useAuthStore } from '@/store'
 
 import { ProfileUsernameModal } from './profile-username-modal'
 import { styles } from './profile-username.style'
 
-interface Props {
-  control: Control<UpdateUserData>
-  trigger: UseFormTrigger<UpdateUserData>
-  username?: string
-}
+function ProfileUsernameComponent() {
+  const { control } = useFormContext()
+  const user = useAuthStore(user => user.user)
 
-function ProfileUsernameComponent({ control, username }: Props) {
   const [showModal, setShowModal] = useState(false)
-  const [text, setText] = useState(username)
+  const [text, setText] = useState(user?.username)
 
   const openModal = useCallback(() => setShowModal(true), [])
   const closeModal = useCallback(() => setShowModal(false), [])

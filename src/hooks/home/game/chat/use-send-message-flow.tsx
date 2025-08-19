@@ -1,9 +1,9 @@
+
 import { useCallback } from 'react'
-import { Alert } from 'react-native'
 
 import { SendMessageResponse, useSendMessage } from '@/api'
 import { useAuthStore, useChatStore } from '@/store'
-import { isStringEmpty, newUserMessage } from '@/utils'
+import { isStringEmpty, logJson, newUserMessage } from '@/utils'
 
 export interface SendMessageFlowFuncProps {
   message: string
@@ -16,6 +16,7 @@ export const useSendMessageFlow = () => {
   const gameId = useChatStore(state => state.gameId)
   const onSendMessage = useChatStore(state => state.onSendMessage)
   const onSuccessfullyMessageSent = useChatStore(state => state.onSuccessfullyMessageSent)
+  const setShow429Modal = useChatStore(state => state.setShow429Modal)
   const setTyping = useChatStore(state => state.setTyping)
 
   const { mutate: sendMessage } = useSendMessage()
@@ -43,9 +44,13 @@ export const useSendMessageFlow = () => {
             onSuccess?.()
             onSuccessfullyMessageSent(response)
           },
-          onError: () => {
+          onError: e => {
             onError?.()
-            Alert.alert('Error!')
+            logJson(e)
+            if (e?.status === 429) {
+              setShow429Modal(true)
+              return
+            }
             setTyping(false)
           },
         },

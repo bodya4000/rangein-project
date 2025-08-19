@@ -31,3 +31,4 @@ export const NetworkModal = ({ error }: Props) => {
     </GameModal>
   )
 }
+export default NetworkModal

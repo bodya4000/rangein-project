@@ -7,7 +7,6 @@ export const ChatOptionModalScreen = () => {
   const router = useRouter()
 
   const { handleSendMessage } = useSendMessageFlow()
-
   return <ChatModal handleSendMessage={handleSendMessage} onClose={router.back} />
 }
 

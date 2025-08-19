@@ -13,7 +13,7 @@ export const colors = {
 
   gradientMetal4: [
     '#A8A8A6', // 0%
-    '#696969', // 45%
+    '#6d6a6aff', // 45%
     '#F9F8F6', // 67%
     '#D4D4D4', // 82%
     '#7F7F7F', // 100%

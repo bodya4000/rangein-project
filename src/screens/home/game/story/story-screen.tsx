@@ -62,7 +62,6 @@ const StoryScreen = () => {
       index: newIndex,
       animated: true,
     })
-    // setCurrentPaginationItem(newIndex)
   }
 
   return (

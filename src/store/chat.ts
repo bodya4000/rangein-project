@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 import { GameMessage, GameResult, SendMessageResponse } from '@/api'
 
-import { zustandStorage } from './storage'
+import { storage } from './storage'
 
 interface ChatStore {
   gameId: string | null
@@ -29,6 +29,9 @@ interface ChatStore {
   setShowMyOptionModal: (_: boolean) => void
   showOptions: boolean
   setShowOptions: (_: boolean) => void
+
+  show429Modal: boolean
+  setShow429Modal: (_: boolean) => void
 
   gameResult: { message: string; score: GameResult } | null
   justBeenDead: string | null
@@ -81,6 +84,15 @@ export const useChatStore = create<ChatStore>()(
         set({ showOptions })
       },
 
+      show429Modal: false,
+      setShow429Modal(show429Modal) {
+        if (!show429Modal) {
+          set({ show429Modal })
+          return
+        }
+        set({ show429Modal, typing: false })
+      },
+
       gameResult: null,
       justBeenDead: null,
       setJustBeenDead: value => set({ justBeenDead: value }),
@@ -106,7 +118,6 @@ export const useChatStore = create<ChatStore>()(
           options,
           justBeenDead,
           gameResult: finished ? { message: summary, score: score ?? 0 } : null,
-          typing: false,
         })
       },
       reset: () =>
@@ -125,10 +136,9 @@ export const useChatStore = create<ChatStore>()(
     }),
     {
       name: 'chat-store',
-      storage: zustandStorage,
-      partialize: ({ userOption, messages }) => ({
+      storage: storage,
+      partialize: ({ userOption }) => ({
         userOption,
-        messages,
       }),
     },
   ),

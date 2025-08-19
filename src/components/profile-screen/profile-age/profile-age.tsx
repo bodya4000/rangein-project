@@ -1,13 +1,9 @@
-import { Control, Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 
-import { UpdateUserData } from '@/api'
 import { AgeContainer } from '@/components/ui/containers/age-container/age-container'
 
-interface Props {
-  control: Control<UpdateUserData>
-}
-
-export const ProfileAge = ({ control }: Props) => {
+export const ProfileAge = () => {
+  const { control } = useFormContext()
   return (
     <Controller
       name='age'

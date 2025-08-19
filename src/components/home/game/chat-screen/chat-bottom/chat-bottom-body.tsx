@@ -6,20 +6,13 @@ import { Burger, Send } from '@/components/icons'
 import { Touchable } from '@/components/ui/buttons'
 import { DefaultInput } from '@/components/ui/inputs'
 import { colors, globalStyles } from '@/constants'
-import {
-  SendMessageFlowFuncProps,
-  useSendMessageFlow,
-} from '@/hooks/home/game/chat/use-send-message-flow'
+import { useSendMessageFlow } from '@/hooks/home/game/chat/use-send-message-flow'
 import { useChatStore } from '@/store'
 import { isStringEmpty } from '@/utils'
 
 import { styles } from './chat-bottom.styles'
 
-interface Props {
-  handleSendMessage: (_: SendMessageFlowFuncProps) => void
-}
-
-const ChatBottomBody = ({}: Props) => {
+const ChatBottomBody = () => {
   const { t } = useTranslation()
 
   const inputRef = useRef<TextInput>(null)

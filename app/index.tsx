@@ -1,13 +1,15 @@
 import { useRouter } from 'expo-router'
+import { lazy, Suspense } from 'react'
 import { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 
 import { useGetGame } from '@/api'
-import { BlurModal, NetworkModal } from '@/components/ui'
 import { AnimatedScreenContainer } from '@/components/ui/containers/screen-container'
 import HomeScreen from '@/screens/home/home-screen/home-screen'
 import { useAuthStore, useChatStore } from '@/store'
 import { getDeviceId } from '@/utils'
+
+// lazy import
+const NetworkModal = lazy(() => import('@/components/ui/modals/network-modal/network-modal'))
 
 export default function Home() {
   const router = useRouter()
@@ -38,31 +40,18 @@ export default function Home() {
     }
   }, [error])
 
-  if (!user || authLoading || gameDataLoading) {
-    return (
-      <AnimatedScreenContainer animated={false} padding='md'>
-        <BlurModal overlayStyle={styles.container}>
-          <></>
-        </BlurModal>
-      </AnimatedScreenContainer>
-    )
-  }
+  const showLoading = authLoading || gameDataLoading
+  const apiError = error == '500' || error == 'network'
 
   return (
-    <AnimatedScreenContainer animated={true} padding='md'>
-      {error && <NetworkModal error={'network'} />}
-      <HomeScreen />
+    <AnimatedScreenContainer animated={showLoading} padding='md'>
+      {showLoading || apiError ? (
+        <Suspense fallback={null}>{apiError && <NetworkModal error='network' />}</Suspense>
+      ) : (
+        <>
+          <HomeScreen />
+        </>
+      )}
     </AnimatedScreenContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ai: {
-    transform: [{ scale: 2 }],
-  },
-})

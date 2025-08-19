@@ -10,30 +10,20 @@ interface DarkModalProps extends Partial<ModalProps> {
   overlayStyle?: StyleProp<ViewStyle>
 }
 
-export const BlurModal = ({
-  children,
-  blurIntensity = 500,
-  blurTint = 'dark',
-  overlayStyle,
-  onRequestClose,
-  ...rest
-}: DarkModalProps) => {
-  // useEffect(() => {
-  //   SystemNavigationBar.fullScreen()
-  //   StatusBar.setHidden(true)
-  // }, [])
+export const BlurModal = ({ children, onRequestClose, ...rest }: DarkModalProps) => {
   return (
     <Modal
       transparent={true}
       visible={true}
       animationType='none'
       onRequestClose={onRequestClose}
+      navigationBarTranslucent
+      statusBarTranslucent
       style={{ backgroundColor: 'red' }}
       {...rest}
     >
       <Pressable style={styles.overlay} onPress={onRequestClose}>
         {children}
-        {/* <BlurView intensity={blurIntensity} tint={blurTint} style={[styles.overlay, overlayStyle]}> */}
       </Pressable>
     </Modal>
   )

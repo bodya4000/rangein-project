@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 
 import { Send } from '@/components/icons'
 import { GameModal, Text, Touchable } from '@/components/ui'
@@ -16,6 +16,7 @@ interface Props {
 
 export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => {} }: Props) => {
   const { t } = useTranslation()
+  const inputRef = useRef<TextInput>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = () => {
@@ -27,6 +28,14 @@ export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => 
     }
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputRef.current?.focus()
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <GameModal onClose={onClose}>
       <Text style={styles.title} quintessential tx='profile.newUsername' />
@@ -36,6 +45,7 @@ export const ProfileUsernameModal = ({ text, setText, onSubmit, onClose = () => 
         </Text>
         <View style={styles.body}>
           <DefaultInput
+            ref={inputRef}
             containerStyle={styles.inputContainer}
             value={text}
             onChangeText={setText}

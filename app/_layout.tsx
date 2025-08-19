@@ -1,8 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Stack } from 'expo-router'
-import DeviceModule from 'modules/device-module/src/DeviceModule'
 import { I18nextProvider } from 'react-i18next'
-import { StatusBar } from 'react-native'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -10,17 +8,11 @@ import { colors, queryClient } from '@/constants'
 import i18n from '@/i18n'
 
 export default function RootLayout() {
-  // const { ready } = useSetup()
-
-  console.log(DeviceModule.getDeviceId())
-
-  // if (!ready) return <ActivityIndicator />
   return (
     <QueryClientProvider client={queryClient}>
       <I18nextProvider i18n={i18n}>
         <SafeAreaProvider>
           <KeyboardProvider>
-            <StatusBar barStyle={'light-content'} />
             <Stack
               screenOptions={{
                 headerShown: false,

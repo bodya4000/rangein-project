@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from 'react'
+import React from 'react'
 import {
   GestureResponderEvent,
   Pressable,
@@ -6,12 +6,12 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-  Animated as RNAnimated,
 } from 'react-native'
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
-interface Props extends Partial<PressableProps> {
-  children: ReactNode
-  onPress?: (_: GestureResponderEvent) => void
+interface Props extends PressableProps {
+  children: React.ReactNode
+  onPress?: () => void
   touchable?: boolean
   disabled?: boolean
   style?: ViewStyle
@@ -19,57 +19,36 @@ interface Props extends Partial<PressableProps> {
 
 export const Touchable = ({
   children,
-  onPress,
   touchable = true,
   disabled = false,
   style,
-  ...props
+  ...pressableProps
 }: Props) => {
-  const animValue = useRef(new RNAnimated.Value(0)).current
+  const scale = useSharedValue(1)
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }))
 
   const handlePressIn = () => {
-    RNAnimated.timing(animValue, {
-      toValue: 1,
-      duration: 120,
-      useNativeDriver: true,
-    }).start()
+    scale.value = withTiming(0.95, { duration: 120 })
   }
 
   const handlePressOut = (e: GestureResponderEvent) => {
-    RNAnimated.timing(animValue, {
-      toValue: 0,
-      duration: 120,
-      useNativeDriver: true,
-    }).start(() => {
-      onPress?.(e)
-      props.onPressOut?.(e)
-    })
-  }
-
-  const scale = animValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0.95],
-  })
-
-  const rotateY = animValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '-3deg'],
-  })
-
-  const animatedStyle = {
-    transform: [{ perspective: 800 }, { scale }, { rotateY }],
+    scale.value = withTiming(1, { duration: 120 })
+    pressableProps.onPressOut?.(e)
   }
 
   if (touchable)
     return (
       <Pressable
-        {...props}
+        {...pressableProps}
         style={[disabled ? styles.disabled : {}, style]}
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        <RNAnimated.View style={animatedStyle}>{children}</RNAnimated.View>
+        <Animated.View style={animatedStyle}>{children}</Animated.View>
       </Pressable>
     )
 

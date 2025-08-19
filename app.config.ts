@@ -5,8 +5,6 @@ import dotenv from 'dotenv'
 
 import 'dotenv/config'
 
-const withAdjustNothing = require(path.resolve(__dirname, 'plugins/soft-input-adjust-nothing.js'))
-
 const envFile = process.env.NODE_ENV ? `env/.env.${process.env.NODE_ENV}` : `env/.env`
 dotenv.config({ path: path.join(__dirname, envFile) })
 
@@ -35,7 +33,6 @@ const config: ExpoConfig = {
   },
   plugins: [
     'expo-router',
-    withAdjustNothing,
     [
       'expo-splash-screen',
       {

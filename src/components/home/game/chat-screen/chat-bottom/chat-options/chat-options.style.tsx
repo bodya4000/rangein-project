@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   optionsWrapper: {
     position: 'absolute',
     width: WINDOW_WIDTH - 20,
-    bottom: spacing.md,
+    bottom: 0,
     left: WINDOW_WIDTH / 2,
     transform: [{ translateX: -WINDOW_WIDTH / 2 }],
     gap: spacing.sm,
@@ -18,10 +18,13 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   option: {
-    padding: 4,
-    minHeight: 65,
+    height: 55,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  myOption: {
+    height: 70,
   },
 
   cross: {

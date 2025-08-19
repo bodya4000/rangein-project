@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     overflow: 'hidden',
-    // backgroundColor: 'red',
+    backgroundColor: 'rgba(126, 126, 126, 0.4)',
     maxWidth: WINDOW_WIDTH * 0.7,
   },
   blur: {

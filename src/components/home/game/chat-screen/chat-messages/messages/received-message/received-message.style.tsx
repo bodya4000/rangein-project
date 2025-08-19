@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     maxWidth: WINDOW_WIDTH * 0.65,
     borderWidth: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
   },
   avatar: {
     alignSelf: 'flex-end',

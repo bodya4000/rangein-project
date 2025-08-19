@@ -1,6 +1,7 @@
-import { memo, useCallback, useRef, useState } from 'react'
+import { useFocusEffect } from 'expo-router'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, StyleSheet, View } from 'react-native'
+import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
 
 import { Send } from '@/components/icons'
 import { GameModal, GradientText, Touchable } from '@/components/ui'
@@ -17,7 +18,8 @@ interface Props {
 
 const ChatModalComponent = ({ handleSendMessage, onClose }: Props) => {
   const { t } = useTranslation()
-  const ref = useRef<GameModalRef>(null)
+  const modalRef = useRef<GameModalRef>(null)
+  const inputRef = useRef<TextInput>(null)
 
   const [textValue, setTextValue] = useState('')
   const setUserOption = useChatStore(state => state.setUserOption)
@@ -35,12 +37,21 @@ const ChatModalComponent = ({ handleSendMessage, onClose }: Props) => {
     setShowMyOptionModal(false)
   }, [])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputRef.current?.focus()
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <GameModal ref={ref} onClose={handleClose}>
+    <GameModal ref={modalRef} onClose={handleClose}>
       <View style={styles.body}>
         <GradientText style={styles.title} tx='game.chat.enterYourAnswer' />
         <View style={styles.inputContainer}>
           <DefaultInput
+            ref={inputRef}
             placeholder={t('game.chat.enterYourAnswer')}
             placeholderTextColor={colors.grey}
             value={textValue}

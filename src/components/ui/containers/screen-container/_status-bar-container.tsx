@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import { StatusBar, StatusBarStyle } from 'react-native'
-
 
 export type StatusBarContainerProps = {
   statusBarBackgroundColor?: string
@@ -8,20 +6,13 @@ export type StatusBarContainerProps = {
 }
 
 const StatusBarContainer = (props: StatusBarContainerProps) => {
-  const [ready, setReady] = useState(false)
-  useEffect(() => {
-    const timeout = setTimeout(() => setReady(true), 0)
-    return () => clearTimeout(timeout)
-  }, [])
   return (
     <>
-      {ready && (
-        <StatusBar
-          barStyle={props.statusBarElementColor ?? 'light-content'}
-          backgroundColor={props.statusBarBackgroundColor ?? 'transparent'}
-          translucent={true}
-        />
-      )}
+      <StatusBar
+        barStyle={props.statusBarElementColor ?? 'light-content'}
+        backgroundColor={props.statusBarBackgroundColor ?? 'transparent'}
+        translucent={true}
+      />
     </>
   )
 }
