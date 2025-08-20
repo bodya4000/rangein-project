@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
 
 import { useGameSetup } from '@/api/hooks/game/use-game-setup'
@@ -12,6 +12,8 @@ import { getDeviceId } from '@/utils'
 
 import { styles } from './story-screen.style'
 
+const Modal429 = lazy(() => import('@/components/home/game/modals/429-modal/429-modal'))
+
 const BUTTON_DELAY = 500
 
 const StoryScreen = () => {
@@ -20,6 +22,10 @@ const StoryScreen = () => {
   const [currentPaginationItem, setCurrentPaginationItem] = useState(0)
   const [isArrowDisabled, setIsArrowDisabled] = useState(false)
   const initGame = useChatStore(state => state.initGame)
+
+  const onCloseModal429 = () => {
+    router.back()
+  }
 
   const { data: gameInfo, isError, error, isSuccess } = useGameSetup({ userId: getDeviceId() })
 
@@ -38,9 +44,6 @@ const StoryScreen = () => {
   useEffect(() => {
     if (isError && error) {
       console.warn('Full error object:', error)
-      Alert.alert('Error', 'Failed to connect to network!', [
-        { text: 'OK', onPress: () => router.back() },
-      ])
     }
   }, [isError, error])
 
@@ -117,6 +120,10 @@ const StoryScreen = () => {
           </View>
         </BlurModal>
       )}
+
+      <Suspense fallback={null}>
+        {error && error.status == '429' && <Modal429 onClose={onCloseModal429} />}
+      </Suspense>
     </View>
   )
 }

@@ -19,9 +19,6 @@ class AuthService {
   async login({ deviceId }: LoginRequest): Promise<LoginResponse> {
     const response = await fetch(`${API_URL}/auth/login/${deviceId}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     })
 
     if (!response.ok) {
