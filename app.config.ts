@@ -17,6 +17,7 @@ const config: ExpoConfig = {
   scheme: 'rangeinproject',
   jsEngine: 'hermes',
   newArchEnabled: true,
+
   androidNavigationBar: {
     backgroundColor: '#000000',
     barStyle: 'dark-content',
