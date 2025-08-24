@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 
@@ -29,6 +29,12 @@ const ChatOptions = () => {
   }, [options, userOption])
 
   const { handleSendMessage } = useSendMessageFlow()
+
+  useEffect(() => {
+    return () => {
+      showOptions && setShowOptions(false)
+    }
+  }, [showOptions, extendedOptions])
 
   if (!showOptions) return
 

@@ -22,6 +22,8 @@ export default function Home() {
 
   const { data: gameData, isLoading: gameDataLoading } = useGetGame({ userId: getDeviceId() })
 
+  console.log(gameData)
+
   useEffect(() => {
     if (gameData && gameData.gameId && gameData.options) {
       initGame(gameData.gameId, gameData.options)

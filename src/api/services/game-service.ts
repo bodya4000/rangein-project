@@ -64,7 +64,9 @@ const BASE_URL = API_URL + '/games'
 
 class GameService {
   async getGameForUser({ userId }: GameSetupRequest): Promise<GameSetupResponse> {
-    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+    const url = `${BASE_URL}/users/${userId}`
+
+    const response = await fetch(url, {
       method: 'GET',
     })
 

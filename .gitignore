@@ -40,3 +40,4 @@ env
 app-example
 /ios
 /android
+modules/device-module/android

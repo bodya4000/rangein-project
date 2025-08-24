@@ -1,3 +1,5 @@
+import { ur } from 'zod/locales'
+
 import { API_URL } from '@/constants/api'
 import { Sex } from '@/types'
 
@@ -17,7 +19,8 @@ export type RegisterRequest = {
 
 class AuthService {
   async login({ deviceId }: LoginRequest): Promise<LoginResponse> {
-    const response = await fetch(`${API_URL}/auth/login/${deviceId}`, {
+    const url = `${API_URL}/auth/login/${deviceId}`
+    const response = await fetch(url, {
       method: 'POST',
     })
 
